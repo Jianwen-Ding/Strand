@@ -69,6 +69,11 @@ public class PlayerMainScript : MonoBehaviour
         {
             isGrabbingTimeLeft -= Time.deltaTime;
         }
+        else
+        {
+            //Determines angle between player and mouse
+            angleFace = Mathf.Rad2Deg * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - gameObject.transform.position.y, Camera.main.ScreenToWorldPoint(Input.mousePosition).x - gameObject.transform.position.x);
+        }
         if(grabTimeLeft >= 0)
         {
             grabTimeLeft -= Time.deltaTime;
@@ -77,8 +82,6 @@ public class PlayerMainScript : MonoBehaviour
                 objectCollider.sharedMaterial.bounciness = 0f;
             }
         }
-        //Determines angle between player and mouse
-        angleFace = Mathf.Rad2Deg * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - gameObject.transform.position.y, Camera.main.ScreenToWorldPoint(Input.mousePosition).x - gameObject.transform.position.x);
         //Movement
         if (!movementLocked)
         {
