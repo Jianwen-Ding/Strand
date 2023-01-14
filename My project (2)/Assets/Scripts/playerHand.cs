@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class playerHand : MonoBehaviour
 {
+    //Setup Objects
     [SerializeField]
     private GameObject playerObject;
     [SerializeField]
@@ -12,12 +13,18 @@ public class playerHand : MonoBehaviour
     private SpriteRenderer objectPlayerRenderScript;
     [SerializeField]
     private SpriteRenderer objectRenderScript;
+    //Orbit variables
     [SerializeField]
     private float yAddition;
     [SerializeField]
     private float yRange;
     [SerializeField]
     private float xRange;
+    //Grab variables
+    [SerializeField]
+    private ArrayList objectsInRange = new ArrayList();
+    [SerializeField]
+    private bool isGrabbing;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +33,24 @@ public class playerHand : MonoBehaviour
         objectPlayerRenderScript = playerObject.GetComponent<SpriteRenderer>();
         objectRenderScript = gameObject.GetComponent<SpriteRenderer>();
     }
+    //public functions
+    public void activateGrab()
+    {
 
+    }
+    public void deactivateGrab()
+    {
+
+    }
+    //private functions
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+    }
     // Update is called once per frame
     void Update()
     {

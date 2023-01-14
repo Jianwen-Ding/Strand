@@ -5,6 +5,8 @@ using UnityEngine;
 public class grabbableObject : MonoBehaviour
 {
     [SerializeField]
+    private int durability;
+    [SerializeField]
     private bool angleChange;
     [SerializeField]
     private float grabShrink;
@@ -23,6 +25,10 @@ public class grabbableObject : MonoBehaviour
     public virtual void grabbed()
     {
         
+    }
+    public virtual void slash(GameObject slashedObject)
+    {
+
     }
     public virtual void whileGrabbed()
     {

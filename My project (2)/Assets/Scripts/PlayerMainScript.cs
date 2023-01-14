@@ -8,6 +8,8 @@ public class PlayerMainScript : MonoBehaviour
     //establishing variables
     private Rigidbody2D objectRigid;
     private Collider2D objectCollider;
+    [SerializeField]
+    private GameObject objectHand;
     private float health;
     //the angle that player faces towards the mouse from the right horizontal
     [SerializeField]
@@ -36,21 +38,27 @@ public class PlayerMainScript : MonoBehaviour
     [SerializeField]
     private float movementLockedTimeLeft;
     #endregion
-    // Start is called before the first frame update
-    void Start()
-    {
-        objectRigid = gameObject.GetComponent<Rigidbody2D>();
-        objectCollider = gameObject.GetComponent<Collider2D>();
-    }
-    //Locks movement of the character for a set periord of time
+    //public functions
     public void lockMovement(float time)
     {
         movementLocked = true;
         movementLockedTimeLeft = time;
     }
-    public void unlock()
+    public void unlockMovement()
     {
         movementLocked = false;
+    }
+    public float getIsGrabbingTimeLeft()
+    {
+        return isGrabbingTimeLeft;
+    }
+    public void setIsGrabbingTimeLeft(float setTime)
+    {
+        isGrabbingTimeLeft = setTime;
+    }
+    public void endGrab()
+    {
+        objectCollider.sharedMaterial.bounciness = 0f;
     }
     public float getAngleFace()
     {
@@ -61,6 +69,14 @@ public class PlayerMainScript : MonoBehaviour
         float xPush = Mathf.Cos(angle * Mathf.Deg2Rad) * strength;
         float yPush = Mathf.Sin(angle * Mathf.Deg2Rad) * strength;
         objectRigid.AddForce(new Vector2(xPush, yPush));
+    }
+    //private functions
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        objectRigid = gameObject.GetComponent<Rigidbody2D>();
+        objectCollider = gameObject.GetComponent<Collider2D>();
     }
     // Update is called once per frame
     void Update()
@@ -79,7 +95,7 @@ public class PlayerMainScript : MonoBehaviour
             grabTimeLeft -= Time.deltaTime;
             if(grabTimeLeft < 0)
             {
-                objectCollider.sharedMaterial.bounciness = 0f;
+                endGrab();
             }
         }
         //Movement
