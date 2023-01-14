@@ -24,7 +24,10 @@ public class grabbableObject : MonoBehaviour
     {
         
     }
-    public virtual void 
+    public virtual void whileGrabbed()
+    {
+
+    }
     public virtual void released()
     {
 
