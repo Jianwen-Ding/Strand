@@ -24,7 +24,8 @@ public class playerHand : MonoBehaviour
     [SerializeField]
     private ArrayList objectsInRange = new ArrayList();
     [SerializeField]
-    private bool isGrabbing;
+    private bool isAttemptingToGrab;
+    //
     // Start is called before the first frame update
     void Start()
     {
@@ -34,18 +35,29 @@ public class playerHand : MonoBehaviour
         objectRenderScript = gameObject.GetComponent<SpriteRenderer>();
     }
     //public functions
-    public void activateGrab()
+    public void attemptGrab()
     {
 
     }
-    public void deactivateGrab()
+    public void stopAttemptGrab()
+    {
+
+    }
+    public void attemptSlashGrab()
+    {
+
+    }
+    public void stopAttemptSlash()
+    {
+
+    }
+    public void attemptThrow()
     {
 
     }
     //private functions
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
