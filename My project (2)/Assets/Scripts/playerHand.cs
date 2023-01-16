@@ -35,6 +35,8 @@ public class playerHand : MonoBehaviour
     private GameObject objectGrabbed;
     [SerializeField]
     private grabbableObject grabbedScript;
+    [SerializeField]
+    private float slashVelocityCutoff;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -101,7 +103,11 @@ public class playerHand : MonoBehaviour
     }
     public void attemptSlash()
     {
-
+        bool isPossibleToSlash = grabbedScript.startSlashEffect();
+        if (grabState == "grabbing" && isPossibleToSlash)
+        {
+            grabState = "slashing";
+        }
     }
     public void stopAttemptSlash()
     {
@@ -135,6 +141,11 @@ public class playerHand : MonoBehaviour
             {
                 grabObject(collision.gameObject);
             }
+        }
+        if (grabState == "slashing")
+        {
+            grabbedScript.slashObject(collision.gameObject);
+
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

@@ -41,6 +41,11 @@ public class PlayerMainScript : MonoBehaviour
     //--throw variables--
     [SerializeField]
     private float throwStrength;
+    //--slash variables--
+    [SerializeField]
+    private float angleChangeVelocity;
+    [SerializeField]
+    private float lastAngle;
     //--misc-- 
     [SerializeField]
     private bool hasLeftClicked;
@@ -52,6 +57,10 @@ public class PlayerMainScript : MonoBehaviour
     private float movementLockedTimeLeft;
     #endregion
     //public functions
+    public float getAngleVelocity()
+    {
+        return angleChangeVelocity;
+    }
     public void lockMovement(float time)
     {
         movementLocked = true;
@@ -104,6 +113,8 @@ public class PlayerMainScript : MonoBehaviour
         {
             //Determines angle between player and mouse
             angleFace = Mathf.Rad2Deg * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - gameObject.transform.position.y, Camera.main.ScreenToWorldPoint(Input.mousePosition).x - gameObject.transform.position.x);
+            angleChangeVelocity = Mathf.Abs(angleFace-lastAngle)/Time.deltaTime;
+            lastAngle = angleFace;
         }
         if(grabTimeLeft >= 0)
         {
