@@ -99,7 +99,7 @@ public class playerHand : MonoBehaviour
             grabState = "none";
         }
     }
-    public void attemptSlashGrab()
+    public void attemptSlash()
     {
 
     }

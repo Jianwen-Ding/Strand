@@ -13,22 +13,36 @@ public class grabbableObject : MonoBehaviour
     private playerHand grabbedByObjectScript;
     private SpriteRenderer grabbedByObjectRender;
     private int originalLayer;
-    //Variables for Modification
-    [SerializeField]
-    private int durability;
+    //--Variables for Modification--
     [SerializeField]
     private bool angleChange;
     [SerializeField]
     private float grabShrink = 1;
-    //Release intagibility, switches layer of the object when grabbed so it does not collide with player directly on release
+    //Slash/Use Variables
+    [SerializeField]
+    private int durability;
+    [SerializeField]
+    private int strength;
+    [SerializeField]
+    private int damage;
+    [SerializeField]
+    private float slashCooldown;
+    //--Release intagibility, switches layer of the object when grabbed so it does not collide with player directly on release--
     [SerializeField]
     private float releaseIntagibilityTime;
     [SerializeField]
     private float releaseIntagibilityTimeLeft;
-    //State Variables
+    //--State Variables--
     [SerializeField]
     private bool hasBeenGrabbed;
     #endregion
+    //private functions
+    public void push(float angle, float strength)
+    {
+        float xPush = Mathf.Cos(angle * Mathf.Deg2Rad) * strength;
+        float yPush = Mathf.Sin(angle * Mathf.Deg2Rad) * strength;
+        objectPhysics.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
+    }
     //public functions
     public bool getHasBeenGrabbed()
     {
@@ -63,7 +77,7 @@ public class grabbableObject : MonoBehaviour
         hasBeenGrabbed = false;
         gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
         releaseIntagibilityTimeLeft = releaseIntagibilityTime;
-       
+        push(angle, strength);
     }
     public virtual void releasedEffect()
     {
@@ -78,7 +92,7 @@ public class grabbableObject : MonoBehaviour
         objectPhysics = gameObject.GetComponent<Rigidbody2D>();
         if (objectCollider == null)
         {
-            print("ERROR- grabbable object " + gameObject.name + " does not have a 2D collider");
+            print("ERROR- grabbable object " + gameObject.name + " does not have a 2D rigidbody");
         }
         originalLayer = gameObject.layer;
         objectCollider = gameObject.GetComponent<Collider2D>();
@@ -104,7 +118,7 @@ public class grabbableObject : MonoBehaviour
                 gameObject.layer = originalLayer;
             }
         }
-        if (hasBeenGrabbed)
+        if (hasBeenGrabbed && grabbedByObjectScript.getGrabState() == "grabbed")
         {
             whileGrabbedEffect();
         }

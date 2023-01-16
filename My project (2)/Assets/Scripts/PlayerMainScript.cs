@@ -43,6 +43,10 @@ public class PlayerMainScript : MonoBehaviour
     private float throwStrength;
     //--misc-- 
     [SerializeField]
+    private bool hasLeftClicked;
+    [SerializeField]
+    private bool hasRightClicked;
+    [SerializeField]
     private bool movementLocked;
     [SerializeField]
     private float movementLockedTimeLeft;
@@ -78,7 +82,7 @@ public class PlayerMainScript : MonoBehaviour
     {
         float xPush = Mathf.Cos(angle * Mathf.Deg2Rad) * strength;
         float yPush = Mathf.Sin(angle * Mathf.Deg2Rad) * strength;
-        objectRigid.AddForce(new Vector2(xPush, yPush));
+        objectRigid.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
     }
     //private functions
 
@@ -141,40 +145,60 @@ public class PlayerMainScript : MonoBehaviour
                     objectRigid.velocity = new Vector3(objectRigid.velocity.x, -walkSpeed);
                 }
             }
-            //Grabbing mechanic
-            if(objectHandScript.getGrabState() == "none")
+            //This makes sure only one click from the mouse gets registered
+            if (Input.GetMouseButtonDown(0))
             {
-                //Lunge Grab
-                if (Input.GetMouseButtonDown(0) && grabTimeLeft < 0)
+                if (!hasLeftClicked)
                 {
-                    push(angleFace, lungeStrength);
-                    grabTimeLeft = lungeGrabTimeCooldown;
-                    lockMovement(0.08f);
-                    objectCollider.sharedMaterial.bounciness = grabBounce;
-                    isGrabbingTimeLeft = lungeGrabbingTime;
-                    objectHandScript.attemptGrab();
-                }
-                //Standing Granb
-                if (Input.GetMouseButtonDown(1) && grabTimeLeft < 0)
-                {
-                    grabTimeLeft = standGrabTimeCooldown;
-                    lockMovement(0.04f);
-                    isGrabbingTimeLeft = standGrabbingTime;
-                    objectHandScript.attemptGrab();
+                    hasLeftClicked = true;
+                    //Slash/ Use
+                    if (objectHandScript.getGrabState() == "grabbed")
+                    {
+                        objectHandScript.attemptSlash();
+                    }
+                    //Stand Grab
+                    else if (objectHandScript.getGrabState() == "none" && grabTimeLeft < 0)
+                    {
+                        grabTimeLeft = standGrabTimeCooldown;
+                        lockMovement(0.04f);
+                        isGrabbingTimeLeft = standGrabbingTime;
+                        objectHandScript.attemptGrab();
+                    }
                 }
             }
-            if (objectHandScript.getGrabState() == "grabbed")
+            else
             {
-                //Slash/Use
-                if (Input.GetMouseButtonDown(0) && grabTimeLeft < 0)
+                hasLeftClicked = false;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                objectHandScript.stopAttemptSlash();
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (!hasRightClicked)
                 {
-                    objectHandScript.attemptThrow(throwStrength, angleFace);
+                    hasRightClicked = true;
+                    //Throw
+                    if (objectHandScript.getGrabState() == "grabbed")
+                    {
+                        objectHandScript.attemptThrow(throwStrength, angleFace);
+                    }
+                    //Lunge Grab
+                    else if (objectHandScript.getGrabState() == "none" && grabTimeLeft < 0)
+                    {
+                        push(angleFace, lungeStrength);
+                        grabTimeLeft = lungeGrabTimeCooldown;
+                        lockMovement(0.08f);
+                        objectCollider.sharedMaterial.bounciness = grabBounce;
+                        isGrabbingTimeLeft = lungeGrabbingTime;
+                        objectHandScript.attemptGrab();
+                    }
                 }
-                //Throw
-                if (Input.GetMouseButtonDown(1) && grabTimeLeft < 0)
-                {
-                    objectHandScript.attemptThrow(throwStrength, angleFace);
-                }
+            }
+            else
+            {
+                hasRightClicked = false;
             }
         }
         else
