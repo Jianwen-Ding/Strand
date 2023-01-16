@@ -10,6 +10,8 @@ public class PlayerMainScript : MonoBehaviour
     private Collider2D objectCollider;
     [SerializeField]
     private GameObject objectHand;
+    [SerializeField]
+    private playerHand objectHandScript;
     private float health;
     //the angle that player faces towards the mouse from the right horizontal
     [SerializeField]
@@ -26,13 +28,20 @@ public class PlayerMainScript : MonoBehaviour
     [SerializeField]
     private float isGrabbingTimeLeft;
     [SerializeField]
-    private float lungeGrabTime;
+    private float lungeGrabbingTime;
+    [SerializeField]
+    private float standGrabbingTime;
     //Checks if grab can be used
     [SerializeField]
-    private float grabTimeCooldown;
+    private float lungeGrabTimeCooldown;
+    [SerializeField]
+    private float standGrabTimeCooldown;
     [SerializeField]
     private float grabTimeLeft;
-    //misc 
+    //--throw variables--
+    [SerializeField]
+    private float throwStrength;
+    //--misc-- 
     [SerializeField]
     private bool movementLocked;
     [SerializeField]
@@ -59,6 +68,7 @@ public class PlayerMainScript : MonoBehaviour
     public void endGrab()
     {
         objectCollider.sharedMaterial.bounciness = 0f;
+        objectHandScript.stopGrabAttempt();
     }
     public float getAngleFace()
     {
@@ -77,6 +87,7 @@ public class PlayerMainScript : MonoBehaviour
     {
         objectRigid = gameObject.GetComponent<Rigidbody2D>();
         objectCollider = gameObject.GetComponent<Collider2D>();
+        objectHandScript = objectHand.GetComponent<playerHand>();
     }
     // Update is called once per frame
     void Update()
@@ -130,14 +141,40 @@ public class PlayerMainScript : MonoBehaviour
                     objectRigid.velocity = new Vector3(objectRigid.velocity.x, -walkSpeed);
                 }
             }
-            //Lunge Grab Mechanic
-            if (Input.GetMouseButtonDown(0) && grabTimeLeft < 0)
+            //Grabbing mechanic
+            if(objectHandScript.getGrabState() == "none")
             {
-                push(angleFace, lungeStrength);
-                grabTimeLeft = grabTimeCooldown;
-                lockMovement(0.08f);
-                objectCollider.sharedMaterial.bounciness = grabBounce;
-                isGrabbingTimeLeft = lungeGrabTime;
+                //Lunge Grab
+                if (Input.GetMouseButtonDown(0) && grabTimeLeft < 0)
+                {
+                    push(angleFace, lungeStrength);
+                    grabTimeLeft = lungeGrabTimeCooldown;
+                    lockMovement(0.08f);
+                    objectCollider.sharedMaterial.bounciness = grabBounce;
+                    isGrabbingTimeLeft = lungeGrabbingTime;
+                    objectHandScript.attemptGrab();
+                }
+                //Standing Granb
+                if (Input.GetMouseButtonDown(1) && grabTimeLeft < 0)
+                {
+                    grabTimeLeft = standGrabTimeCooldown;
+                    lockMovement(0.04f);
+                    isGrabbingTimeLeft = standGrabbingTime;
+                    objectHandScript.attemptGrab();
+                }
+            }
+            if (objectHandScript.getGrabState() == "grabbed")
+            {
+                //Slash/Use
+                if (Input.GetMouseButtonDown(0) && grabTimeLeft < 0)
+                {
+                    objectHandScript.attemptThrow(throwStrength, angleFace);
+                }
+                //Throw
+                if (Input.GetMouseButtonDown(1) && grabTimeLeft < 0)
+                {
+                    objectHandScript.attemptThrow(throwStrength, angleFace);
+                }
             }
         }
         else
