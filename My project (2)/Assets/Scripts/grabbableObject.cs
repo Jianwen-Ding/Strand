@@ -8,6 +8,7 @@ public class grabbableObject : MonoBehaviour
     //Setup variables
     private Collider2D objectCollider;
     private SpriteRenderer objectRender;
+    private SpriteYLayering objectLayerScript;
     private Rigidbody2D objectPhysics;
     private GameObject grabbedByObject;
     private playerHand grabbedByObjectScript;
@@ -23,15 +24,23 @@ public class grabbableObject : MonoBehaviour
     [SerializeField]
     private int durability;
     [SerializeField]
-    private int strength;
+    private int slashKnockBackStrength;
     [SerializeField]
     private int damage;
     [SerializeField]
-    private float slashCooldown;
+    private float slashTime;
     [SerializeField]
     private float slashTimeLeft;
     [SerializeField]
-    private Color slashColor;
+    private float slashCooldown;
+    [SerializeField]
+    private float slashCooldownTimeLeft;
+    [SerializeField]
+    private Color slashColor = Color.gray;
+    [SerializeField]
+    private Color fullVelSlashColor = Color.red;
+    [SerializeField]
+    private float velocityThreshold;
     //--Release intagibility, switches layer of the object when grabbed so it does not collide with player directly on release--
     [SerializeField]
     private float releaseIntagibilityTime;
@@ -45,6 +54,11 @@ public class grabbableObject : MonoBehaviour
         float yPush = Mathf.Sin(angle * Mathf.Deg2Rad) * strength;
         objectPhysics.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
     }
+    //get/set functions
+    public float getVelocityThreshold()
+    {
+        return velocityThreshold;
+    }
     //public functions
     public virtual void grabbedEffect(GameObject grabbedBy)
     {
@@ -54,6 +68,10 @@ public class grabbableObject : MonoBehaviour
         grabbedByObjectScript = grabbedByObject.GetComponent<playerHand>();
         grabbedByObjectRender = grabbedByObject.GetComponent<SpriteRenderer>();
         gameObject.transform.localScale = gameObject.transform.localScale * grabShrink;
+        if(objectLayerScript != null)
+        {
+            objectLayerScript.enabled = false;
+        }
         if (grabbedByObjectScript == null)
         {
             print("ERROR- grabbable object " + gameObject.name + " has been grabbed by something without the required component -playerHand-");
@@ -61,9 +79,10 @@ public class grabbableObject : MonoBehaviour
     }
     public virtual bool startSlashEffect()
     {
-        if (slashTimeLeft < 0)
+        if (slashCooldownTimeLeft < 0)
         {
             objectRender.color = slashColor;
+            slashTimeLeft = slashTime;
             return true;
         }
         else
@@ -76,11 +95,23 @@ public class grabbableObject : MonoBehaviour
     }
     public virtual void slashEnd()
     {
-        slashTimeLeft = slashCooldown;
+        slashCooldownTimeLeft = slashCooldown;
         objectRender.color = slashColor;
     }
-    public virtual void slashObject(GameObject slashedObject)
+    public virtual bool slashObject(GameObject slashedObject, float Angle)
     {
+        bool hasHitObject = false;
+        //Pushes back object
+        Rigidbody2D slashedRigidbody2D = slashedObject.GetComponent<Rigidbody2D>();
+        if(slashedRigidbody2D != null)
+        {
+            hasHitObject = true;
+            float xPush = Mathf.Cos(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
+            float yPush = Mathf.Sin(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
+            slashedRigidbody2D.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
+            grabbedByObjectScript.stopAttemptSlash();
+        }
+        return hasHitObject;
     }
     public virtual void whileGrabbedEffect()
     {
@@ -93,12 +124,22 @@ public class grabbableObject : MonoBehaviour
         gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
         releaseIntagibilityTimeLeft = releaseIntagibilityTime;
         push(angle, strength);
+        if (objectLayerScript != null)
+        {
+            objectLayerScript.enabled = true;
+
+        }
     }
     public virtual void releasedEffect()
     {
         objectCollider.isTrigger = false;
         gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
         releaseIntagibilityTimeLeft = releaseIntagibilityTime;
+        if (objectLayerScript != null)
+        {
+            objectLayerScript.enabled = true;
+
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -119,6 +160,7 @@ public class grabbableObject : MonoBehaviour
         {
             print("ERROR- grabbable object " + gameObject.name + " does not have a sprite renderer");
         }
+        objectLayerScript = gameObject.GetComponent<SpriteYLayering>();
         originialColor = objectRender.color;
     }
 
@@ -128,6 +170,14 @@ public class grabbableObject : MonoBehaviour
         if (slashTimeLeft >= 0)
         {
             slashTimeLeft -= Time.deltaTime;
+            if(slashTimeLeft < 0)
+            {
+                grabbedByObjectScript.stopAttemptSlash();
+            }
+        }
+        if (slashCooldownTimeLeft >= 0)
+        {
+            slashCooldownTimeLeft -= Time.deltaTime;
         }
         if (releaseIntagibilityTimeLeft >= 0)
         {

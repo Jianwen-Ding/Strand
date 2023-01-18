@@ -111,7 +111,13 @@ public class playerHand : MonoBehaviour
     }
     public void stopAttemptSlash()
     {
-
+        if(grabState == "slashing")
+        {
+            grabbedScript.slashEnd();
+            grabState = "grabbing";
+        }
+       
+        
     }
     public void attemptThrow(float strength, float angle)
     {
@@ -144,7 +150,15 @@ public class playerHand : MonoBehaviour
         }
         if (grabState == "slashing")
         {
-            grabbedScript.slashObject(collision.gameObject);
+            grabbedScript.slashObject(collision.gameObject, objectPlayerScript.getAngleFace());
+
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (grabState == "slashing")
+        {
+            grabbedScript.slashObject(collision.gameObject, objectPlayerScript.getAngleFace());
 
         }
     }
