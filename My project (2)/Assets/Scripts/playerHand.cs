@@ -77,6 +77,11 @@ public class playerHand : MonoBehaviour
             print("ERROR- object being ungrabbed by " + gameObject.name + " does not have require -grabbableObject- script");
         }
     }
+    //get/set functions
+    public float getAngleVelocity()
+    {
+        return objectPlayerScript.getAngleVelocity();
+    }
     //public functions
     public void attemptGrab()
     {
@@ -104,7 +109,7 @@ public class playerHand : MonoBehaviour
     public void attemptSlash()
     {
         bool isPossibleToSlash = grabbedScript.startSlashEffect();
-        if (grabState == "grabbing" && isPossibleToSlash)
+        if (grabState == "grabbed" && isPossibleToSlash)
         {
             grabState = "slashing";
         }
@@ -114,7 +119,7 @@ public class playerHand : MonoBehaviour
         if(grabState == "slashing")
         {
             grabbedScript.slashEnd();
-            grabState = "grabbing";
+            grabState = "grabbed";
         }
        
         
@@ -123,6 +128,10 @@ public class playerHand : MonoBehaviour
     {
         if (grabbedScript != null)
         {
+            if (grabState == "slashing")
+            {
+                grabbedScript.slashEnd();
+            }
             objectRenderScript.enabled = true;
             grabState = "none";
             grabbedScript.throwEffect(strength, angle);

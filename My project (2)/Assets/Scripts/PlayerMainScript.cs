@@ -46,6 +46,12 @@ public class PlayerMainScript : MonoBehaviour
     private float angleChangeVelocity;
     [SerializeField]
     private float lastAngle;
+    [SerializeField]
+    private Queue<float> lastTimeDeltas = new Queue<float>();
+    [SerializeField]
+    private Queue<float> lastAngleChanges = new Queue<float>();
+    [SerializeField]
+    private float timeAngleVelocityNormalization;
     //--misc-- 
     [SerializeField]
     private bool hasLeftClicked;
@@ -113,8 +119,24 @@ public class PlayerMainScript : MonoBehaviour
         {
             //Determines angle between player and mouse
             angleFace = Mathf.Rad2Deg * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - gameObject.transform.position.y, Camera.main.ScreenToWorldPoint(Input.mousePosition).x - gameObject.transform.position.x);
-            angleChangeVelocity = Mathf.Abs(angleFace-lastAngle)/Time.deltaTime;
+            lastAngleChanges.Enqueue(angleFace - lastAngle);
+            lastTimeDeltas.Enqueue(Time.deltaTime);
             lastAngle = angleFace;
+            float totalTimeDelta = 0;
+            float totalAngleChange = 0;
+            Queue<float> tempTimeDeltas = lastTimeDeltas;
+            Queue<float> tempAngleChanges = lastAngleChanges;
+            while(tempTimeDeltas.Count > 0)
+            {
+                totalTimeDelta += tempTimeDeltas.Dequeue();
+                totalAngleChange += tempAngleChanges.Dequeue();
+            }
+            angleChangeVelocity = Mathf.Abs(totalAngleChange) / totalTimeDelta;
+            if (totalTimeDelta > timeAngleVelocityNormalization)
+            {
+                lastTimeDeltas.Dequeue();
+                lastAngleChanges.Dequeue();
+            }
         }
         if(grabTimeLeft >= 0)
         {

@@ -92,11 +92,21 @@ public class grabbableObject : MonoBehaviour
     }
     public virtual void whileSlashingEffect()
     {
+        if (grabbedByObjectScript.getAngleVelocity() > velocityThreshold)
+        {
+            objectRender.color = fullVelSlashColor;
+        }
+        else
+        {
+            objectRender.color = slashColor;
+        }
+        gameObject.transform.position = grabbedByObject.transform.position;
+        objectRender.sortingOrder = grabbedByObjectRender.sortingOrder;
     }
     public virtual void slashEnd()
     {
         slashCooldownTimeLeft = slashCooldown;
-        objectRender.color = slashColor;
+        objectRender.color = originialColor;
     }
     public virtual bool slashObject(GameObject slashedObject, float Angle)
     {
@@ -167,7 +177,7 @@ public class grabbableObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (slashTimeLeft >= 0)
+        if (grabbedByObjectScript != null && slashTimeLeft >= 0)
         {
             slashTimeLeft -= Time.deltaTime;
             if(slashTimeLeft < 0)
