@@ -49,18 +49,21 @@ public class playerHand : MonoBehaviour
     //private functions
     private void grabObject(GameObject insertObject)
     {
-        grabbedScript = insertObject.GetComponent<grabbableObject>();
-        if(grabbedScript != null)
+        if(grabState != "grabbed")
         {
-            grabState = "grabbed";
-            objectRenderScript.enabled = false;
-            objectGrabbed = insertObject;
-            objectPlayerScript.endGrab();
-            grabbedScript.grabbedEffect(gameObject);
-        }
-        else
-        {
-            print("ERROR- object grabbed by " + gameObject.name + " does not have require -grabbableObject- script");
+            grabbedScript = insertObject.GetComponent<grabbableObject>();
+            if (grabbedScript != null)
+            {
+                grabState = "grabbed";
+                objectRenderScript.enabled = false;
+                objectGrabbed = insertObject;
+                objectPlayerScript.endGrab();
+                grabbedScript.grabbedEffect(gameObject);
+            }
+            else
+            {
+                print("ERROR- object grabbed by " + gameObject.name + " does not have require -grabbableObject- script");
+            }
         }
     }
     private void releaseObject(GameObject insertObject)
@@ -85,20 +88,24 @@ public class playerHand : MonoBehaviour
     //public functions
     public void attemptGrab()
     {
-        bool attemptSuccesful = false;
-        for (int i = 0; i < objectsInRange.Count; i++)
+        if(grabState != "grabbed")
         {
-            if (objectsInRange[i].GetComponent<grabbableObject>() != null)
+            bool attemptSuccesful = false;
+            for (int i = 0; i < objectsInRange.Count; i++)
             {
-                attemptSuccesful = true;
-                grabObject(objectsInRange[i]);
-                break;
+                if (objectsInRange[i].GetComponent<grabbableObject>() != null)
+                {
+                    attemptSuccesful = true;
+                    grabObject(objectsInRange[i]);
+                    break;
+                }
+            }
+            if (!attemptSuccesful)
+            {
+                grabState = "grabbing";
             }
         }
-        if (!attemptSuccesful)
-        {
-            grabState = "grabbing";
-        }
+        
     }
     public void stopGrabAttempt()
     {

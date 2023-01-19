@@ -120,7 +120,7 @@ public class grabbableObject : MonoBehaviour
             Rigidbody2D slashedRigidbody2D = slashedObject.GetComponent<Rigidbody2D>();
             if (slashedRigidbody2D != null)
             {
-                float Angle = Mathf.Rad2Deg * Mathf.Atan2(gameObject.transform.position.y - slashFromLocation.y, gameObject.transform.position.x -slashFromLocation.x);
+                float Angle = Mathf.Rad2Deg * Mathf.Atan2(slashedObject.transform.position.y - slashFromLocation.y, slashedObject.transform.position.x - slashFromLocation.x);
                 hasHitObject = true;
                 float xPush = Mathf.Cos(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
                 float yPush = Mathf.Sin(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
@@ -136,6 +136,8 @@ public class grabbableObject : MonoBehaviour
     }
     public virtual void throwEffect(float strength, float angle)
     {
+        grabbedByObjectScript = null;
+        objectRender.color = originialColor;
         objectCollider.isTrigger = false;
         gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
         releaseIntagibilityTimeLeft = releaseIntagibilityTime;
