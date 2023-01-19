@@ -159,7 +159,7 @@ public class playerHand : MonoBehaviour
         }
         if (grabState == "slashing")
         {
-            grabbedScript.slashObject(collision.gameObject, objectPlayerScript.getAngleFace());
+            grabbedScript.slashObject(collision.gameObject, playerObject.transform.position);
 
         }
     }
@@ -167,7 +167,7 @@ public class playerHand : MonoBehaviour
     {
         if (grabState == "slashing")
         {
-            grabbedScript.slashObject(collision.gameObject, objectPlayerScript.getAngleFace());
+            grabbedScript.slashObject(collision.gameObject, playerObject.transform.position);
 
         }
     }

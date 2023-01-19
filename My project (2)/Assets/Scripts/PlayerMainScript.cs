@@ -124,8 +124,8 @@ public class PlayerMainScript : MonoBehaviour
             lastAngle = angleFace;
             float totalTimeDelta = 0;
             float totalAngleChange = 0;
-            Queue<float> tempTimeDeltas = lastTimeDeltas;
-            Queue<float> tempAngleChanges = lastAngleChanges;
+            Queue<float> tempTimeDeltas = new Queue<float>(lastTimeDeltas);
+            Queue<float> tempAngleChanges = new Queue<float>(lastAngleChanges);
             while(tempTimeDeltas.Count > 0)
             {
                 totalTimeDelta += tempTimeDeltas.Dequeue();

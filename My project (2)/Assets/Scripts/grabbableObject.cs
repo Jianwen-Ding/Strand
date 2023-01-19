@@ -41,6 +41,7 @@ public class grabbableObject : MonoBehaviour
     private Color fullVelSlashColor = Color.red;
     [SerializeField]
     private float velocityThreshold;
+    List<GameObject> objectsHit = new List<GameObject>();
     //--Release intagibility, switches layer of the object when grabbed so it does not collide with player directly on release--
     [SerializeField]
     private float releaseIntagibilityTime;
@@ -107,19 +108,24 @@ public class grabbableObject : MonoBehaviour
     {
         slashCooldownTimeLeft = slashCooldown;
         objectRender.color = originialColor;
+        objectsHit.Clear();
     }
-    public virtual bool slashObject(GameObject slashedObject, float Angle)
+    public virtual bool slashObject(GameObject slashedObject, Vector3 slashFromLocation)
     {
         bool hasHitObject = false;
-        //Pushes back object
-        Rigidbody2D slashedRigidbody2D = slashedObject.GetComponent<Rigidbody2D>();
-        if(slashedRigidbody2D != null)
+        if(grabbedByObjectScript.getAngleVelocity() > velocityThreshold && objectsHit.IndexOf(slashedObject) == -1)
         {
-            hasHitObject = true;
-            float xPush = Mathf.Cos(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
-            float yPush = Mathf.Sin(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
-            slashedRigidbody2D.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
-            grabbedByObjectScript.stopAttemptSlash();
+            objectsHit.Add(slashedObject);
+            //Pushes back object
+            Rigidbody2D slashedRigidbody2D = slashedObject.GetComponent<Rigidbody2D>();
+            if (slashedRigidbody2D != null)
+            {
+                float Angle = Mathf.Rad2Deg * Mathf.Atan2(gameObject.transform.position.y - slashFromLocation.y, gameObject.transform.position.x -slashFromLocation.x);
+                hasHitObject = true;
+                float xPush = Mathf.Cos(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
+                float yPush = Mathf.Sin(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
+                slashedRigidbody2D.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
+            }
         }
         return hasHitObject;
     }
