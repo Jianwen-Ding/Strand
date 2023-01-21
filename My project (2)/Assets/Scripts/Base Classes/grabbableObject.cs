@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// --THIS SCRIPT SERVES AS THE BASE CLASS FOR ALL GRABBABLE OBJECTS--
 public class grabbableObject : MonoBehaviour
 {
     #region variables
@@ -15,6 +15,7 @@ public class grabbableObject : MonoBehaviour
     private SpriteRenderer grabbedByObjectRender;
     private int originalLayer;
     private Color originialColor;
+    private float originalDrag;
     //--Variables for Modification--
     [SerializeField]
     private bool angleChange;
@@ -47,6 +48,8 @@ public class grabbableObject : MonoBehaviour
     private float thrownStateTime;
     [SerializeField]
     private float thrownStateTimeLeft;
+    [SerializeField]
+    private float thrownDrag;
     #endregion
     //private functions
     public void push(float angle, float strength)
@@ -140,6 +143,7 @@ public class grabbableObject : MonoBehaviour
     public virtual void throwEffect(float strength, float angle)
     {
         grabbedByObjectScript = null;
+        objectPhysics.drag = 0;
         objectRender.color = originialColor;
         objectCollider.isTrigger = false;
         gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
@@ -151,6 +155,19 @@ public class grabbableObject : MonoBehaviour
 
         }
     }
+    public virtual void whileThrownEffect()
+    {
+    }
+    public virtual void throwHitEffect(Collision2D collisionInput)
+    {
+        thrownEnd();
+    }
+    public virtual void thrownEnd()
+    {
+        objectPhysics.drag = originalDrag;
+        gameObject.layer = originalLayer;
+    }
+    //released, independent of thrown
     public virtual void releasedEffect()
     {
         objectCollider.isTrigger = false;
@@ -162,11 +179,19 @@ public class grabbableObject : MonoBehaviour
 
         }
     }
+    //On collide
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(thrownStateTimeLeft >= 0)
+        {
+            throwHitEffect(collision);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         objectPhysics = gameObject.GetComponent<Rigidbody2D>();
-        if (objectCollider == null)
+        if (objectPhysics == null)
         {
             print("ERROR- grabbable object " + gameObject.name + " does not have a 2D rigidbody");
         }
@@ -183,6 +208,7 @@ public class grabbableObject : MonoBehaviour
         }
         objectLayerScript = gameObject.GetComponent<SpriteYLayering>();
         originialColor = objectRender.color;
+        originalDrag = objectPhysics.drag;
     }
 
     // Update is called once per frame
@@ -202,10 +228,11 @@ public class grabbableObject : MonoBehaviour
         }
         if (thrownStateTimeLeft >= 0)
         {
+            whileThrownEffect();
             thrownStateTimeLeft -= Time.deltaTime;
             if(thrownStateTimeLeft < 0)
             {
-                gameObject.layer = originalLayer;
+                thrownEnd();
             }
         }
         if(grabbedByObjectScript != null)
