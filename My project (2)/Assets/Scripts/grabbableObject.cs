@@ -42,11 +42,11 @@ public class grabbableObject : MonoBehaviour
     [SerializeField]
     private float velocityThreshold;
     List<GameObject> objectsHit = new List<GameObject>();
-    //--Release intagibility, switches layer of the object when grabbed so it does not collide with player directly on release--
+    //--thrown state, occurs when thrown
     [SerializeField]
-    private float releaseIntagibilityTime;
+    private float thrownStateTime;
     [SerializeField]
-    private float releaseIntagibilityTimeLeft;
+    private float thrownStateTimeLeft;
     #endregion
     //private functions
     public void push(float angle, float strength)
@@ -60,7 +60,8 @@ public class grabbableObject : MonoBehaviour
     {
         return velocityThreshold;
     }
-    //public functions
+    //--public functions--
+    //grabbed
     public virtual void grabbedEffect(GameObject grabbedBy)
     {
         objectCollider.isTrigger = true;
@@ -78,6 +79,12 @@ public class grabbableObject : MonoBehaviour
             print("ERROR- grabbable object " + gameObject.name + " has been grabbed by something without the required component -playerHand-");
         }
     }
+    public virtual void whileGrabbedEffect()
+    {
+        gameObject.transform.position = grabbedByObject.transform.position;
+        objectRender.sortingOrder = grabbedByObjectRender.sortingOrder;
+    }
+    //slashing/using
     public virtual bool startSlashEffect()
     {
         if (slashCooldownTimeLeft < 0)
@@ -129,18 +136,14 @@ public class grabbableObject : MonoBehaviour
         }
         return hasHitObject;
     }
-    public virtual void whileGrabbedEffect()
-    {
-        gameObject.transform.position = grabbedByObject.transform.position;
-        objectRender.sortingOrder = grabbedByObjectRender.sortingOrder;
-    }
+    //thrown
     public virtual void throwEffect(float strength, float angle)
     {
         grabbedByObjectScript = null;
         objectRender.color = originialColor;
         objectCollider.isTrigger = false;
         gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
-        releaseIntagibilityTimeLeft = releaseIntagibilityTime;
+        thrownStateTimeLeft = thrownStateTime;
         push(angle, strength);
         if (objectLayerScript != null)
         {
@@ -152,7 +155,7 @@ public class grabbableObject : MonoBehaviour
     {
         objectCollider.isTrigger = false;
         gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
-        releaseIntagibilityTimeLeft = releaseIntagibilityTime;
+        thrownStateTimeLeft = thrownStateTime;
         if (objectLayerScript != null)
         {
             objectLayerScript.enabled = true;
@@ -197,10 +200,10 @@ public class grabbableObject : MonoBehaviour
         {
             slashCooldownTimeLeft -= Time.deltaTime;
         }
-        if (releaseIntagibilityTimeLeft >= 0)
+        if (thrownStateTimeLeft >= 0)
         {
-            releaseIntagibilityTimeLeft -= Time.deltaTime;
-            if(releaseIntagibilityTimeLeft < 0)
+            thrownStateTimeLeft -= Time.deltaTime;
+            if(thrownStateTimeLeft < 0)
             {
                 gameObject.layer = originalLayer;
             }
