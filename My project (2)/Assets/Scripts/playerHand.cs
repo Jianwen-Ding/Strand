@@ -66,12 +66,17 @@ public class playerHand : MonoBehaviour
             }
         }
     }
-    private void releaseObject(GameObject insertObject)
+    public void releaseObject(GameObject insertObject)
     {
         if (grabbedScript != null)
         {
+            if (grabState == "slashing")
+            {
+                grabbedScript.slashEnd();
+            }
             objectRenderScript.enabled = true;
             grabState = "none";
+            grabbedScript.releasedEffect();
             objectGrabbed = null;
             grabbedScript = null;
         }
@@ -84,6 +89,10 @@ public class playerHand : MonoBehaviour
     public float getAngleVelocity()
     {
         return objectPlayerScript.getAngleVelocity();
+    }
+    public string getGrabState()
+    {
+        return grabState;
     }
     //public functions
     public void attemptGrab()
@@ -149,10 +158,6 @@ public class playerHand : MonoBehaviour
         {
             print("ERROR- object being ungrabbed by " + gameObject.name + " does not have require -grabbableObject- script");
         }
-    }
-    public string getGrabState()
-    {
-        return grabState;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -136,6 +136,14 @@ public class grabbableObject : MonoBehaviour
                 float yPush = Mathf.Sin(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
                 slashedRigidbody2D.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
             }
+            if (hasHitObject)
+            {
+                durability -= 1;
+                if(durability < 0)
+                {
+
+                }
+            }
         }
         return hasHitObject;
     }
@@ -188,7 +196,7 @@ public class grabbableObject : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         objectPhysics = gameObject.GetComponent<Rigidbody2D>();
         if (objectPhysics == null)
@@ -212,7 +220,7 @@ public class grabbableObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if (grabbedByObjectScript != null && slashTimeLeft >= 0)
         {
