@@ -12,7 +12,9 @@ public class PlayerMainScript : MonoBehaviour
     private GameObject objectHand;
     [SerializeField]
     private playerHand objectHandScript;
-    private float health;
+    //health
+    [SerializeField]
+    private int health;
     //the angle that player faces towards the mouse from the right horizontal
     [SerializeField]
     private float angleFace;
@@ -63,6 +65,10 @@ public class PlayerMainScript : MonoBehaviour
     private float movementLockedTimeLeft;
     #endregion
     //public functions
+    public void damagePlayer(int damagePlayer)
+    {
+        health -= damagePlayer;
+    }
     public float getAngleVelocity()
     {
         return angleChangeVelocity;
@@ -176,6 +182,13 @@ public class PlayerMainScript : MonoBehaviour
                 if (objectRigid.velocity.y >= -walkSpeed)
                 {
                     objectRigid.velocity = new Vector3(objectRigid.velocity.x, -walkSpeed);
+                }
+            }
+            if (Input.GetAxisRaw("Drop Object") > 0)
+            {
+                if (objectHandScript.getGrabState() == "grabbed")
+                {
+                    objectHandScript.releaseObject();
                 }
             }
             //This makes sure only one click from the mouse gets registered

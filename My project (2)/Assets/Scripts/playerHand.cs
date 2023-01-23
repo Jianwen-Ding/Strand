@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class playerHand : MonoBehaviour
     private PlayerMainScript objectPlayerScript;
     [SerializeField]
     private SpriteRenderer objectPlayerRenderScript;
+    [SerializeField]
+    private Rigidbody2D objectPlayerPhysicsScript;
     [SerializeField]
     private SpriteRenderer objectRenderScript;
     //Orbit variables
@@ -44,6 +47,7 @@ public class playerHand : MonoBehaviour
         playerObject = gameObject.transform.parent.gameObject;
         objectPlayerScript = playerObject.GetComponent<PlayerMainScript>();
         objectPlayerRenderScript = playerObject.GetComponent<SpriteRenderer>();
+        objectPlayerPhysicsScript = playerObject.GetComponent<Rigidbody2D>();
         objectRenderScript = gameObject.GetComponent<SpriteRenderer>();
     }
     //private functions
@@ -66,9 +70,31 @@ public class playerHand : MonoBehaviour
             }
         }
     }
-    public void releaseObject(GameObject insertObject)
+    //get/set functions
+    public float getAngleVelocity()
     {
-        if (grabbedScript != null)
+        return objectPlayerScript.getAngleVelocity();
+    }
+    public string getGrabState()
+    {
+        return grabState;
+    }
+    public GameObject getPlayerObject()
+    {
+        return playerObject;
+    }
+    public PlayerMainScript getObjectPlayerScript()
+    {
+        return objectPlayerScript;
+    }
+    public Rigidbody2D getPlayerObjectPhysics()
+    {
+        return objectPlayerPhysicsScript;
+    }
+    //public functions
+    public void releaseObject()
+    {
+        if (grabbedScript != null && grabState == "grabbed")
         {
             if (grabState == "slashing")
             {
@@ -85,16 +111,6 @@ public class playerHand : MonoBehaviour
             print("ERROR- object being ungrabbed by " + gameObject.name + " does not have require -grabbableObject- script");
         }
     }
-    //get/set functions
-    public float getAngleVelocity()
-    {
-        return objectPlayerScript.getAngleVelocity();
-    }
-    public string getGrabState()
-    {
-        return grabState;
-    }
-    //public functions
     public void attemptGrab()
     {
         if(grabState != "grabbed")

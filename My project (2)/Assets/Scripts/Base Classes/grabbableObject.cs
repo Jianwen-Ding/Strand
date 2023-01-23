@@ -15,19 +15,19 @@ public class grabbableObject : MonoBehaviour
     private SpriteRenderer grabbedByObjectRender;
     private int originalLayer;
     private Color originialColor;
+    //localScale
+    private Vector3 originalScale; 
     private float originalDrag;
     //--Variables for Modification--
     [SerializeField]
-    private bool angleChange;
-    [SerializeField]
-    private float grabShrink = 1;
+    private float grabShrink = 0.5f;
     //Slash/Use Variables
     [SerializeField]
-    private int durability;
+    private int durability = 3;
     [SerializeField]
-    private int slashKnockBackStrength;
+    private int slashKnockBackStrength = 30;
     [SerializeField]
-    private int damage;
+    private int damage = 1;
     [SerializeField]
     private float slashTime;
     [SerializeField]
@@ -58,12 +58,28 @@ public class grabbableObject : MonoBehaviour
         float yPush = Mathf.Sin(angle * Mathf.Deg2Rad) * strength;
         objectPhysics.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
     }
+    //--public functions--
     //get/set functions
     public float getVelocityThreshold()
     {
         return velocityThreshold;
     }
-    //--public functions--
+    public playerHand getGrabbedByObjectScript()
+    {
+        return grabbedByObjectScript;
+    }
+    public int getDurability()
+    {
+        return durability;
+    }
+    public void setDurability(int set)
+    {
+        durability = set;
+    }
+    public Rigidbody2D getObjectPhysics()
+    {
+        return objectPhysics;
+    }
     //grabbed
     public virtual void grabbedEffect(GameObject grabbedBy)
     {
@@ -128,6 +144,7 @@ public class grabbableObject : MonoBehaviour
             objectsHit.Add(slashedObject);
             //Pushes back object
             Rigidbody2D slashedRigidbody2D = slashedObject.GetComponent<Rigidbody2D>();
+            baseEnemy slashedEnemyScript = slashedObject.GetComponent<baseEnemy>();
             if (slashedRigidbody2D != null)
             {
                 float Angle = Mathf.Rad2Deg * Mathf.Atan2(slashedObject.transform.position.y - slashFromLocation.y, slashedObject.transform.position.x - slashFromLocation.x);
@@ -136,16 +153,27 @@ public class grabbableObject : MonoBehaviour
                 float yPush = Mathf.Sin(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
                 slashedRigidbody2D.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
             }
+            if(slashedEnemyScript != null)
+            {
+                hasHitObject = true;
+                slashedEnemyScript.isDamaged(damage);
+            }
             if (hasHitObject)
             {
                 durability -= 1;
                 if(durability < 0)
                 {
-
+                    durabilityGone();
                 }
             }
         }
         return hasHitObject;
+    }
+    public virtual void durabilityGone()
+    {
+        grabbedByObjectScript.stopAttemptSlash();
+        grabbedByObjectScript.releaseObject();
+        Destroy(gameObject);
     }
     //thrown
     public virtual void throwEffect(float strength, float angle)
@@ -154,7 +182,7 @@ public class grabbableObject : MonoBehaviour
         objectPhysics.drag = 0;
         objectRender.color = originialColor;
         objectCollider.isTrigger = false;
-        gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
+        gameObject.transform.localScale = originalScale;
         thrownStateTimeLeft = thrownStateTime;
         push(angle, strength);
         if (objectLayerScript != null)
@@ -179,7 +207,7 @@ public class grabbableObject : MonoBehaviour
     public virtual void releasedEffect()
     {
         objectCollider.isTrigger = false;
-        gameObject.transform.localScale = gameObject.transform.localScale / grabShrink;
+        gameObject.transform.localScale = originalScale;
         thrownStateTimeLeft = thrownStateTime;
         if (objectLayerScript != null)
         {
@@ -217,6 +245,7 @@ public class grabbableObject : MonoBehaviour
         objectLayerScript = gameObject.GetComponent<SpriteYLayering>();
         originialColor = objectRender.color;
         originalDrag = objectPhysics.drag;
+        originalScale = gameObject.transform.localScale;
     }
 
     // Update is called once per frame
