@@ -56,13 +56,12 @@ public class playerHand : MonoBehaviour
         if(grabState != "grabbed")
         {
             grabbedScript = insertObject.GetComponent<grabbableObject>();
-            if (grabbedScript != null)
+            if (grabbedScript != null && grabbedScript.grabbedEffect(gameObject))
             {
                 grabState = "grabbed";
                 objectRenderScript.enabled = false;
                 objectGrabbed = insertObject;
                 objectPlayerScript.endGrab();
-                grabbedScript.grabbedEffect(gameObject);
             }
             else
             {
@@ -115,19 +114,13 @@ public class playerHand : MonoBehaviour
     {
         if(grabState != "grabbed")
         {
-            bool attemptSuccesful = false;
             for (int i = 0; i < objectsInRange.Count; i++)
             {
                 if (objectsInRange[i].GetComponent<grabbableObject>() != null)
                 {
-                    attemptSuccesful = true;
                     grabObject(objectsInRange[i]);
                     break;
                 }
-            }
-            if (!attemptSuccesful)
-            {
-                grabState = "grabbing";
             }
         }
         

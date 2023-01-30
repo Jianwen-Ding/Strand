@@ -21,14 +21,28 @@ public class grabbableScriptEnemy : grabbableObject
         }
         return hasSlashed;
     }
-    public override void grabbedEffect(GameObject grabbedBy)
+    public override void throwEffect(float strength, float angle)
+    {
+        base.throwEffect(strength, angle);
+        enemyScript.stunEnemy(getThrownStateTime());
+    }
+    public override void releasedEffect()
+    {
+        base.releasedEffect();
+        enemyScript.stunEnemy(getReleaseStateTime());
+    }
+    public override bool grabbedEffect(GameObject grabbedBy)
     {
         playerHand grabbedByHandScript = grabbedBy.gameObject.GetComponent<playerHand>();
+        //succesful grab
         if (enemyScript.getGrabArmor() <= 0)
         {
             base.grabbedEffect(grabbedBy);
+            enemyScript.stunEnemy(timeUntilRelease);
             enemyScript.setGrabArmor(enemyScript.getDefaultGrabArmor());
+            return true;
         }
+        //failed grab
         else
         {
             enemyScript.loseGrabArmor(1);
@@ -41,8 +55,12 @@ public class grabbableScriptEnemy : grabbableObject
             //pushes player back
             grabbedByHandScript.getPlayerObjectPhysics().velocity *= 0;
             grabbedByHandScript.getObjectPlayerScript().push(Angle + 180, enemyScript.getFailedGrabPushBackPlayer());
-
+            return false;
         }
+    }
+    public override void whileGrabbedEffect()
+    {
+        base.whileGrabbedEffect();
         if (timeUntilReleaseLeft >= 0)
         {
             timeUntilReleaseLeft -= Time.deltaTime;

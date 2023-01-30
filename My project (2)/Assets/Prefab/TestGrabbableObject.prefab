@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d3bbeaa91a38747bba36d87c894028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angleChange: 0
   grabShrink: 0.5
   durability: 5
   slashKnockBackStrength: 30
@@ -174,3 +173,4 @@ MonoBehaviour:
   thrownStateTime: 0.25
   thrownStateTimeLeft: 0
   thrownDrag: 3
+  releaseStateTime: 0.25

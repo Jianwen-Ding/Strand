@@ -8,10 +8,18 @@ public class baseEnemy : MonoBehaviour
     #region
     //Setup Variables
     private Rigidbody2D enemyRigid;
-    //State
+    private SpriteRenderer enemyRender;
+    private Color originalColor;
+    //-State-
+    //default
+    //stunned
     [SerializeField]
     private string enemyState;
-    //Health
+    [SerializeField]
+    private float timeStunnedLeft;
+    [SerializeField]
+    private Color stunColor;
+    //-Health-
     [SerializeField]
     private int health;
     [SerializeField]
@@ -20,17 +28,17 @@ public class baseEnemy : MonoBehaviour
     private float playerTouchPushbackOnEnemy;
     [SerializeField]
     float playerTouchMovementLockTime;
-    //--GRAB ARMOR--
+    //-GRAB ARMOR-
     [SerializeField]
     float failedGrabPushBackEnemy;
     [SerializeField]
     float failedGrabPushBackPlayer;
     //grabArmor determines if an enemy can be grabbed or not
     [SerializeField]
-    int grabArmor;
+    private int grabArmor;
     //max grab armor, will default to after being succesfully grabbed
     [SerializeField]
-    int defaultGrabArmor;
+    private int defaultGrabArmor;
     #endregion
     //private functions
     private void OnCollisionEnter2D(Collision2D collision)
@@ -79,22 +87,55 @@ public class baseEnemy : MonoBehaviour
     {
         return failedGrabPushBackPlayer;
     }
+    public void stunEnemy(float time)
+    {
+        timeStunnedLeft = time;
+        enemyRender.color = stunColor;
+    }
+    public void destunEnemy()
+    {
+        timeStunnedLeft = -1;
+        enemyState = "default";
+        enemyRender.color = originalColor;
+    }
     //health
     public virtual void isDamaged(int damage)
     {
         grabArmor -= damage;
         health -= damage;
     }
-    
+    //updates depends on state
+    public virtual void stateUpdate(string insertedState)
+    {
+        switch (insertedState)
+        {
+            case "default":
+                
+                break; 
+            case "stunned":
+
+                break;
+        }
+    }
     // Start is called before the first frame update
     public virtual void Start()
     {
         enemyRigid = gameObject.GetComponent<Rigidbody2D>();
+        enemyRender = gameObject.GetComponent<SpriteRenderer>();
+        originalColor = enemyRender.color;
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        
+        if(timeStunnedLeft >= 0)
+        {
+            timeStunnedLeft -= Time.deltaTime;
+            if(timeStunnedLeft < 0)
+            {
+                destunEnemy();
+            }
+        }
+        stateUpdate(enemyState);
     }
 }

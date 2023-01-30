@@ -50,6 +50,9 @@ public class grabbableObject : MonoBehaviour
     private float thrownStateTimeLeft;
     [SerializeField]
     private float thrownDrag;
+    //other
+    [SerializeField]
+    private float releaseStateTime;
     #endregion
     //private functions
     public void push(float angle, float strength)
@@ -80,8 +83,16 @@ public class grabbableObject : MonoBehaviour
     {
         return objectPhysics;
     }
+    public float getThrownStateTime()
+    {
+        return thrownStateTime;
+    }
+    public float getReleaseStateTime()
+    {
+        return releaseStateTime;
+    }
     //grabbed
-    public virtual void grabbedEffect(GameObject grabbedBy)
+    public virtual bool grabbedEffect(GameObject grabbedBy)
     {
         objectCollider.isTrigger = true;
         gameObject.layer = 8;
@@ -97,6 +108,7 @@ public class grabbableObject : MonoBehaviour
         {
             print("ERROR- grabbable object " + gameObject.name + " has been grabbed by something without the required component -playerHand-");
         }
+        return true;
     }
     public virtual void whileGrabbedEffect()
     {
@@ -208,7 +220,7 @@ public class grabbableObject : MonoBehaviour
     {
         objectCollider.isTrigger = false;
         gameObject.transform.localScale = originalScale;
-        thrownStateTimeLeft = thrownStateTime;
+        thrownStateTimeLeft = releaseStateTime;
         if (objectLayerScript != null)
         {
             objectLayerScript.enabled = true;
