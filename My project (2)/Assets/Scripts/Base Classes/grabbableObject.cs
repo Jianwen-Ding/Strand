@@ -18,9 +18,11 @@ public class grabbableObject : MonoBehaviour
     //localScale
     private Vector3 originalScale; 
     private float originalDrag;
-    //--Variables for Modification--
     [SerializeField]
     private float grabShrink = 0.5f;
+    //Grab Variables
+    [SerializeField]
+    private bool hasBeenGrabbed;
     //Slash/Use Variables
     [SerializeField]
     private int durability = 3;
@@ -99,6 +101,7 @@ public class grabbableObject : MonoBehaviour
         grabbedByObject = grabbedBy;
         grabbedByObjectScript = grabbedByObject.GetComponent<playerHand>();
         grabbedByObjectRender = grabbedByObject.GetComponent<SpriteRenderer>();
+        hasBeenGrabbed = true;
         gameObject.transform.localScale = gameObject.transform.localScale * grabShrink;
         if(objectLayerScript != null)
         {
@@ -190,7 +193,7 @@ public class grabbableObject : MonoBehaviour
     //thrown
     public virtual void throwEffect(float strength, float angle)
     {
-        grabbedByObjectScript = null;
+        hasBeenGrabbed = false;
         objectPhysics.drag = 0;
         objectRender.color = originialColor;
         objectCollider.isTrigger = false;
@@ -221,6 +224,7 @@ public class grabbableObject : MonoBehaviour
         objectCollider.isTrigger = false;
         gameObject.transform.localScale = originalScale;
         thrownStateTimeLeft = releaseStateTime;
+        hasBeenGrabbed = false;
         if (objectLayerScript != null)
         {
             objectLayerScript.enabled = true;
@@ -263,7 +267,7 @@ public class grabbableObject : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if (grabbedByObjectScript != null && slashTimeLeft >= 0)
+        if (grabbedByObjectScript != null && hasBeenGrabbed && slashTimeLeft >= 0)
         {
             slashTimeLeft -= Time.deltaTime;
             if(slashTimeLeft < 0)
@@ -284,7 +288,7 @@ public class grabbableObject : MonoBehaviour
                 thrownEnd();
             }
         }
-        if(grabbedByObjectScript != null)
+        if(grabbedByObjectScript != null && hasBeenGrabbed)
         {
             if (grabbedByObjectScript.getGrabState() == "grabbed")
             {

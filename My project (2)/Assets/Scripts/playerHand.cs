@@ -58,18 +58,14 @@ public class playerHand : MonoBehaviour
             grabbedScript = insertObject.GetComponent<grabbableObject>();
             if (grabbedScript != null && grabbedScript.grabbedEffect(gameObject))
             {
+                objectPlayerScript.endGrab();
                 grabState = "grabbed";
                 objectRenderScript.enabled = false;
                 objectGrabbed = insertObject;
-                objectPlayerScript.endGrab();
             }
             else if(grabbedScript == null)
             {
                 print("ERROR- object grabbed by " + gameObject.name + " does not have require -grabbableObject- script");
-            }
-            else
-            {
-                grabState = "none";
             }
         }
     }
@@ -119,12 +115,12 @@ public class playerHand : MonoBehaviour
     {
         if(grabState != "grabbed")
         {
+            grabState = "grabbing";
             for (int i = 0; i < objectsInRange.Count; i++)
             {
                 if (objectsInRange[i].GetComponent<grabbableObject>() != null)
                 {
                     grabObject(objectsInRange[i]);
-                    grabState = "grabbing";
                     break;
                 }
             }
