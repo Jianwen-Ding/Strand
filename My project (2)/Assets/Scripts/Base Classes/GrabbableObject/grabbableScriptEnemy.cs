@@ -46,7 +46,6 @@ public class grabbableScriptEnemy : grabbableObject
         else
         {
             enemyScript.loseGrabArmor(1);
-            grabbedByHandScript.releaseObject();
             //-pushes both characters back
             float Angle = Mathf.Rad2Deg * Mathf.Atan2(gameObject.transform.position.y - grabbedByHandScript.getObjectPlayerScript().transform.position.y, gameObject.transform.position.x - grabbedByHandScript.getObjectPlayerScript().transform.position.x );
             //pushes enemy back
