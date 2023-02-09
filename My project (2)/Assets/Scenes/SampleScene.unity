@@ -204,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 213747955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.4932, y: 0.6253, z: 0}
-  m_LocalScale: {x: 0.6234297, y: 1.1076232, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.6, z: 1}
   m_Children:
   - {fileID: 861945312}
   m_Father: {fileID: 0}
@@ -700,8 +700,8 @@ MonoBehaviour:
   objectPlayerPhysicsScript: {fileID: 0}
   objectRenderScript: {fileID: 0}
   yAddition: 0
-  yRange: 0.4
-  xRange: 0.8
+  yRange: 0.2
+  xRange: 0.4
   objectsInRange: []
   grabState: none
   objectGrabbed: {fileID: 0}
@@ -733,6 +733,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.9489462, y: 4.687707}
   m_EdgeRadius: 0
+--- !u!1 &989593747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 989593749}
+  - component: {fileID: 989593748}
+  m_Layer: 0
+  m_Name: pageStorer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &989593748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989593747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45afb16ab23c3ab4fae0db7a3e1bcf25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridInfo: -wow-{true}{false}{true}{false}{orewijiowerj}{sioefjsoeif}[[2,2,5][3][4][2,3,5][3][4]]
+    -wow-{true}{false}{true}{false}{orewijiowerj}{sioefjsoeif}[[2,2,5][3][4][2,3,5][3][4]]-wow-{true}{false}{true}{false}{orewijiowerj}{sioefjsoeif}[[2,2,5][3][4][2,3,5][3][4]]-wow-{true}{false}{true}{false}{orewijiowerj}{sioefjsoeif}[[2,2,5][3][4][2,3,5][3][4]]-wow-{true}{false}{true}{false}{orewijiowerj}{sioefjsoeif}[[2,2,5][3][4][2,3,5][3][4]]-wow-{true}{false}{true}{false}{orewijiowerj}{sioefjsoeif}[[2,2,5][3][4][2,3,5][3][4]]
+    -cool-{true}{false}{true}{false}{orewijiowerj}{sioefjsoeif}[[2,2,5][3][4][2,3,5][3][4,4,4,4]]
+--- !u!4 &989593749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989593747}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0764643, y: 1.4929186, z: -0.095370345}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1066522726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1197,6 +1243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabShrink: 0.5
+  hasBeenGrabbed: 0
   durability: 99
   slashKnockBackStrength: 30
   damage: 0
