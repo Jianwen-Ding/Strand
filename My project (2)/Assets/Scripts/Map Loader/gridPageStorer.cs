@@ -24,10 +24,20 @@ public class gridPageStorer : MonoBehaviour
     // "[" and "," and "]" are used to signify the 2D array
     //DO NOT USE THOSE SYMBOLS OUTSIDE OF THOSE USES OR RISK ERROR
     [SerializeField]
-    private string gridInfo;
+    private static string gridInfo = "GRID PAGES.TXT HAS NOT BEEN ACCSESSED YET";
+    //File Location of TXT file
     [SerializeField]
-    ArrayList gridsAvalable = new ArrayList();
-    class page
+    private const string AccessGridInfoPath = @"Assets\information storage\grid_pages.txt";
+    //Stores all grids here !! USE PAGE CLASS !!
+    [SerializeField]
+    private static ArrayList gridsAvailable = new ArrayList();
+    //Object place in index is key for placement in integer maps, this variable will be plugged into the actual static variable
+    [SerializeField]
+    private GameObject[] gridKeyListSerialized;
+    //Static key to be sent out to others
+    private static GameObject[] gridKeyListStatic;
+    //Storage Class
+    public class page
     {
         private string pageName;
         private bool upOpen;
@@ -62,11 +72,7 @@ public class gridPageStorer : MonoBehaviour
         //Checks if page falls in line with given parameters and is a viable canidate to be placed in
         public bool pageQualifies(bool checkUpOpen, bool checkDownOpen, bool checkLeftOpen, bool checkRightOpen, string checkPageTheme, string checkPageSpecialUse)
         {
-            return ((checkUpOpen == upOpen || checkUpOpen == true) && (checkDownOpen == downOpen || checkDownOpen == true) && (checkRightOpen == rightOpen || checkRightOpen == true) && (checkLeftOpen == leftOpen || checkLeftOpen == true) && (checkPageTheme == pageTheme || pageTheme == "all") && checkPageSpecialUse == pageSpecialUse);
-        }
-        public int[][] getMap()
-        {
-            return pageMap;
+            return ((checkUpOpen == upOpen || upOpen) && (checkDownOpen == downOpen || downOpen) && (checkRightOpen == rightOpen || rightOpen) && (checkLeftOpen == leftOpen || leftOpen) && (checkPageTheme.Equals(pageTheme) || pageTheme.Equals("all")) && checkPageSpecialUse.Equals(pageSpecialUse));
         }
         //Gives Out Entire Value of Map
         public override string ToString()
@@ -93,10 +99,67 @@ public class gridPageStorer : MonoBehaviour
             gridPrint = gridPrint + "]";
             return initialString + gridPrint;
         }
+        //Get set functions
+        public int[][] getMap()
+        {
+            return pageMap;
+        }
+        public string getName()
+        {
+            return pageName;
+        }
     }
-    // Start is called before the first frame update
-    void Start()
+    //Finds random suitable Page
+    public static page findRandomSuitablePage(bool checkUpOpen, bool checkDownOpen, bool checkLeftOpen, bool checkRightOpen, string checkPageTheme, string checkPageSpecialUse)
     {
+        ArrayList suitablePages = new ArrayList();
+        for (int i = 0; i < gridsAvailable.Count; i++)
+        {
+            page currentPage = (page)gridsAvailable[i];
+            if (currentPage.pageQualifies(checkUpOpen, checkDownOpen, checkLeftOpen, checkRightOpen, checkPageTheme, checkPageSpecialUse))
+            {
+                suitablePages.Add(currentPage);
+            }
+        }
+        if (suitablePages.Count != 0)
+        {
+            return (page)suitablePages[Random.Range(0, suitablePages.Count)];
+        }
+        else
+        {
+            print("Could not find any suitable pages");
+            return null;
+        }
+    }
+    //Finds Page with a specific name
+    public static page findPageWithName(string name)
+    {
+        for (int i = 0; i < gridsAvailable.Count; i++)
+        {
+            page currentPage = (page)gridsAvailable[i];
+            if (currentPage.getName() == name)
+            {
+                return currentPage;
+            }
+        }
+        return null;
+    }
+    //Get/Set Functions
+    public static GameObject[] getGridKey()
+    {
+        return gridKeyListStatic;
+    }
+    void Awake()
+    {
+        gridKeyListStatic = gridKeyListSerialized;
+        //Loads in grid pages.txt into gridInfo
+        //Skips first 21 lines
+        string[] segmentedString = System.IO.File.ReadAllLines(AccessGridInfoPath);
+        gridInfo = "";
+        for(int i = 21; i < segmentedString.Length; i++)
+        {
+            gridInfo = gridInfo + segmentedString[i];
+        }
         // Loads Text Into page classes
         /*-FORMAT-
     
@@ -183,17 +246,14 @@ public class gridPageStorer : MonoBehaviour
                 }
                 yAxisIndex++;
             }
-            gridsAvalable.Add(new page(newPageName, newUpOpen, newDownOpen, newLeftOpen, newRightOpen, newPageTheme, newPageSpecialUse, newPageMap));
+            //Combines all information into new page
+            gridsAvailable.Add(new page(newPageName, newUpOpen, newDownOpen, newLeftOpen, newRightOpen, newPageTheme, newPageSpecialUse, newPageMap));
         }
-        for(int i = 0; i < gridsAvalable.Count; i++)
+        /*
+        for(int i = 0; i < gridsAvailable.Count; i++)
         {
-            print(gridsAvalable[i]);
+            print(gridsAvailable[i]);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        */
     }
 }

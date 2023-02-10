@@ -25,11 +25,13 @@ public class grabbableScriptEnemy : grabbableObject
     {
         base.throwEffect(strength, angle);
         enemyScript.stunEnemy(getThrownStateTime());
+        timeUntilReleaseLeft = timeUntilRelease;
     }
     public override void releasedEffect()
     {
         base.releasedEffect();
         enemyScript.stunEnemy(getReleaseStateTime());
+        timeUntilReleaseLeft = timeUntilRelease;
     }
     public override bool grabbedEffect(GameObject grabbedBy)
     {
