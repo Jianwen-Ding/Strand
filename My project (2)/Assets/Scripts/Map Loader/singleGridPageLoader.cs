@@ -45,7 +45,7 @@ public class singleGridPageLoader : MonoBehaviour
         {
             for(int x = 0; x < pageMap[y].Length; x++)
             {
-                GameObject newObject = Instantiate(pageKey[pageMap[y][x]], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridXDistance * y), Quaternion.identity.normalized);
+                GameObject newObject = Instantiate(pageKey[pageMap[y][x]], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                 loadedObject.Add(newObject);
             }
         }

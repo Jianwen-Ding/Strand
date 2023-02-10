@@ -1013,7 +1013,7 @@ GameObject:
   - component: {fileID: 1913166150}
   - component: {fileID: 1913166149}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: gridPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1031,8 +1031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394ee5588f13e44498e26093930d9c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDisplacement: {x: -8.388889, y: -4.5}
-  gridXDistance: 1
+  initialDisplacement: {x: -8.004993, y: -4.5}
+  gridXDistance: 1.777926
   gridYDistance: 1
   upOpen: 1
   downOpen: 1
@@ -1064,6 +1064,10 @@ PrefabInstance:
     - target: {fileID: 6469299925445756563, guid: 1704e64e87b45d948ae0b80ed01470d0, type: 3}
       propertyPath: m_Name
       value: TestGrabbableObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 6469299925445756565, guid: 1704e64e87b45d948ae0b80ed01470d0, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6469299925445756568, guid: 1704e64e87b45d948ae0b80ed01470d0, type: 3}
       propertyPath: m_RootOrder
