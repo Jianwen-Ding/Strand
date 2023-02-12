@@ -127,7 +127,11 @@ public class gridPageStorer : MonoBehaviour
         }
         else
         {
-            print("Could not find any suitable pages");
+            print("ERROR- Could not find any suitable pages ");
+            print("checkUpOpen: "+ checkUpOpen);
+            print("checkDownOpen: " + checkDownOpen);
+            print("checkRightOpen: " + checkRightOpen);
+            print("checkLeftOpen: " + checkLeftOpen);
             return null;
         }
     }
@@ -153,10 +157,10 @@ public class gridPageStorer : MonoBehaviour
     {
         gridKeyListStatic = gridKeyListSerialized;
         //Loads in grid pages.txt into gridInfo
-        //Skips first 21 lines
+        //Skips first 55 lines
         string[] segmentedString = System.IO.File.ReadAllLines(AccessGridInfoPath);
         gridInfo = "";
-        for(int i = 21; i < segmentedString.Length; i++)
+        for(int i = 55; i < segmentedString.Length; i++)
         {
             gridInfo = gridInfo + segmentedString[i];
         }
