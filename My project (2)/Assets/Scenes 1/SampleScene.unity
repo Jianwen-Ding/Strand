@@ -451,7 +451,7 @@ MonoBehaviour:
   initialVector: {x: -8.888889, y: 5}
   xGridLength: 7
   yGridLength: 7
-  percentageChanceForOpen: 30
+  percentageChanceForOpen: 50
   foodSurplusPages: 2
   waterSurplusPages: 2
   scrapSurplusPages: 2

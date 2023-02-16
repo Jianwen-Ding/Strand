@@ -15,13 +15,13 @@ public class girdOverallLoader : MonoBehaviour
     //Steps for generation
     //1- Loads Grid into postion
     //2- Randomly arrange the openings of the pages (each opening calculated using percentageChanceForOpen)
-    //3- Grids next to center must be connected to it
-    //4- Finds Center and uses openings to find all grids that can be travelled to in current configuration
-    //5- Finds Grid connected to center that is next to unconnected to grid and connects the two
+    //3- Resolves one sided connections and patches outstanding opennings
+    //4- Grids next to center must be connected to it
+    //5- Finds Center and uses openings to find all grids that can be travelled to in current configuration
+    //6- Finds Grid connected to center that is next to unconnected to grid and connects the two
     //6- Repeat from step 4-5 until all are connected
-    //7- Resolves one sided connections and patches outstanding opennings
-    //8- Adds a number of resource grids per distance from center randomly
-    //9- Generates pages
+    //7- Adds a number of resource grids per distance from center randomly
+    //8- Generates pages
     [SerializeField]
     string theme;
     [SerializeField]
@@ -75,6 +75,77 @@ public class girdOverallLoader : MonoBehaviour
                 currentLoadedScript.setLoadedIn(false);
             }
         }
+        //2:
+        for (int y = 0; y < pageGridMap.Length; y++)
+        {
+            for (int x = 0; x < pageGridMap[y].Length; x++)
+            {
+                //Checks Page Above
+                if (y + 1 < generationLoadMap.Length)
+                {
+                    if ((pageGridMap[y + 1][x].getUpOpen() || pageGridMap[y][x].getDownOpen()) && (!pageGridMap[y + 1][x].getUpOpen() || !pageGridMap[y][x].getDownOpen()))
+                    {
+                        pageGridMap[y + 1][x].setUpOpen(true);
+                        pageGridMap[y][x].setDownOpen(true);
+                    }
+                }
+                else
+                {
+                    if (pageGridMap[y][x].getDownOpen())
+                    {
+                        pageGridMap[y][x].setDownOpen(false);
+                    }
+                }
+                //Checks Page Below
+                if (y - 1 >= 0)
+                {
+                    if ((pageGridMap[y - 1][x].getDownOpen() || pageGridMap[y][x].getUpOpen()) && (!pageGridMap[y - 1][x].getDownOpen() || !pageGridMap[y][x].getUpOpen()))
+                    {
+                        pageGridMap[y - 1][x].setDownOpen(true);
+                        pageGridMap[y][x].setUpOpen(true);
+                    }
+                }
+                else
+                {
+                    if (pageGridMap[y][x].getUpOpen())
+                    {
+                        pageGridMap[y][x].setUpOpen(false);
+                    }
+                }
+                //Checks Page Right
+                if (x + 1 < generationLoadMap[y].Length)
+                {
+                    if ((pageGridMap[y][x + 1].getRightOpen() || pageGridMap[y][x].getLeftOpen()) && (!pageGridMap[y][x + 1].getRightOpen() || !pageGridMap[y][x].getLeftOpen()))
+                    {
+                        pageGridMap[y][x + 1].setRightOpen(true);
+                        pageGridMap[y][x].setLeftOpen(true);
+                    }
+                }
+                else
+                {
+                    if (pageGridMap[y][x].getLeftOpen())
+                    {
+                        pageGridMap[y][x].setLeftOpen(false);
+                    }
+                }
+                //Checks Page Left
+                if (x - 1 >= 0)
+                {
+                    if ((pageGridMap[y][x - 1].getLeftOpen() || pageGridMap[y][x].getRightOpen()) && (!pageGridMap[y][x - 1].getLeftOpen() || !pageGridMap[y][x].getRightOpen()))
+                    {
+                        pageGridMap[y][x - 1].setLeftOpen(true);
+                        pageGridMap[y][x].setRightOpen(true);
+                    }
+                }
+                else
+                {
+                    if (pageGridMap[y][x].getRightOpen())
+                    {
+                        pageGridMap[y][x].setRightOpen(false);
+                    }
+                }
+            }
+        }
         //3: connects center to everything next to it
         centerX = (xGridLength / 2);
         centerY = (yGridLength / 2);
@@ -94,7 +165,7 @@ public class girdOverallLoader : MonoBehaviour
         pageGridMap[centerY][centerX - 1].setLeftOpen(true);
         pageGridMap[centerY][centerX - 1].setUpOpen(true);
         bool hasFilledIn = false;
-        int currentDistance = 1;
+        int currentDistance;
         //Loops until the entire grid is accessible
         while (!hasFilledIn)
         {
@@ -172,48 +243,45 @@ public class girdOverallLoader : MonoBehaviour
                     bool downPossible = false;
                     bool rightPossible = false;
                     bool leftPossible = false;
+                    int possible = 0;
                     //Checks Page Above
                     if (y + 1 < generationLoadMap.Length && generationLoadMap[y + 1][x] == 0)
                     {
-                        pageGridMap[y + 1][x].setUpOpen(true);
-                        pageGridMap[y][x].setDownOpen(true);
+                        possible++;
                         upPossible = true;
                     }
                     //Checks Page Below
                     else if (y - 1 >= 0 && generationLoadMap[y - 1][x] == 0)
                     {
-                        pageGridMap[y - 1][x].setDownOpen(true);
-                        pageGridMap[y][x].setUpOpen(true);
+                        possible++;
                         downPossible = true;
                     }
                     //Checks Page Right
                     else if (x + 1 < generationLoadMap[y].Length && generationLoadMap[y][x + 1] == 0)
                     {
-                        pageGridMap[y][x + 1].setRightOpen(true);
-                        pageGridMap[y][x].setLeftOpen(true);
+                        possible++;
                         rightPossible = true;
                     }
                     //Checks Page Left
                     else if (x - 1 >= 0 && generationLoadMap[y][x - 1] == 0)
                     {
-                        pageGridMap[y][x - 1].setLeftOpen(true);
-                        pageGridMap[y][x].setRightOpen(true);
+                        possible++;
                         leftPossible = true;
                     }
                     //Randomly Picks a possible move
                     if (leftPossible || upPossible || downPossible || rightPossible)
                     {
-                        if (leftPossible && ((!upPossible && !downPossible && !rightPossible) || Random.Range(0, 2) == 0))
+                        if (leftPossible && ((!upPossible && !downPossible && !rightPossible) || Random.Range(0, possible + 2) == 0))
                         {
                             pageGridMap[y][x - 1].setLeftOpen(true);
                             pageGridMap[y][x].setRightOpen(true);
                         }
-                        if (rightPossible && ((!upPossible && !downPossible) || Random.Range(0, 2) == 0))
+                        if (rightPossible && ((!upPossible && !downPossible) || Random.Range(0, possible + 2) == 0))
                         {
                             pageGridMap[y][x + 1].setRightOpen(true);
                             pageGridMap[y][x].setLeftOpen(true);
                         }
-                        if (upPossible && ((!downPossible) || Random.Range(0, 2) == 0))
+                        if (upPossible && ((!downPossible) || Random.Range(0, possible + 2) == 0))
                         {
                             pageGridMap[y + 1][x].setUpOpen(true);
                             pageGridMap[y][x].setDownOpen(true);
@@ -233,78 +301,7 @@ public class girdOverallLoader : MonoBehaviour
             }
 
         }
-        //7: finds oppenings that lead to nowhere and closes off all external oppenings
-        for (int y = 0; y < pageGridMap.Length; y++)
-        {
-            for (int x = 0; x < pageGridMap[y].Length; x++)
-            {
-                //Checks Page Above
-                if (y + 1 < generationLoadMap.Length)
-                {
-                    if ((pageGridMap[y + 1][x].getUpOpen() || pageGridMap[y][x].getDownOpen()) && (!pageGridMap[y + 1][x].getUpOpen() || !pageGridMap[y][x].getDownOpen()))
-                    {
-                        pageGridMap[y + 1][x].setUpOpen(true);
-                        pageGridMap[y][x].setDownOpen(true);
-                    }
-                }
-                else
-                {
-                    if (pageGridMap[y][x].getDownOpen())
-                    {
-                        pageGridMap[y][x].setDownOpen(false);
-                    }
-                }
-                //Checks Page Below
-                if (y - 1 >= 0)
-                {
-                    if ((pageGridMap[y - 1][x].getDownOpen() || pageGridMap[y][x].getUpOpen()) && (!pageGridMap[y - 1][x].getDownOpen() || !pageGridMap[y][x].getUpOpen()))
-                    {
-                        pageGridMap[y - 1][x].setDownOpen(true);
-                        pageGridMap[y][x].setUpOpen(true);
-                    }
-                }
-                else
-                {
-                    if (pageGridMap[y][x].getUpOpen())
-                    {
-                        pageGridMap[y][x].setUpOpen(false);
-                    }
-                }
-                //Checks Page Right
-                if (x + 1 < generationLoadMap[y].Length)
-                {
-                    if ((pageGridMap[y][x + 1].getRightOpen() || pageGridMap[y][x].getLeftOpen()) && (!pageGridMap[y][x + 1].getRightOpen() || !pageGridMap[y][x].getLeftOpen()))
-                    {
-                        pageGridMap[y][x + 1].setRightOpen(true);
-                        pageGridMap[y][x].setLeftOpen(true);
-                    }
-                }
-                else
-                {
-                    if (pageGridMap[y][x].getLeftOpen())
-                    {
-                        pageGridMap[y][x].setLeftOpen(false);
-                    }
-                }
-                //Checks Page Left
-                if (x - 1 >= 0)
-                {
-                    if ((pageGridMap[y][x - 1].getLeftOpen() || pageGridMap[y][x].getRightOpen()) && (!pageGridMap[y][x - 1].getLeftOpen() || !pageGridMap[y][x].getRightOpen()))
-                    {
-                        pageGridMap[y][x - 1].setLeftOpen(true);
-                        pageGridMap[y][x].setRightOpen(true);
-                    }
-                }
-                else
-                {
-                    if (pageGridMap[y][x].getRightOpen())
-                    {
-                        pageGridMap[y][x].setRightOpen(false);
-                    }
-                }
-            }
-        }
-        //8: Loads in special use pages
+        //7: Loads in special use pages
         for (int i = 0; i < foodSurplusPages; i++)
         {
             int y = Random.Range(0, pageGridMap.Length);
@@ -339,7 +336,7 @@ public class girdOverallLoader : MonoBehaviour
             pageGridMap[y][x].setPageSpecialUse("scrap");
         }
         //Loads in Water Grid Surplus Pages
-        //9: Loads in grid pages
+        //8: Loads in grid pages
         for (int y = 0; y < pageGridMap.Length; y++)
         {
             for (int x = 0; x < pageGridMap[y].Length; x++)
