@@ -19,10 +19,13 @@ public class girdOverallLoader : MonoBehaviour
     //4- Finds Center and uses openings to find all grids that can be travelled to in current configuration
     //5- Finds Grid connected to center that is next to unconnected to grid and connects the two
     //6- Repeat from step 4-5 until all are connected
-    //7- Adds a bunch of connections between pages randomly
-    //7- Adds a number of resource grids per distance from center randomly
+    //7- Resolves one sided connections and patches outstanding opennings
+    //8- Adds a number of resource grids per distance from center randomly
+    //9- Generates pages
     [SerializeField]
     string theme;
+    [SerializeField]
+    private Vector2 initialVector;
     private Vector2 diffrenceBetweenPages = new Vector2((float)-17.7777782, 10);
     //USE UNEVEN NUMBER FOR GRID LENGTH IN ORDER TO MAKE A SINGLE CENTER GRID
     [SerializeField]
@@ -34,7 +37,15 @@ public class girdOverallLoader : MonoBehaviour
     private float percentageChanceForOpen;
     private int centerX;
     private int centerY;
-
+    //Amount of Food Surplus pages
+    [SerializeField]
+    private int foodSurplusPages;
+    //Amount of Water Surplus pages
+    [SerializeField]
+    private int waterSurplusPages;
+    //Amount of Scrap Surplus pages
+    [SerializeField]
+    private int scrapSurplusPages;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +62,7 @@ public class girdOverallLoader : MonoBehaviour
             for (int x = 0; x < xGridLength; x++)
             {
                 generationLoadMap[y][x] = 0;
-                GameObject loadedObject = Instantiate(pagePrefab, new Vector3((diffrenceBetweenPages.x * xGridLength) / 2 + diffrenceBetweenPages.x * x, (diffrenceBetweenPages.y * xGridLength) / 2 + diffrenceBetweenPages.y * y), Quaternion.identity.normalized);
+                GameObject loadedObject = Instantiate(pagePrefab, new Vector3(initialVector.x + (-diffrenceBetweenPages.x * xGridLength) / 2 + diffrenceBetweenPages.x * x, initialVector.y + (-diffrenceBetweenPages.y * xGridLength) / 2 + diffrenceBetweenPages.y * y), Quaternion.identity.normalized);
                 singleGridPageLoader currentLoadedScript = loadedObject.GetComponent<singleGridPageLoader>();
                 pageGridMap[y][x] = currentLoadedScript;
                 //2: Randomly arrange the openings of the pages
@@ -156,7 +167,7 @@ public class girdOverallLoader : MonoBehaviour
                 {
                     int x = (int)((Vector2)((ArrayList)accessibleLocations[dist])[i]).x;
                     int y = (int)((Vector2)((ArrayList)accessibleLocations[dist])[i]).y;
-                    //Finds closest page that is next to a non accessible page
+                    //6: Finds closest page that is next to a non accessible page
                     bool upPossible = false;
                     bool downPossible = false;
                     bool rightPossible = false;
@@ -171,8 +182,8 @@ public class girdOverallLoader : MonoBehaviour
                     //Checks Page Below
                     else if (y - 1 >= 0 && generationLoadMap[y - 1][x] == 0)
                     {
-                        pageGridMap[y - 1][x].setUpOpen(true);
-                        pageGridMap[y][x].setDownOpen(true);
+                        pageGridMap[y - 1][x].setDownOpen(true);
+                        pageGridMap[y][x].setUpOpen(true);
                         downPossible = true;
                     }
                     //Checks Page Right
@@ -222,17 +233,121 @@ public class girdOverallLoader : MonoBehaviour
             }
 
         }
-        //Loads in grid pages
+        //7: finds oppenings that lead to nowhere and closes off all external oppenings
         for (int y = 0; y < pageGridMap.Length; y++)
         {
-            for (int x = 0; x < pageGridMap.Length; x++)
+            for (int x = 0; x < pageGridMap[y].Length; x++)
+            {
+                //Checks Page Above
+                if (y + 1 < generationLoadMap.Length)
+                {
+                    if ((pageGridMap[y + 1][x].getUpOpen() || pageGridMap[y][x].getDownOpen()) && (!pageGridMap[y + 1][x].getUpOpen() || !pageGridMap[y][x].getDownOpen()))
+                    {
+                        pageGridMap[y + 1][x].setUpOpen(true);
+                        pageGridMap[y][x].setDownOpen(true);
+                    }
+                }
+                else
+                {
+                    if (pageGridMap[y][x].getDownOpen())
+                    {
+                        pageGridMap[y][x].setDownOpen(false);
+                    }
+                }
+                //Checks Page Below
+                if (y - 1 >= 0)
+                {
+                    if ((pageGridMap[y - 1][x].getDownOpen() || pageGridMap[y][x].getUpOpen()) && (!pageGridMap[y - 1][x].getDownOpen() || !pageGridMap[y][x].getUpOpen()))
+                    {
+                        pageGridMap[y - 1][x].setDownOpen(true);
+                        pageGridMap[y][x].setUpOpen(true);
+                    }
+                }
+                else
+                {
+                    if (pageGridMap[y][x].getUpOpen())
+                    {
+                        pageGridMap[y][x].setUpOpen(false);
+                    }
+                }
+                //Checks Page Right
+                if (x + 1 < generationLoadMap[y].Length)
+                {
+                    if ((pageGridMap[y][x + 1].getRightOpen() || pageGridMap[y][x].getLeftOpen()) && (!pageGridMap[y][x + 1].getRightOpen() || !pageGridMap[y][x].getLeftOpen()))
+                    {
+                        pageGridMap[y][x + 1].setRightOpen(true);
+                        pageGridMap[y][x].setLeftOpen(true);
+                    }
+                }
+                else
+                {
+                    if (pageGridMap[y][x].getLeftOpen())
+                    {
+                        pageGridMap[y][x].setLeftOpen(false);
+                    }
+                }
+                //Checks Page Left
+                if (x - 1 >= 0)
+                {
+                    if ((pageGridMap[y][x - 1].getLeftOpen() || pageGridMap[y][x].getRightOpen()) && (!pageGridMap[y][x - 1].getLeftOpen() || !pageGridMap[y][x].getRightOpen()))
+                    {
+                        pageGridMap[y][x - 1].setLeftOpen(true);
+                        pageGridMap[y][x].setRightOpen(true);
+                    }
+                }
+                else
+                {
+                    if (pageGridMap[y][x].getRightOpen())
+                    {
+                        pageGridMap[y][x].setRightOpen(false);
+                    }
+                }
+            }
+        }
+        //8: Loads in special use pages
+        for (int i = 0; i < foodSurplusPages; i++)
+        {
+            int y = Random.Range(0, pageGridMap.Length);
+            int x = Random.Range(0, pageGridMap[y].Length);
+            while (pageGridMap[y][x].getPageSpecialUse() != "default")
+            {
+                y = Random.Range(0, pageGridMap.Length);
+                x = Random.Range(0, pageGridMap[y].Length);
+            }
+            pageGridMap[y][x].setPageSpecialUse("food");
+        }
+        for (int i = 0; i < waterSurplusPages; i++)
+        {
+            int y = Random.Range(0, pageGridMap.Length);
+            int x = Random.Range(0, pageGridMap[y].Length);
+            while (pageGridMap[y][x].getPageSpecialUse() != "default")
+            {
+                y = Random.Range(0, pageGridMap.Length);
+                x = Random.Range(0, pageGridMap[y].Length);
+            }
+            pageGridMap[y][x].setPageSpecialUse("water");
+        }
+        for (int i = 0; i < scrapSurplusPages; i++)
+        {
+            int y = Random.Range(0, pageGridMap.Length);
+            int x = Random.Range(0, pageGridMap[y].Length);
+            while (pageGridMap[y][x].getPageSpecialUse() != "default")
+            {
+                y = Random.Range(0, pageGridMap.Length);
+                x = Random.Range(0, pageGridMap[y].Length);
+            }
+            pageGridMap[y][x].setPageSpecialUse("scrap");
+        }
+        //Loads in Water Grid Surplus Pages
+        //9: Loads in grid pages
+        for (int y = 0; y < pageGridMap.Length; y++)
+        {
+            for (int x = 0; x < pageGridMap[y].Length; x++)
             {
                 ((singleGridPageLoader)pageGridMap[y][x]).generateGrid();
             }
         }
-    }
-
-    // Update is called once per frame
+    }    // Update is called once per frame
     void Update()
     {
         
