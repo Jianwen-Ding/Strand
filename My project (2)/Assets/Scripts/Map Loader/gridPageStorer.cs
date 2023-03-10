@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class gridPageStorer : MonoBehaviour
@@ -27,7 +28,9 @@ public class gridPageStorer : MonoBehaviour
     private static string gridInfo = "GRID PAGES.TXT HAS NOT BEEN ACCSESSED YET";
     //File Location of TXT file
     [SerializeField]
-    private const string AccessGridInfoPath = @"Assets\information storage\grid_pages.txt";
+    private const string AccessGridInfoPath = "grid_pages";
+    [SerializeField]
+    private const string AccessGridInfoPathFull = @"/grid_pages.txt";
     //Stores all grids here !! USE PAGE CLASS !!
     [SerializeField]
     private static ArrayList gridsAvailable = new ArrayList();
@@ -156,14 +159,12 @@ public class gridPageStorer : MonoBehaviour
     void Awake()
     {
         gridKeyListStatic = gridKeyListSerialized;
+        string pathFull = Application.streamingAssetsPath + AccessGridInfoPathFull;
         //Loads in grid pages.txt into gridInfo
-        //Skips first 55 lines
-        string[] segmentedString = System.IO.File.ReadAllLines(AccessGridInfoPath);
-        gridInfo = "";
-        for(int i = 55; i < segmentedString.Length; i++)
-        {
-            gridInfo = gridInfo + segmentedString[i];
-        }
+        StreamReader reader = new StreamReader(pathFull);
+        gridInfo = reader.ReadToEnd();
+        gridInfo = gridInfo.Substring(gridInfo.IndexOf("|"));
+        reader.Close();
         // Loads Text Into page classes
         /*-FORMAT-
     
