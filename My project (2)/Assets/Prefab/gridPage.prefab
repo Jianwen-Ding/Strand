@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1378364875229420761}
   - component: {fileID: 1378364875229420762}
   - component: {fileID: -6686323819803154437}
+  - component: {fileID: 1080233782734363842}
+  - component: {fileID: 7808332853860490064}
   m_Layer: 0
   m_Name: gridPage
   m_TagString: Untagged
@@ -44,15 +46,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394ee5588f13e44498e26093930d9c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDisplacement: {x: -8.004993, y: -4.5}
-  gridXDistance: 0.888963
-  gridYDistance: 0.5
+  initialDisplacement: {x: -8.45, y: -4.8}
+  gridXDistance: 1.185284
+  gridYDistance: 0.6666667
   upOpen: 1
   downOpen: 1
   rightOpen: 1
   leftOpen: 1
   pageTheme: all
   pageSpecialUse: default
+  pageKey:
+  - {fileID: 7674073175680907613, guid: 87d7564ceca07aa47b562c3354ee0736, type: 3}
+  - {fileID: 6537697085213654223, guid: 11b079a128ea94d4788c6ea995c9f7da, type: 3}
+  displacementKey:
+  - {x: 0, y: 0.0618}
+  - {x: 0, y: 0.0618}
   generatedYet: 0
   loadedIn: 0
 --- !u!212 &-6686323819803154437
@@ -94,7 +102,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -181341713
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: f9161c6c9e06dc445ada3ee16d991f90, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -106,3 +114,46 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &1080233782734363842
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378364875229420763}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.11575091, y: -0.05226785}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.24, y: 0.24}
+    newSize: {x: 0.24, y: 0.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.358442, y: 1.8434333}
+  m_EdgeRadius: 0
+--- !u!114 &7808332853860490064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378364875229420763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7362832e9bb71e4d83e4d24718372a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesInGrid:
+  - {fileID: 0}
+  overallLoader: {fileID: 0}
+  gridPositionX: 0
+  gridPositionY: 0

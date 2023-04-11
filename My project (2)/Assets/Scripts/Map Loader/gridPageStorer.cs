@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class gridPageStorer : MonoBehaviour
 {
+    //---IMPORTANT-----
+    //ON EVERY BUILD REMEMBER TO INSERT GRID_PAGES INTO _INFO FILE
     //---STRING THAT STORES ALL PAGE CLASSES, WILL BE CONVERTED IN START FUNCTION--
     /*-FORMAT-
     
@@ -30,7 +32,7 @@ public class gridPageStorer : MonoBehaviour
     [SerializeField]
     private const string AccessGridInfoPath = "grid_pages";
     [SerializeField]
-    private const string AccessGridInfoPathFull = @"/grid_pages.txt";
+    private const string AccessGridInfoPathFull = "/grid_pages.txt";
     //Stores all grids here !! USE PAGE CLASS !!
     [SerializeField]
     private static ArrayList gridsAvailable = new ArrayList();
@@ -159,12 +161,10 @@ public class gridPageStorer : MonoBehaviour
     void Awake()
     {
         gridKeyListStatic = gridKeyListSerialized;
-        string pathFull = Application.streamingAssetsPath + AccessGridInfoPathFull;
+        string pathFull = Application.dataPath + AccessGridInfoPathFull;
         //Loads in grid pages.txt into gridInfo
-        StreamReader reader = new StreamReader(pathFull);
-        gridInfo = reader.ReadToEnd();
+        gridInfo = File.ReadAllText(pathFull);
         gridInfo = gridInfo.Substring(gridInfo.IndexOf("|"));
-        reader.Close();
         // Loads Text Into page classes
         /*-FORMAT-
     

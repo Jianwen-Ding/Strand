@@ -31,7 +31,11 @@ public class singleGridPageLoader : MonoBehaviour
     //integer map of layout to be found later
     private int[][] pageMap;
     //key for integer map
+    [SerializeField]
     private GameObject[] pageKey;
+    //displacement that lines up with each part of the key
+    [SerializeField]
+    private Vector2[] displacementKey;
     //Determines if grid has been generated yet
     [SerializeField]
     private bool generatedYet = false;
@@ -39,6 +43,7 @@ public class singleGridPageLoader : MonoBehaviour
     [SerializeField]
     private bool loadedIn = false;
     //-- parameters to load and unload with based on distance--
+    [SerializeField]
     ArrayList loadedObject = new ArrayList();
     //Get/Set Variable
     public bool getUpOpen()
@@ -122,55 +127,56 @@ public class singleGridPageLoader : MonoBehaviour
                     switch (pageMap[y][x]) 
                     { 
                         default:
-                            newObject = Instantiate(pageKey[pageMap[y][x]], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                            newObject = Instantiate(pageKey[pageMap[y][x]], new Vector3(displacementKey[pageMap[y][x]].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[pageMap[y][x]].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             break;
 
                         case 2:
                             if (upOpen)
                             {
-                                newObject = Instantiate(pageKey[0], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                                newObject = Instantiate(pageKey[0], new Vector3(displacementKey[0].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[0].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             else
                             {
-                                newObject = Instantiate(pageKey[1], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                                newObject = Instantiate(pageKey[1], new Vector3(displacementKey[1].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[1].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             break;
 
                         case 3:
                             if (rightOpen)
                             {
-                                newObject = Instantiate(pageKey[0], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                                newObject = Instantiate(pageKey[0], new Vector3(displacementKey[0].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[0].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             else
                             {
-                                newObject = Instantiate(pageKey[1], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                                newObject = Instantiate(pageKey[1], new Vector3(displacementKey[1].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[1].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             break;
 
                         case 4:
                             if (downOpen)
                             {
-                                newObject = Instantiate(pageKey[0], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                                newObject = Instantiate(pageKey[0], new Vector3(displacementKey[0].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[0].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             else
                             {
-                                newObject = Instantiate(pageKey[1], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                                newObject = Instantiate(pageKey[1], new Vector3(displacementKey[1].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[1].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             break;
 
                         case 5:
                             if (leftOpen)
                             {
-                                newObject = Instantiate(pageKey[0], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                                newObject = Instantiate(pageKey[0], new Vector3(displacementKey[0].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[0].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             else
                             {
-                                newObject = Instantiate(pageKey[1], new Vector3(initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                                newObject = Instantiate(pageKey[1], new Vector3(displacementKey[1].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[1].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             break;
 
                     }
                     loadedObject.Add(newObject);
+                    newObject.transform.parent = gameObject.transform;
                 }
             }
         }
@@ -178,16 +184,6 @@ public class singleGridPageLoader : MonoBehaviour
         {
             print("ERROR- THIS GRID SEEMS TO HAVE ALREADY BEEN GENERATED BUT FUNCTION -generateGrid- HAS BEEN CALLED AGAIN");
         }
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-    
-    }
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 }
