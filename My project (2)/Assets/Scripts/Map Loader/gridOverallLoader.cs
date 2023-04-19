@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class gridOverallLoader : MonoBehaviour
 {
+    //Setup variables
+    //This needs to be attached through serializeField
+    [SerializeField]
+    private miniMapGenerator miniMap;
     //Player Locations 
     [SerializeField]
     private int playerLocationX;
@@ -355,11 +359,19 @@ public class gridOverallLoader : MonoBehaviour
                 ((singleGridPageLoader)pageGridMap[y][x]).generateGrid();
             }
         }
+        //begins mini map generation
+        miniMap.loadMiniMap();
         //deactivates distants grids and places player
         updatePlayerPosition(centerX, centerY);
     }
+    //Public functions
+    public singleGridPageLoader[][] getPageGridMap()
+    {
+        return pageGridMap;
+    }
     public void updatePlayerPosition(int positionX, int positionY)
     {
+        //Updates loading status of surrounding grids
         playerLocationX = positionX;
         playerLocationY = positionY;
         for(int y = 0; y < pageGridMap.Length; y++)
@@ -376,6 +388,9 @@ public class gridOverallLoader : MonoBehaviour
                 }
             }
         }
+        //Updates loading status of minimap
+        miniMap.recenterMiniMap(positionX, positionY);
+        miniMap.getMiniMapGridSymbols()[positionY][positionX].SetActive(true);
     }
     public int getPlayerPositionX()
     {
@@ -384,6 +399,14 @@ public class gridOverallLoader : MonoBehaviour
     public int getPlayerPositionY()
     {
         return playerLocationY;
+    }
+    public int getXGridLength()
+    {
+        return xGridLength;
+    }
+    public int getYGridLength()
+    {
+        return yGridLength;
     }
     // Update is called once per frame
     void Update()
