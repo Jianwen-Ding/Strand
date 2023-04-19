@@ -92,9 +92,9 @@ public class miniMapGenerator : MonoBehaviour
         generatedGrids = new GameObject[gridLoader.getYGridLength()][];
     }
     //public functions
-    public void recenterMiniMap(int xGrid, int yGrid)
+    public void recenterMiniMap(int xGrid, int yGrid, int centerGridX, int centerGridY)
     {
-        gameObject.transform.position = new Vector3(xGrid * distanceApart.x + displacementStart.x, yGrid * distanceApart.y + displacementStart.y);
+        gameObject.transform.localPosition= new Vector3((xGrid - centerGridX) * distanceApart.x + displacementStart.x, (yGrid-centerGridY) * distanceApart.y + displacementStart.y);
     }
     public GameObject[][] getMiniMapGridSymbols()
     {
