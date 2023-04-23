@@ -389,7 +389,7 @@ public class gridOverallLoader : MonoBehaviour
             }
         }
         //Updates loading status of minimap
-        miniMap.recenterMiniMap(playerLocationX, playerLocationY, centerX, centerY);
+        miniMap.recenterMiniMap(playerLocationX, playerLocationY);
         miniMap.getMiniMapGridSymbols()[positionY][positionX].SetActive(true);
     }
     public int getPlayerPositionX()

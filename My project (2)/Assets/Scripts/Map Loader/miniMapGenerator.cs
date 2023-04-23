@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class miniMapGenerator : MonoBehaviour
 {
-    //Generation Parameters
+    //--Generation Parameters--
     [SerializeField]
     private Vector2 distanceApart;
     [SerializeField]
     private GameObject[][] generatedGrids;
+    //sprite renderers used for player tracking
+    [SerializeField]
+    private Image[][] generatedSpriteRenderers;
     [SerializeField]
     private Vector2 displacementStart;
-    //Generative Prefabs
+    [SerializeField]
+    private Color defualtGridColor;
+    [SerializeField]
+    private Color playerOnGridColor;
+    //--Generative Prefabs--
     [SerializeField]
     private GameObject[] gridSymbol;
     [SerializeField]
@@ -22,21 +30,27 @@ public class miniMapGenerator : MonoBehaviour
     private GameObject waterSymbol;
     [SerializeField]
     private GameObject scrapSymbol;
-    //Setup variables
+    //--Setup variables--
     [SerializeField]
     private gridOverallLoader gridLoader;
-    //Changing variables
+    //--Changing variables--
     [SerializeField]
     private bool loadedIn = false;
+    [SerializeField]
+    private int loadedPlayerX = -99;
+    [SerializeField]
+    private int loadedPlayerY = -99;
     // Start is called before the first frame update
     public void loadMiniMap()
     {
         loadedIn = true;
         gridLoader = Camera.main.gameObject.GetComponent<gridOverallLoader>();
         generatedGrids = new GameObject[gridLoader.getYGridLength()][];
+        generatedSpriteRenderers = new Image[gridLoader.getYGridLength()][];
         for (int y = 0; y < generatedGrids.Length; y++)
         {
             generatedGrids[y] = new GameObject[gridLoader.getXGridLength()];
+            generatedSpriteRenderers[y] = new Image[gridLoader.getXGridLength()];
             for (int x = 0; x < generatedGrids[y].Length; x++)
             {
                 //Finds matching generated grid prefab
@@ -51,6 +65,8 @@ public class miniMapGenerator : MonoBehaviour
                 //Spawns in grid
                 generatedGrids[y][x] = Instantiate(gridSymbol[foundMatch], new Vector3(distanceApart.x * x, distanceApart.y * y), Quaternion.identity.normalized);
                 generatedGrids[y][x].transform.SetParent(gameObject.transform);
+                //gets sprite renderer component
+                generatedSpriteRenderers[y][x] = generatedGrids[y][x].GetComponent<Image>();
                 //Spawns in special symbol
                 GameObject foundSymbolPrefab = null;
                 switch (gridLoader.getPageGridMap()[y][x].getPageSpecialUse()) 
@@ -92,9 +108,18 @@ public class miniMapGenerator : MonoBehaviour
         generatedGrids = new GameObject[gridLoader.getYGridLength()][];
     }
     //public functions
-    public void recenterMiniMap(int xGrid, int yGrid, int centerGridX, int centerGridY)
+    public void recenterMiniMap(int xGrid, int yGrid)
     {
-        gameObject.transform.localPosition= new Vector3((xGrid - centerGridX) * distanceApart.x + displacementStart.x, (yGrid-centerGridY) * distanceApart.y + displacementStart.y);
+        if (loadedPlayerX == -99 && loadedPlayerY == -99)
+        {
+            loadedPlayerX = xGrid;
+            loadedPlayerY = yGrid;
+        }
+        generatedSpriteRenderers[loadedPlayerY][loadedPlayerX].color = defualtGridColor;
+        generatedSpriteRenderers[yGrid][xGrid].color = playerOnGridColor;
+        gameObject.transform.position += gameObject.transform.parent.position - generatedGrids[yGrid][xGrid].transform.position;
+        loadedPlayerX = xGrid;
+        loadedPlayerY = yGrid;
     }
     public GameObject[][] getMiniMapGridSymbols()
     {
