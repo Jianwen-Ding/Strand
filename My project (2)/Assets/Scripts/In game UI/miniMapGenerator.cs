@@ -33,17 +33,30 @@ public class miniMapGenerator : MonoBehaviour
     //--Setup variables--
     [SerializeField]
     private gridOverallLoader gridLoader;
+    //Canvas with a higher sprite layer to be used for map screen
+    [SerializeField]
+    private GameObject higherLayerCanvas;
+    [SerializeField]
+    private GameObject defaultTransformParent;
+    [SerializeField]
+    private Vector3 displayScaleUp;
+    [SerializeField]
+    private Vector3 displayDefaultScale;
+    [SerializeField]
+    private float displayScaleUpRatio;
     //--Changing variables--
     [SerializeField]
-    private bool loadedIn = false;
+    private bool onMainDisplay = false;
     [SerializeField]
     private int loadedPlayerX = -99;
     [SerializeField]
     private int loadedPlayerY = -99;
     // Start is called before the first frame update
+    public void Start()
+    {
+    }
     public void loadMiniMap()
     {
-        loadedIn = true;
         gridLoader = Camera.main.gameObject.GetComponent<gridOverallLoader>();
         generatedGrids = new GameObject[gridLoader.getYGridLength()][];
         generatedSpriteRenderers = new Image[gridLoader.getYGridLength()][];
@@ -117,13 +130,35 @@ public class miniMapGenerator : MonoBehaviour
         }
         generatedSpriteRenderers[loadedPlayerY][loadedPlayerX].color = defualtGridColor;
         generatedSpriteRenderers[yGrid][xGrid].color = playerOnGridColor;
-        gameObject.transform.position += gameObject.transform.parent.position - generatedGrids[yGrid][xGrid].transform.position;
+        if(!onMainDisplay)
+        {
+            gameObject.transform.position += gameObject.transform.parent.position - generatedGrids[yGrid][xGrid].transform.position;
+        }
+        else
+        {
+            gameObject.transform.position += gameObject.transform.parent.position - generatedGrids[yGrid][xGrid].transform.position;
+        }
         loadedPlayerX = xGrid;
         loadedPlayerY = yGrid;
     }
     public GameObject[][] getMiniMapGridSymbols()
     {
         return generatedGrids;
+    }
+    public void activateOnMainDisplay()
+    {
+
+        onMainDisplay = true;
+        gameObject.transform.SetParent(higherLayerCanvas.transform);
+        gameObject.transform.localScale = displayScaleUp;
+        gameObject.transform.position += gameObject.transform.parent.position - generatedGrids[loadedPlayerY][loadedPlayerX].transform.position;
+    }
+    public void deactivateOnMainDisplay()
+    {
+        onMainDisplay = false;
+        gameObject.transform.SetParent(defaultTransformParent.transform);
+        gameObject.transform.localScale = displayDefaultScale;
+        gameObject.transform.position += gameObject.transform.parent.position - generatedGrids[loadedPlayerY][loadedPlayerX].transform.position;
     }
     // Update is called once per frame
     void Update()
