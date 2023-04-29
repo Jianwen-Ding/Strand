@@ -33,7 +33,7 @@ public class nightSystem : MonoBehaviour
         return timeDifficultyMultiplier;
     }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         timeUntilNight = timeUntilNightSet;
         currentTimePassed = currentTimePassedSet;
