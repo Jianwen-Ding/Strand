@@ -7,6 +7,10 @@ public class nightSystem : MonoBehaviour
     //Only one of this should exist since it uses static
     //--STATIC VARIABLES--
     [SerializeField]
+    private static int daysSpent;
+    [SerializeField]
+    private static float daySpendDifficultyMultiplier;
+    [SerializeField]
     private static float timeUntilNight;
     [SerializeField]
     private static float currentTimePassed;
@@ -35,11 +39,11 @@ public class nightSystem : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        daySpendDifficultyMultiplier = PlayerPrefs.GetInt("daysSpent", 0);
         timeUntilNight = timeUntilNightSet;
         currentTimePassed = currentTimePassedSet;
         timeDifficultyMultiplier = timeDifficultyMultiplierSet;
     }
-
     // Update is called once per frame
     void Update()
     {

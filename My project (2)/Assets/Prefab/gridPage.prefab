@@ -58,6 +58,7 @@ MonoBehaviour:
   pageKey:
   - {fileID: 7674073175680907613, guid: 87d7564ceca07aa47b562c3354ee0736, type: 3}
   - {fileID: 6537697085213654223, guid: 11b079a128ea94d4788c6ea995c9f7da, type: 3}
+  - {fileID: 6537697085213654223, guid: 11b079a128ea94d4788c6ea995c9f7da, type: 3}
   displacementKey:
   - {x: 0, y: 0.0618}
   - {x: 0, y: 0.0618}
@@ -152,8 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7362832e9bb71e4d83e4d24718372a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesInGrid:
-  - {fileID: 0}
   overallLoader: {fileID: 0}
   gridPositionX: 0
   gridPositionY: 0
+  activated: 0

@@ -65,9 +65,17 @@ public class PlayerMainScript : MonoBehaviour
     private float movementLockedTimeLeft;
     #endregion
     //public functions
+    public playerHand getHandScript()
+    {
+        return objectHandScript;
+    }
     public void damagePlayer(int damagePlayer)
     {
         health -= damagePlayer;
+    }
+    public void healPlayer(int damageHealed)
+    {
+        health += damageHealed;
     }
     public float getAngleVelocity()
     {

@@ -70,6 +70,10 @@ public class playerHand : MonoBehaviour
         }
     }
     //get/set functions
+    public GameObject getGrabbedObject()
+    {
+        return objectGrabbed;
+    }
     public float getAngleVelocity()
     {
         return objectPlayerScript.getAngleVelocity();

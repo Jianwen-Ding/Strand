@@ -6,6 +6,9 @@ TagManager:
   tags:
   - PlayerHand
   - Enemy
+  - Scrap
+  - SleepButton
+  - TransitionScreen
   layers:
   - Default
   - TransparentFX
