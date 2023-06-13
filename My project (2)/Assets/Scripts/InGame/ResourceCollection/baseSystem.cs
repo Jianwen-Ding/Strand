@@ -12,6 +12,8 @@ public class baseSystem : MonoBehaviour
     GameObject sleepButton;
     [SerializeField]
     PlayerMainScript playerScript;
+    [SerializeField]
+    float yOffSet;
     public void Start()
     {
         playerScript = FindObjectOfType<PlayerMainScript>();
@@ -20,7 +22,7 @@ public class baseSystem : MonoBehaviour
     }
     public void Update()
     {
-        float diffrence = Mathf.Sqrt((playerScript.gameObject.transform.position.x - transform.position.x) * (playerScript.gameObject.transform.position.x - transform.position.x) + (playerScript.gameObject.transform.position.y - transform.position.y) * (playerScript.gameObject.transform.position.y - transform.position.y));
+        float diffrence = Mathf.Sqrt((playerScript.gameObject.transform.position.x - transform.position.x) * (playerScript.gameObject.transform.position.x - transform.position.x) + (playerScript.gameObject.transform.position.y - (transform.position.y + yOffSet)) * (playerScript.gameObject.transform.position.y - (transform.position.y + yOffSet)));
         if(diffrence < distanceUntilSleepOptionAppears)
         {
             sleepButton.SetActive(true);

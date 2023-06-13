@@ -26,7 +26,7 @@ public class resourceSystem : MonoBehaviour
     PlayerMainScript playerScript;
     //public functions
     //public get/set
-    public void fillHunger(int amount)
+    public void fillHunger(float amount)
     {
         hungerMeter += amount;
         if(hungerMeter > maxHunger)
@@ -35,6 +35,10 @@ public class resourceSystem : MonoBehaviour
             hungerMeter = maxHunger;
             playerScript.healPlayer((int)(hungerOverfillUntilRegenLeft / hungerOverfillUntilRegen));
             hungerOverfillUntilRegenLeft = hungerOverfillUntilRegenLeft % hungerOverfillUntilRegen;
+            if (hungerMeter < maxHunger * 0.5)
+            {
+                hungerMeter = maxHunger * (float)0.5;
+            }
         }
     }
     public void addScrap(int amount)
@@ -49,6 +53,14 @@ public class resourceSystem : MonoBehaviour
     public float getHungerMeter()
     {
         return hungerMeter;
+    }
+    public float getMaxHungerMeter()
+    {
+        return maxHunger;
+    }
+    public float getHungerOverfillLeft()
+    {
+        return hungerOverfillUntilRegenLeft;
     }
     public float getHungerOverfillUntilHeal()
     {
