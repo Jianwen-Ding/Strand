@@ -10,6 +10,8 @@ TagManager:
   - SleepButton
   - TransitionScreen
   - Food
+  - HeartUI
+  - darkenScreen
   layers:
   - Default
   - TransparentFX
@@ -49,6 +51,9 @@ TagManager:
     locked: 0
   - name: GameObject
     uniqueID: 4113625583
+    locked: 0
+  - name: ObjectOverlay
+    uniqueID: 2029632595
     locked: 0
   - name: UI
     uniqueID: 1708780131

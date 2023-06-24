@@ -31,14 +31,10 @@ public class resourceSystem : MonoBehaviour
         hungerMeter += amount;
         if(hungerMeter > maxHunger)
         {
-            hungerOverfillUntilRegenLeft = hungerMeter - maxHunger;
+            hungerOverfillUntilRegenLeft += hungerMeter - maxHunger;
             hungerMeter = maxHunger;
             playerScript.healPlayer((int)(hungerOverfillUntilRegenLeft / hungerOverfillUntilRegen));
             hungerOverfillUntilRegenLeft = hungerOverfillUntilRegenLeft % hungerOverfillUntilRegen;
-            if (hungerMeter < maxHunger * 0.5)
-            {
-                hungerMeter = maxHunger * (float)0.5;
-            }
         }
     }
     public void addScrap(int amount)

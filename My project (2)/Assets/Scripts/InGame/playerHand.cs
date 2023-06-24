@@ -17,6 +17,10 @@ public class playerHand : MonoBehaviour
     private Rigidbody2D objectPlayerPhysicsScript;
     [SerializeField]
     private SpriteRenderer objectRenderScript;
+    [SerializeField]
+    private Sprite defaultHandSprite;
+    [SerializeField]
+    private Sprite grabHandSprite;
     //Orbit variables
     [SerializeField]
     private float yAddition;
@@ -205,6 +209,14 @@ public class playerHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(grabState == "grabbing")
+        {
+            objectRenderScript.sprite = grabHandSprite;
+        }
+        else
+        {
+            objectRenderScript.sprite = defaultHandSprite;
+        }
         if(objectPlayerScript.getAngleFace() >= 0)
         {
             objectRenderScript.sortingOrder = objectPlayerRenderScript.sortingOrder -  15;

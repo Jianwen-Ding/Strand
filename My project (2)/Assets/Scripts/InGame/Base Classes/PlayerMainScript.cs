@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PlayerMainScript : MonoBehaviour
 {
     #region Variables
@@ -12,9 +13,29 @@ public class PlayerMainScript : MonoBehaviour
     private GameObject objectHand;
     [SerializeField]
     private playerHand objectHandScript;
+    [SerializeField]
+    private Animator objectAnimator;
+    [SerializeField]
+    private SpriteRenderer objectRenderer;
+    [SerializeField]
+    private HealthUI healthProjector;
+    //Drag in image using serialize field
+    [SerializeField]
+    private Image transitionImage;
     //health
     [SerializeField]
     private int health;
+    [SerializeField]
+    private int healthMax;
+    [SerializeField]
+    private GameObject healthParticlePrefab;
+    //death
+    [SerializeField]
+    private bool isDead;
+    [SerializeField]
+    private string deathSceneName;
+    [SerializeField]
+    private float transitionSpeed;
     //the angle that player faces towards the mouse from the right horizontal
     [SerializeField]
     private float angleFace;
@@ -71,11 +92,37 @@ public class PlayerMainScript : MonoBehaviour
     }
     public void damagePlayer(int damagePlayer)
     {
-        health -= damagePlayer;
+        if (!isDead)
+        {
+            health -= damagePlayer;
+            if (health <= 0)
+            {
+                objectAnimator.SetBool("IsDead", true);
+                objectAnimator.SetBool("IsMoving", false);
+                isDead = true;
+            }
+            else
+            {
+                objectAnimator.SetTrigger("HasBeenHurt");
+            }
+            healthProjector.updateHealthIconList(health);
+        }
     }
     public void healPlayer(int damageHealed)
     {
-        health += damageHealed;
+        if (!isDead)
+        {
+            if(damageHealed > 0)
+            {
+                Instantiate(healthParticlePrefab, transform.position, Quaternion.identity.normalized);
+            }
+            health += damageHealed;
+            if (health > healthMax)
+            {
+                health = healthMax;
+            }
+            healthProjector.updateHealthIconList(health);
+        }
     }
     public float getAngleVelocity()
     {
@@ -121,146 +168,189 @@ public class PlayerMainScript : MonoBehaviour
         objectRigid = gameObject.GetComponent<Rigidbody2D>();
         objectCollider = gameObject.GetComponent<Collider2D>();
         objectHandScript = objectHand.GetComponent<playerHand>();
+        objectAnimator = gameObject.GetComponent<Animator>();
+        objectRenderer = gameObject.GetComponent<SpriteRenderer>();
+        healthProjector = GameObject.FindGameObjectWithTag("HeartUI").GetComponent<HealthUI>();
+        healthProjector.setUpHealthIcons(healthMax, health);
     }
     // Update is called once per frame
     void Update()
     {
-        if(isGrabbingTimeLeft >= 0)
+        if (!isDead)
         {
-            isGrabbingTimeLeft -= Time.deltaTime;
-        }
-        else
-        {
-            //Determines angle between player and mouse
-            angleFace = Mathf.Rad2Deg * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - gameObject.transform.position.y, Camera.main.ScreenToWorldPoint(Input.mousePosition).x - gameObject.transform.position.x);
-            lastAngleChanges.Enqueue(angleFace - lastAngle);
-            lastTimeDeltas.Enqueue(Time.deltaTime);
-            lastAngle = angleFace;
-            float totalTimeDelta = 0;
-            float totalAngleChange = 0;
-            Queue<float> tempTimeDeltas = new Queue<float>(lastTimeDeltas);
-            Queue<float> tempAngleChanges = new Queue<float>(lastAngleChanges);
-            while(tempTimeDeltas.Count > 0)
+            if (isGrabbingTimeLeft >= 0)
             {
-                totalTimeDelta += tempTimeDeltas.Dequeue();
-                totalAngleChange += tempAngleChanges.Dequeue();
+                isGrabbingTimeLeft -= Time.deltaTime;
             }
-            angleChangeVelocity = Mathf.Abs(totalAngleChange) / totalTimeDelta;
-            if (totalTimeDelta > timeAngleVelocityNormalization)
+            else
             {
-                lastTimeDeltas.Dequeue();
-                lastAngleChanges.Dequeue();
-            }
-        }
-        if(grabTimeLeft >= 0)
-        {
-            grabTimeLeft -= Time.deltaTime;
-            if(grabTimeLeft < 0)
-            {
-                endGrab();
-            }
-        }
-        //Movement
-        if (!movementLocked)
-        {
-            //Uses rigid body, requires high drag to make it feel responsive
-            if (Input.GetAxisRaw("Horizontal") < 0)
-            {
-                if(objectRigid.velocity.x >= -walkSpeed)
+                //Determines angle between player and mouse
+                angleFace = Mathf.Rad2Deg * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - gameObject.transform.position.y, Camera.main.ScreenToWorldPoint(Input.mousePosition).x - gameObject.transform.position.x);
+                lastAngleChanges.Enqueue(angleFace - lastAngle);
+                lastTimeDeltas.Enqueue(Time.deltaTime);
+                lastAngle = angleFace;
+                float totalTimeDelta = 0;
+                float totalAngleChange = 0;
+                Queue<float> tempTimeDeltas = new Queue<float>(lastTimeDeltas);
+                Queue<float> tempAngleChanges = new Queue<float>(lastAngleChanges);
+                while (tempTimeDeltas.Count > 0)
                 {
-                    objectRigid.velocity = new Vector3(-walkSpeed, objectRigid.velocity.y);
+                    totalTimeDelta += tempTimeDeltas.Dequeue();
+                    totalAngleChange += tempAngleChanges.Dequeue();
+                }
+                angleChangeVelocity = Mathf.Abs(totalAngleChange) / totalTimeDelta;
+                if (totalTimeDelta > timeAngleVelocityNormalization)
+                {
+                    lastTimeDeltas.Dequeue();
+                    lastAngleChanges.Dequeue();
                 }
             }
-            if (Input.GetAxisRaw("Horizontal") > 0)
+            if (grabTimeLeft >= 0)
             {
-                if (objectRigid.velocity.x <= walkSpeed)
+                grabTimeLeft -= Time.deltaTime;
+                if (grabTimeLeft < 0)
                 {
-                    objectRigid.velocity = new Vector3(walkSpeed, objectRigid.velocity.y);
+                    endGrab();
                 }
             }
-            if (Input.GetAxisRaw("Verticle") < 0)
+            //Movement
+            bool hasMoved = false;
+            if (!movementLocked)
             {
-                if (objectRigid.velocity.y <= walkSpeed)
+                //Uses rigid body, requires high drag to make it feel responsive
+                if (Input.GetAxisRaw("Horizontal") < 0)
                 {
-                    objectRigid.velocity = new Vector3(objectRigid.velocity.x, walkSpeed);
+                    if (objectRigid.velocity.x >= -walkSpeed)
+                    {
+                        objectRigid.velocity = new Vector3(-walkSpeed, objectRigid.velocity.y);
+                    }
+                    //Faces left
+                    objectRenderer.flipX = true;
+                    hasMoved = true;
                 }
-            }
-            if (Input.GetAxisRaw("Verticle") > 0)
-            {
-                if (objectRigid.velocity.y >= -walkSpeed)
+                if (Input.GetAxisRaw("Horizontal") > 0)
                 {
-                    objectRigid.velocity = new Vector3(objectRigid.velocity.x, -walkSpeed);
+                    if (objectRigid.velocity.x <= walkSpeed)
+                    {
+                        objectRigid.velocity = new Vector3(walkSpeed, objectRigid.velocity.y);
+                    }
+                    //Faces right
+                    objectRenderer.flipX = false;
+                    hasMoved = true;
                 }
-            }
-            if (Input.GetAxisRaw("Drop Object") > 0)
-            {
-                if (objectHandScript.getGrabState() == "grabbed")
+                if (Input.GetAxisRaw("Verticle") < 0)
                 {
-                    objectHandScript.releaseObject();
+                    if (objectRigid.velocity.y <= walkSpeed)
+                    {
+                        objectRigid.velocity = new Vector3(objectRigid.velocity.x, walkSpeed);
+                    }
+                    hasMoved = true;
                 }
-            }
-            //This makes sure only one click from the mouse gets registered
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (!hasLeftClicked)
+                if (Input.GetAxisRaw("Verticle") > 0)
                 {
-                    hasLeftClicked = true;
-                    //Slash/ Use
+                    if (objectRigid.velocity.y >= -walkSpeed)
+                    {
+                        objectRigid.velocity = new Vector3(objectRigid.velocity.x, -walkSpeed);
+                    }
+                    hasMoved = true;
+                }
+                if (Input.GetAxisRaw("Drop Object") > 0)
+                {
                     if (objectHandScript.getGrabState() == "grabbed")
                     {
-                        objectHandScript.attemptSlash();
+                        objectHandScript.releaseObject();
                     }
-                    //Stand Grab
-                    else if (objectHandScript.getGrabState() == "none" && grabTimeLeft < 0)
+                    hasMoved = true;
+                }
+                //This makes sure only one click from the mouse gets registered
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (!hasLeftClicked)
                     {
-                        grabTimeLeft = standGrabTimeCooldown;
-                        lockMovement(0.04f);
-                        isGrabbingTimeLeft = standGrabbingTime;
-                        objectHandScript.attemptGrab();
+                        hasLeftClicked = true;
+                        //Slash/ Use
+                        if (objectHandScript.getGrabState() == "grabbed")
+                        {
+                            objectHandScript.attemptSlash();
+                        }
+                        //Stand Grab
+                        else if (objectHandScript.getGrabState() == "none" && grabTimeLeft < 0)
+                        {
+                            grabTimeLeft = standGrabTimeCooldown;
+                            lockMovement(0.04f);
+                            isGrabbingTimeLeft = standGrabbingTime;
+                            objectHandScript.attemptGrab();
+                        }
                     }
+                }
+                else
+                {
+                    hasLeftClicked = false;
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    objectHandScript.stopAttemptSlash();
+                }
+                if (Input.GetMouseButtonDown(1))
+                {
+                    if (!hasRightClicked)
+                    {
+                        hasRightClicked = true;
+                        //Throw
+                        if (objectHandScript.getGrabState() == "grabbed")
+                        {
+                            objectHandScript.attemptThrow(throwStrength, angleFace);
+                        }
+                        //Lunge Grab
+                        else if (objectHandScript.getGrabState() == "none" && grabTimeLeft < 0)
+                        {
+                            //facing right
+                            if (angleFace < 90 && angleFace > -90)
+                            {
+                                objectRenderer.flipX = false;
+                            }
+                            //facing left
+                            else
+                            {
+                                objectRenderer.flipX = true;
+                            }
+                            push(angleFace, lungeStrength);
+                            grabTimeLeft = lungeGrabTimeCooldown;
+                            lockMovement(0.08f);
+                            objectCollider.sharedMaterial.bounciness = grabBounce;
+                            isGrabbingTimeLeft = lungeGrabbingTime;
+                            objectHandScript.attemptGrab();
+                            objectAnimator.SetTrigger("HasDashed");
+                        }
+                    }
+                }
+                else
+                {
+                    hasRightClicked = false;
                 }
             }
             else
             {
-                hasLeftClicked = false;
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                objectHandScript.stopAttemptSlash();
-            }
-            if (Input.GetMouseButtonDown(1))
-            {
-                if (!hasRightClicked)
+                movementLockedTimeLeft -= Time.deltaTime;
+                if (movementLockedTimeLeft < 0)
                 {
-                    hasRightClicked = true;
-                    //Throw
-                    if (objectHandScript.getGrabState() == "grabbed")
-                    {
-                        objectHandScript.attemptThrow(throwStrength, angleFace);
-                    }
-                    //Lunge Grab
-                    else if (objectHandScript.getGrabState() == "none" && grabTimeLeft < 0)
-                    {
-                        push(angleFace, lungeStrength);
-                        grabTimeLeft = lungeGrabTimeCooldown;
-                        lockMovement(0.08f);
-                        objectCollider.sharedMaterial.bounciness = grabBounce;
-                        isGrabbingTimeLeft = lungeGrabbingTime;
-                        objectHandScript.attemptGrab();
-                    }
+                    movementLocked = false;
                 }
             }
-            else
-            {
-                hasRightClicked = false;
-            }
+            objectAnimator.SetBool("IsMoving", hasMoved);
         }
         else
         {
-            movementLockedTimeLeft -= Time.deltaTime;
-            if(movementLockedTimeLeft < 0)
+            transitionImage.gameObject.SetActive(true);
+            Time.timeScale = (float)0.1;
+            if (transitionImage.color.a + Time.fixedDeltaTime * transitionSpeed >= 1)
             {
-                movementLocked = false;
+                transitionImage.color = new Color(transitionImage.color.r, transitionImage.color.g, transitionImage.color.b, 1);
+                SceneManager.LoadScene(deathSceneName);
+            }
+            else
+            {
+                transitionImage.color = new Color(transitionImage.color.r, transitionImage.color.g, transitionImage.color.b, transitionImage.color.a + Time.fixedDeltaTime * transitionSpeed);
             }
         }
     }
