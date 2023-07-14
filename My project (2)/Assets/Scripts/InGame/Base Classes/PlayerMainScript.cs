@@ -18,11 +18,15 @@ public class PlayerMainScript : MonoBehaviour
     [SerializeField]
     private SpriteRenderer objectRenderer;
     [SerializeField]
+    private playerAudio objectAudio;
+    [SerializeField]
     private HealthUI healthProjector;
     //Drag in image using serialize field
     [SerializeField]
     private Image transitionImage;
     //health
+    [SerializeField]
+    private int lowHealthThreshold;
     [SerializeField]
     private int health;
     [SerializeField]
@@ -86,6 +90,10 @@ public class PlayerMainScript : MonoBehaviour
     private float movementLockedTimeLeft;
     #endregion
     //public functions
+    public void playPickUpSound()
+    {
+        objectAudio.triggerActiveAudioState("pickUp");
+    }
     public playerHand getHandScript()
     {
         return objectHandScript;
@@ -97,6 +105,7 @@ public class PlayerMainScript : MonoBehaviour
             health -= damagePlayer;
             if (health <= 0)
             {
+                objectAudio.triggerActiveAudioState("death");
                 objectAnimator.SetBool("IsDead", true);
                 objectAnimator.SetBool("IsMoving", false);
                 isDead = true;
@@ -104,6 +113,11 @@ public class PlayerMainScript : MonoBehaviour
             else
             {
                 objectAnimator.SetTrigger("HasBeenHurt");
+                objectAudio.triggerActiveAudioState("hurt");
+                if(health <= lowHealthThreshold)
+                {
+                    objectAudio.setHealthAudioState(true);
+                }
             }
             healthProjector.updateHealthIconList(health);
         }
@@ -122,6 +136,10 @@ public class PlayerMainScript : MonoBehaviour
                 health = healthMax;
             }
             healthProjector.updateHealthIconList(health);
+            if(health > lowHealthThreshold)
+            {
+                objectAudio.setHealthAudioState(false);
+            }
         }
     }
     public float getAngleVelocity()
@@ -170,6 +188,7 @@ public class PlayerMainScript : MonoBehaviour
         objectHandScript = objectHand.GetComponent<playerHand>();
         objectAnimator = gameObject.GetComponent<Animator>();
         objectRenderer = gameObject.GetComponent<SpriteRenderer>();
+        objectAudio = gameObject.GetComponent<playerAudio>();
         healthProjector = GameObject.FindGameObjectWithTag("HeartUI").GetComponent<HealthUI>();
         healthProjector.setUpHealthIcons(healthMax, health);
     }
@@ -300,6 +319,7 @@ public class PlayerMainScript : MonoBehaviour
                         if (objectHandScript.getGrabState() == "grabbed")
                         {
                             objectHandScript.attemptThrow(throwStrength, angleFace);
+                            objectAudio.triggerActiveAudioState("throw");
                         }
                         //Lunge Grab
                         else if (objectHandScript.getGrabState() == "none" && grabTimeLeft < 0)
@@ -321,6 +341,8 @@ public class PlayerMainScript : MonoBehaviour
                             isGrabbingTimeLeft = lungeGrabbingTime;
                             objectHandScript.attemptGrab();
                             objectAnimator.SetTrigger("HasDashed");
+                            objectAudio.triggerActiveAudioState("lungeGrab");
+                            objectAudio.pauseWalking(0.08f);
                         }
                     }
                 }
@@ -328,6 +350,7 @@ public class PlayerMainScript : MonoBehaviour
                 {
                     hasRightClicked = false;
                 }
+                objectAudio.setWalkingAudioState(hasMoved);
             }
             else
             {

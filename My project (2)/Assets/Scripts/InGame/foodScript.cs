@@ -10,6 +10,7 @@ public class foodScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            collision.gameObject.GetComponent<playerAudio>().triggerActiveAudioState("pickUp");
             Camera.main.GetComponent<resourceSystem>().fillHunger(foodFill);
             Destroy(gameObject);
         }

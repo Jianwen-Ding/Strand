@@ -44,6 +44,8 @@ public class baseEnemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerMainScript colliderPlayerScript = collision.gameObject.GetComponent<PlayerMainScript>();
+        grabbableObject colliderGrabbableScript = collision.gameObject.GetComponent<grabbableObject>();
+        //if enemy collides with player
         if (colliderPlayerScript != null)
         {
             colliderPlayerScript.damagePlayer(1);
@@ -58,7 +60,26 @@ public class baseEnemy : MonoBehaviour
             Rigidbody2D collisionRigid = collision.gameObject.GetComponent<Rigidbody2D>();
             collisionRigid.velocity *= 0;
             collisionRigid.AddForce(new Vector2(-xPush, -yPush), ForceMode2D.Impulse);
-
+        }
+        //if enemy collides with thrown/fast flying grabbable object
+        else if(colliderGrabbableScript != null)
+        {
+            print(colliderGrabbableScript.getVelocityThreshold());
+            //Checking the magnitude of the velocity
+            float colliderVelocitySum = Mathf.Sqrt(colliderGrabbableScript.getObjectPhysics().velocity.y * colliderGrabbableScript.getObjectPhysics().velocity.y + colliderGrabbableScript.getObjectPhysics().velocity.x * colliderGrabbableScript.getObjectPhysics().velocity.x);
+            if(colliderVelocitySum >= colliderGrabbableScript.getThrowVelocityThreshold())
+            {
+                isDamaged(colliderGrabbableScript.getThrowDamage());
+                stunEnemy(colliderGrabbableScript.getThrowStunTime());
+                float colliderAngle = Mathf.Atan2(colliderGrabbableScript.getObjectPhysics().velocity.y, colliderGrabbableScript.getObjectPhysics().velocity.x);
+                float xPush = Mathf.Cos(colliderAngle) * colliderGrabbableScript.getThrowKnockback();
+                float yPush = Mathf.Sin(colliderAngle) * colliderGrabbableScript.getThrowKnockback();
+                enemyRigid.velocity *= 0;
+                enemyRigid.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
+                Rigidbody2D collisionRigid = collision.gameObject.GetComponent<Rigidbody2D>();
+                collisionRigid.velocity *= 0;
+                collisionRigid.AddForce(new Vector2(-xPush, -yPush), ForceMode2D.Impulse);
+            }
         }
     }
     //public function

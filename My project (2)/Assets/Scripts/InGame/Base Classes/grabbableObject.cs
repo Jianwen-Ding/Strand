@@ -29,6 +29,8 @@ public class grabbableObject : MonoBehaviour
     [SerializeField]
     private int slashKnockBackStrength = 30;
     [SerializeField]
+    private float slashStunTime;
+    [SerializeField]
     private int damage = 1;
     [SerializeField]
     private float slashTime;
@@ -46,6 +48,14 @@ public class grabbableObject : MonoBehaviour
     private float velocityThreshold;
     List<GameObject> objectsHit = new List<GameObject>();
     //--thrown state, occurs when thrown
+    [SerializeField]
+    private float throwVelocityToHitThreshold;
+    [SerializeField]
+    private int throwDamage;
+    [SerializeField]
+    private float throwStunTme;
+    [SerializeField]
+    private int throwKnockback;
     [SerializeField]
     private float thrownStateTime;
     [SerializeField]
@@ -65,6 +75,26 @@ public class grabbableObject : MonoBehaviour
     }
     //--public functions--
     //get/set functions
+    public float getThrowVelocityThreshold()
+    {
+        return throwVelocityToHitThreshold;
+    }
+    public float getThrowStunTime()
+    {
+        return throwStunTme;
+    }
+    public float getThrowKnockback()
+    {
+        return throwKnockback;
+    }
+    public float getThrownStateTimeLeft()
+    {
+        return thrownStateTimeLeft;
+    }
+    public int getThrowDamage()
+    {
+        return throwDamage;
+    }
     public float getVelocityThreshold()
     {
         return velocityThreshold;
@@ -172,6 +202,7 @@ public class grabbableObject : MonoBehaviour
             {
                 hasHitObject = true;
                 slashedEnemyScript.isDamaged(damage);
+                slashedEnemyScript.stunEnemy(slashStunTime); 
             }
             if (hasHitObject)
             {
