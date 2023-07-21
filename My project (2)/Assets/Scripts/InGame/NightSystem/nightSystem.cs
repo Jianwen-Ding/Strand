@@ -17,13 +17,15 @@ public class nightSystem : MonoBehaviour
     [SerializeField]
     private static float timeDifficultyMultiplier;
     //--STATIC SETTING VARIABLES--
-    [SerializeField]
-    private float timeUntilNightSet;
-    [SerializeField]
+    [SerializeField] 
     private float currentTimePassedSet;
     [SerializeField]
     private float timeDifficultyMultiplierSet;
     //--public fucntions--
+    public static void setTimeUntilNight(float setTime)
+    {
+        timeUntilNight = setTime;
+    }
     public static float getTimeUntilNight()
     {
         return timeUntilNight;
@@ -40,7 +42,6 @@ public class nightSystem : MonoBehaviour
     void Awake()
     {
         daySpendDifficultyMultiplier = PlayerPrefs.GetInt("daysSpent", 0);
-        timeUntilNight = timeUntilNightSet;
         currentTimePassed = currentTimePassedSet;
         timeDifficultyMultiplier = timeDifficultyMultiplierSet;
     }

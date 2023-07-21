@@ -64,9 +64,9 @@ public class playerAudio : MonoBehaviour
             audioUnderlayWalk = gottenClips[1];
             audioUnderlayLowHealthAlert = gottenClips[2];
             audioUnderlayWalk.clip = walkEffect;
-            audioUnderlayWalk.volume = walkVolume;
+            audioUnderlayWalk.volume = walkVolume * ((float)AudioMixer.getMasterVolume() / (float)10) * ((float)AudioMixer.getSFXVolume() / (float)10);
             audioUnderlayLowHealthAlert.clip = lowHealthEffect;
-            audioUnderlayLowHealthAlert.volume = lowHealthVolume;
+            audioUnderlayLowHealthAlert.volume = lowHealthVolume * ((float)AudioMixer.getMasterVolume() / (float)10) * ((float)AudioMixer.getSFXVolume() / (float)10);
         }
         else
         {
@@ -148,12 +148,14 @@ public class playerAudio : MonoBehaviour
                 break;
         }
         audioActiveSound.PlayOneShot(usedClip);
-        audioActiveSound.volume = usedVolume;
+        audioActiveSound.volume = usedVolume * ((float)AudioMixer.getMasterVolume() / (float)10) * ((float)AudioMixer.getSFXVolume() / (float)10);
     }
     // Update is called once per frame
     void Update()
     {
-        if(walkPausedLeft > 0)
+        audioUnderlayWalk.volume = walkVolume * ((float)AudioMixer.getMasterVolume() / (float)10) * ((float)AudioMixer.getSFXVolume() / (float)10);
+        audioUnderlayLowHealthAlert.volume = lowHealthVolume * ((float)AudioMixer.getMasterVolume() / (float)10) * ((float)AudioMixer.getSFXVolume() / (float)10);
+        if (walkPausedLeft > 0)
         {
             walkPausedLeft -= Time.deltaTime;
         }

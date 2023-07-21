@@ -6,6 +6,10 @@ public class backGroundThemeSystem : MonoBehaviour
 {
     //audio clip presets
     [SerializeField]
+    AudioClip pauseTheme;
+    [SerializeField]
+    float pauseVolume;
+    [SerializeField]
     AudioClip dawnTheme;
     [SerializeField]
     float dawnVolume;
@@ -41,6 +45,8 @@ public class backGroundThemeSystem : MonoBehaviour
     AudioClip transitionBell;
     [SerializeField]
     float bellVolume;
+    [SerializeField]
+    float bellMuffledVolume;
     //variables
     //to swap between muffled audio clips and non muffled ones
     [SerializeField]
@@ -51,20 +57,45 @@ public class backGroundThemeSystem : MonoBehaviour
     //1 - midday
     //2 - dusk
     //3 - night
+    //-1 (only for playThemeFromIndex function) - bell
+    [SerializeField]
     int dayState;
+    //for checks if bell is ringing
+    [SerializeField]
+    bool isBellRing;
     //manages changes into next state
+    [SerializeField]
     float timeLeftUntilNextState;
+    //the index of the final daystate
+    [SerializeField]
+    const int finalState = 3;
+    //time of state when paused
+    [SerializeField]
+    float pausedTime;
+    //checks if game has been paused
+    [SerializeField]
+    bool hasBeenPaused;
     //Cache variable
+    [SerializeField]
     AudioSource soundSource;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        nightSystem.setTimeUntilNight(getTotalLength());
+        soundSource = gameObject.GetComponent<AudioSource>();
         timeLeftUntilNextState = dawnTheme.length;
+        playThemeFromIndex(0, false);
         dayState = 0;
         isMuffled = false;
-        soundSource = gameObject.GetComponent<AudioSource>();
+        isBellRing = false;
+    } 
+    //get length of songs until night state
+    public float getTotalLength()
+    {
+        return dawnTheme.length + middayTheme.length + duskTheme.length + transitionBell.length * 3;
     }
-    public void playThemeFromIndex(int indexSet, bool muffleSet)
+    //plays indicated audio clip with indicated volume while returning indicated audio clip
+    public AudioClip playThemeFromIndex(int indexSet, bool muffleSet)
     {
         AudioClip returnTheme;
         float returnVolume;
@@ -72,6 +103,10 @@ public class backGroundThemeSystem : MonoBehaviour
         {
             switch (indexSet)
             {
+                case -1:
+                    returnTheme = transitionBell;
+                    returnVolume = bellMuffledVolume;
+                    break;
                 case 0:
                     returnTheme = dawnThemeMuffled;
                     returnVolume = dawnMuffledVolume;
@@ -99,6 +134,10 @@ public class backGroundThemeSystem : MonoBehaviour
         {
             switch (indexSet)
             {
+                case -1:
+                    returnTheme = transitionBell;
+                    returnVolume = bellVolume;
+                    break;
                 case 0:
                     returnTheme = dawnTheme;
                     returnVolume = dawnVolume;
@@ -122,9 +161,13 @@ public class backGroundThemeSystem : MonoBehaviour
                     break;
             }
         }
-        soundSource.volume = returnVolume;
-        soundSource.PlayOneShot(returnTheme);
-        
+        soundSource.Stop();
+        soundSource.time = 0;
+        //volume adjusted by overall mixer ratios out of ten
+        soundSource.volume = returnVolume * ((float)AudioMixer.getMasterVolume() / (float)10)  * ((float)AudioMixer.getMusicVolume() / (float)10);
+        soundSource.clip = returnTheme;
+        soundSource.Play();
+        return returnTheme;
     }
     //Toggles wether to switch to unmuffled or muffled 
     public void muffelToggle(bool toggleSet)
@@ -132,13 +175,74 @@ public class backGroundThemeSystem : MonoBehaviour
         if(toggleSet != isMuffled)
         {
             float currentPlayBackTime = soundSource.time;
-            playThemeFromIndex(dayState, toggleSet);
+            if (isBellRing)
+            {
+                playThemeFromIndex(-1, toggleSet);
+            }
+            else
+            {
+                playThemeFromIndex(dayState, toggleSet);
+            }
             soundSource.time = currentPlayBackTime;
+            isMuffled = toggleSet;
+        }
+    }
+    public void pauseToggle(bool toggleSet)
+    {
+        if (hasBeenPaused != toggleSet)
+        {
+            //is being paused
+            if (toggleSet)
+            {
+                pausedTime = soundSource.time;
+                soundSource.Stop();
+                soundSource.time = 0;
+                soundSource.volume = pauseVolume * ((float)AudioMixer.getMasterVolume() / (float)10) * ((float)AudioMixer.getMusicVolume() / (float)10);
+                soundSource.clip = pauseTheme;
+                soundSource.Play();
+                soundSource.loop = true;
+            }
+            //is being unpaused
+            else
+            {
+                soundSource.loop = false;
+                if (isBellRing)
+                {
+                    playThemeFromIndex(-1, isMuffled);
+                }
+                else
+                {
+                    playThemeFromIndex(dayState, isMuffled);
+                }
+                soundSource.time = pausedTime;
+            }
+            hasBeenPaused = toggleSet;
         }
     }
     // Update is called once per frame
     void Update()
     {
-        
+        if (timeLeftUntilNextState <= 0)
+        {
+            if (isBellRing || dayState >= finalState)
+            {
+                if (dayState < finalState)
+                {
+                    isBellRing = false;
+                    dayState++;
+                }
+                timeLeftUntilNextState = playThemeFromIndex(dayState, isMuffled).length;
+
+            }
+            else
+            {
+                isBellRing = true;
+                timeLeftUntilNextState = playThemeFromIndex(-1, isMuffled).length;
+            }
+        }
+        else
+        {
+            timeLeftUntilNextState -= Time.deltaTime;
+        }
     }
 }

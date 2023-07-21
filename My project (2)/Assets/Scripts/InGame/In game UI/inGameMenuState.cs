@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class inGameMenuState : MonoBehaviour
 {
-    //Do no use prefabs for these
+    //Do not use prefabs for these, to be dragged in
     [SerializeField]
     private GameObject mapDarkenScreen;
     [SerializeField]
@@ -13,6 +13,8 @@ public class inGameMenuState : MonoBehaviour
     private miniMapGenerator miniMapScript;
     [SerializeField]
     private GameObject pauseScreen;
+    [SerializeField]
+    private backGroundThemeSystem musicSource;
     [SerializeField]
     private bool pressedPause = false;
     //"paused" - stops time and pause state
@@ -23,6 +25,7 @@ public class inGameMenuState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        musicSource = FindObjectOfType<backGroundThemeSystem>();
         miniMapScript = miniMap.GetComponent<miniMapGenerator>();
     }
     public void changeState(string newState)
@@ -36,20 +39,27 @@ public class inGameMenuState : MonoBehaviour
             }
             if(currentState == "paused")
             {
+                musicSource.pauseToggle(false);
                 pauseScreen.SetActive(false);
                 mapDarkenScreen.SetActive(false);
                 Time.timeScale = 1;
             }
             if(newState == "paused")
             {
+                musicSource.pauseToggle(true);
                 pauseScreen.SetActive(true);
                 mapDarkenScreen.SetActive(true);
                 Time.timeScale = 0;
             }
             if(newState == "map")
             {
+                musicSource.muffelToggle(true);
                 mapDarkenScreen.SetActive(true);
                 miniMapScript.activateOnMainDisplay();
+            }
+            if(newState == "default")
+            {
+                musicSource.muffelToggle(false);
             }
             currentState = newState;
         }
