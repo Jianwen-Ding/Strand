@@ -9,6 +9,4 @@ public class MusicVolumeCounter : baseCounter
     {
         setCurrentCount(AudioMixer.getMusicVolume());
     }
-    public override void (){
-        }
 }

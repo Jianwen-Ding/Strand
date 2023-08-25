@@ -16,7 +16,7 @@ public class counterButton : MonoBehaviour
         transform.SetParent(setCounter.transform.parent);
         cacheCounter = setCounter;
     }
-    //button trigger
+    //button triggerc
     public void activateButton()
     {
         cacheCounter.updateCounter(index);
