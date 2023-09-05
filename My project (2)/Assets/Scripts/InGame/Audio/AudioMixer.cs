@@ -6,27 +6,36 @@ public class AudioMixer : MonoBehaviour
 {
     //out of 10 automatically at 10
     //expressed volume = (volume for specific effect) * masterVolume * (sfxVolume or musicVolume)
+    [SerializeField]
     static int masterVolume;
+    [SerializeField]
     static int musicVolume;
+    [SerializeField]
     static int sfxVolume;
+    [SerializeField]
+    private int presentableMasterVol;
+    [SerializeField]
+    private int presentableMuiscVol;
+    [SerializeField]
+    private int presentableSFXVol;
     // Start is called before the first frame update
     void Start()
     {
         //Based on player prefs "masterVolume", "musicVolume", and "sfxVolume"
         if (-1 == PlayerPrefs.GetInt("musicVolume", -1))
         {
-            masterVolume = 10;
-            musicVolume = 10;
-            sfxVolume = 10;
-            PlayerPrefs.SetInt("musicVolume", 10);
-            PlayerPrefs.SetInt("masterVolume", 10);
-            PlayerPrefs.SetInt("sfxVolume", 10);
+            masterVolume = 5;
+            musicVolume = 5;
+            sfxVolume = 5;
+            PlayerPrefs.SetInt("musicVolume", 5);
+            PlayerPrefs.SetInt("masterVolume", 5);
+            PlayerPrefs.SetInt("sfxVolume", 5);
         }
         else
         {
-            masterVolume = PlayerPrefs.GetInt("masterVolume", 10);
-            musicVolume = PlayerPrefs.GetInt("musicVolume", 10);
-            sfxVolume = PlayerPrefs.GetInt("sfxVolume", 10);
+            masterVolume = PlayerPrefs.GetInt("masterVolume", 5);
+            musicVolume = PlayerPrefs.GetInt("musicVolume", 5);
+            sfxVolume = PlayerPrefs.GetInt("sfxVolume", 5);
         }
     }
     //Get/set public 
@@ -60,6 +69,8 @@ public class AudioMixer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        presentableMasterVol = masterVolume;
+        presentableMuiscVol = musicVolume;
+        presentableSFXVol = sfxVolume;
     }
 }

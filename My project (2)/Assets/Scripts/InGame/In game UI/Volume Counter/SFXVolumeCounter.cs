@@ -7,6 +7,11 @@ public class SFXVolumeCounter : baseCounter
     // Update is called once per frame
     void Update()
     {
-        setCurrentCount(AudioMixer.getSFXVolume());
+        updateCounter(AudioMixer.getSFXVolume());
+    }
+    public override void updateCounter(int setNewCounter)
+    {
+        base.updateCounter(setNewCounter);
+        AudioMixer.setSFXVolume(setNewCounter);
     }
 }

@@ -7,6 +7,11 @@ public class MasterVolumeCounter : baseCounter
     // Update is called once per frame
     void Update()
     {
-        setCurrentCount(AudioMixer.getMasterVolume());
+        updateCounter(AudioMixer.getMasterVolume());
+    }
+    public override void updateCounter(int setNewCounter)
+    {
+        base.updateCounter(setNewCounter);
+        AudioMixer.setMasterVolume(setNewCounter);
     }
 }

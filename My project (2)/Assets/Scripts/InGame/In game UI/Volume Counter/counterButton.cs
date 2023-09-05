@@ -19,6 +19,12 @@ public class counterButton : MonoBehaviour
     //button triggerc
     public void activateButton()
     {
-        cacheCounter.updateCounter(index);
+        if (cacheCounter.getCurrentCount() == 1 && index == 1)
+        {
+            cacheCounter.updateCounter(0);
+        }
+        else {
+            cacheCounter.updateCounter(index);
+        }
     }
 }

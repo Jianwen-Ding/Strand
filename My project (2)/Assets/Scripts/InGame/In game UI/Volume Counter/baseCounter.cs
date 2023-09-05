@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //To be used a parent class for counters
 public class baseCounter : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class baseCounter : MonoBehaviour
     counterButton[] cacheScriptList;
     //list of the button images of the icons
     [SerializeField]
-    SpriteRenderer[] cacheSpriteList;
+    Image[] cacheSpriteList;
     //checks if the icons have buttons
     [SerializeField]
     bool iconHaveButtonScript;
@@ -40,6 +41,10 @@ public class baseCounter : MonoBehaviour
     {
         currentCount = setCount;
     }
+    public int getCurrentCount()
+    {
+        return currentCount;
+    }
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -47,14 +52,14 @@ public class baseCounter : MonoBehaviour
         //establishes arrays
         cacheScriptList = new counterButton[maxCount];
         cacheIconList = new GameObject[maxCount];
-        cacheSpriteList = new SpriteRenderer[maxCount];
+        cacheSpriteList = new Image[maxCount];
         for (int i = 0; i < maxCount; i++)
         {
             //creates icons
             GameObject createdIcon = Instantiate(iconPrefab, startingPosition + incrementalChange * i, Quaternion.identity.normalized);
             //fills arrays
             cacheIconList[i] = createdIcon;
-            cacheSpriteList[i] = createdIcon.GetComponent<SpriteRenderer>();
+            cacheSpriteList[i] = createdIcon.GetComponent<Image>();
             if (iconHaveButtonScript)
             {
                 cacheScriptList[i] = createdIcon.GetComponent<counterButton>();
