@@ -56,7 +56,7 @@ public class baseCounter : MonoBehaviour
         for (int i = 0; i < maxCount; i++)
         {
             //creates icons
-            GameObject createdIcon = Instantiate(iconPrefab, startingPosition + incrementalChange * i, Quaternion.identity.normalized);
+            GameObject createdIcon = Instantiate(iconPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + startingPosition + incrementalChange * i, Quaternion.identity.normalized);
             //fills arrays
             cacheIconList[i] = createdIcon;
             cacheSpriteList[i] = createdIcon.GetComponent<Image>();

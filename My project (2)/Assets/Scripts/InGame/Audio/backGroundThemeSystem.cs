@@ -78,6 +78,12 @@ public class backGroundThemeSystem : MonoBehaviour
     //Cache variable
     [SerializeField]
     AudioSource soundSource;
+    //Volume for each sound effect before editing by volume controls
+    [SerializeField]
+    float baseVolume;
+    //Volume after considering volume controls
+    [SerializeField]
+    float expressedVolume;
     // Start is called before the first frame update
     void Awake()
     {
@@ -164,7 +170,7 @@ public class backGroundThemeSystem : MonoBehaviour
         soundSource.Stop();
         soundSource.time = 0;
         //volume adjusted by overall mixer ratios out of ten
-        soundSource.volume = returnVolume * ((float)AudioMixer.getMasterVolume() / (float)10)  * ((float)AudioMixer.getMusicVolume() / (float)10);
+        baseVolume = returnVolume;
         soundSource.clip = returnTheme;
         soundSource.Play();
         return returnTheme;
@@ -197,7 +203,7 @@ public class backGroundThemeSystem : MonoBehaviour
                 pausedTime = soundSource.time;
                 soundSource.Stop();
                 soundSource.time = 0;
-                soundSource.volume = pauseVolume * ((float)AudioMixer.getMasterVolume() / (float)10) * ((float)AudioMixer.getMusicVolume() / (float)10);
+                baseVolume = pauseVolume;
                 soundSource.clip = pauseTheme;
                 soundSource.Play();
                 soundSource.loop = true;
@@ -222,6 +228,8 @@ public class backGroundThemeSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        expressedVolume = baseVolume * ((float)AudioMixer.getMasterVolume() / (float)10) * ((float)AudioMixer.getMusicVolume() / (float)10);
+        soundSource.volume = expressedVolume;
         if (timeLeftUntilNextState <= 0)
         {
             if (isBellRing || dayState >= finalState)
