@@ -45,6 +45,9 @@ public class singleGridPageLoader : MonoBehaviour
     //-- parameters to load and unload with based on distance--
     [SerializeField]
     ArrayList loadedObject = new ArrayList();
+    //
+    [SerializeField]
+    int distanceFromCenter;
     //Get/Set Variable
     public bool getUpOpen()
     {

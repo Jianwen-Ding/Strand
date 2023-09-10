@@ -137,6 +137,7 @@ public class gridPageStorer : MonoBehaviour
             print("checkDownOpen: " + checkDownOpen);
             print("checkRightOpen: " + checkRightOpen);
             print("checkLeftOpen: " + checkLeftOpen);
+            print("pageSpecialUse: " + checkPageSpecialUse);
             return null;
         }
     }

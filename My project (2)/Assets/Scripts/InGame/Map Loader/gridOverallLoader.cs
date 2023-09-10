@@ -48,12 +48,13 @@ public class gridOverallLoader : MonoBehaviour
     //Amount of Food Surplus pages
     [SerializeField]
     private int foodSurplusPages;
-    //Amount of Water Surplus pages
     [SerializeField]
-    private int waterSurplusPages;
+    private int goldFoodSurplusPages;
     //Amount of Scrap Surplus pages
     [SerializeField]
     private int scrapSurplusPages;
+    [SerializeField]
+    private int goldScrapSurplusPages;
     // Start is called before the first frame update
     void Start()
     {
@@ -316,42 +317,200 @@ public class gridOverallLoader : MonoBehaviour
             }
 
         }
-        //7: Loads in special use pages
-        for (int i = 0; i < foodSurplusPages; i++)
+        //6: Loads in special use pages
+        //Finds dead end locations and will use order of accessible locations to find the farthest away locations
+        //deadEndLoction is all vector 2s, finds location of dead end squares
+        ArrayList deadEndLocations = new ArrayList();
+        ArrayList allLocations = new ArrayList();
+        allLocations.Add(new ArrayList());
+        allLocations.Add(new ArrayList());
+        ((ArrayList)allLocations[1]).Add(new Vector2(centerX, centerY));
+        //Clears integer map
+        generationLoadMap = new int[yGridLength][];
+        for (int y = 0; y < yGridLength; y++)
         {
-            int y = Random.Range(0, pageGridMap.Length);
-            int x = Random.Range(0, pageGridMap[y].Length);
-            while (pageGridMap[y][x].getPageSpecialUse() != "default")
+            generationLoadMap[y] = new int[xGridLength];
+            for (int x = 0; x < xGridLength; x++)
             {
-                y = Random.Range(0, pageGridMap.Length);
-                x = Random.Range(0, pageGridMap[y].Length);
+                generationLoadMap[y][x] = 0;
             }
-            pageGridMap[y][x].setPageSpecialUse("food");
         }
-        for (int i = 0; i < waterSurplusPages; i++)
+        generationLoadMap[centerX][centerY] = 1;
+        //Loops until algorithm finds all that is accessible
+        currentDistance = 1;
+        bool hasReachedAll = false;
+        while (!hasReachedAll)
         {
-            int y = Random.Range(0, pageGridMap.Length);
-            int x = Random.Range(0, pageGridMap[y].Length);
-            while (pageGridMap[y][x].getPageSpecialUse() != "default")
+            allLocations.Add(new ArrayList());
+            for (int i = 0; i < ((ArrayList)allLocations[currentDistance]).Count; i++)
             {
-                y = Random.Range(0, pageGridMap.Length);
-                x = Random.Range(0, pageGridMap[y].Length);
+                int x = (int)((Vector2)((ArrayList)allLocations[currentDistance])[i]).x;
+                int y = (int)((Vector2)((ArrayList)allLocations[currentDistance])[i]).y;
+                if (generationLoadMap[y][x] == currentDistance)
+                {
+                    bool deadEnd = true;
+                    //Checks Page Above
+                    if (y + 1 < generationLoadMap.Length && generationLoadMap[y + 1][x] == 0 && pageGridMap[y + 1][x].getUpOpen() && pageGridMap[y][x].getDownOpen())
+                    {
+                        generationLoadMap[y + 1][x] = currentDistance + 1;
+                        ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x, y + 1));
+                        deadEnd = false;
+                    }
+                    //Checks Page Below
+                    if (y - 1 >= 0 && generationLoadMap[y - 1][x] == 0 && pageGridMap[y - 1][x].getDownOpen() && pageGridMap[y][x].getUpOpen())
+                    {
+                        generationLoadMap[y - 1][x] = currentDistance + 1;
+                        ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x, y - 1));
+                        deadEnd = false;
+                    }
+                    //Checks Page Right
+                    if (x + 1 < generationLoadMap[y].Length && generationLoadMap[y][x + 1] == 0 && pageGridMap[y][x + 1].getRightOpen() && pageGridMap[y][x].getLeftOpen())
+                    {
+                        generationLoadMap[y][x + 1] = currentDistance + 1;
+                        ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x + 1, y));
+                        deadEnd = false;
+                    }
+                    //Checks Page Left
+                    if (x - 1 >= 0 && generationLoadMap[y][x - 1] == 0 && pageGridMap[y][x - 1].getLeftOpen() && pageGridMap[y][x].getRightOpen())
+                    {
+                        generationLoadMap[y][x - 1] = currentDistance + 1;
+                        ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x - 1, y));
+                        deadEnd = false;
+                    }
+                    //Registered dead end tiles
+                    if (deadEnd)
+                    {
+                        deadEndLocations.Add(new Vector2(x,y));
+                        print("dead end location found in " + x + ", " + y);
+                    }
+                }
             }
-            pageGridMap[y][x].setPageSpecialUse("water");
+            if (((ArrayList)allLocations[currentDistance + 1]).Count <= 0)
+            {
+                hasReachedAll = true;
+            }
+            currentDistance++;
         }
-        for (int i = 0; i < scrapSurplusPages; i++)
+        //Counts the amount of special squares give
+        int goldenScrapCount = 0;
+        int goldenFoodCount = 0;
+        int foodCount = 0;
+        int scrapCount = 0;
+        //Array with coordinates of all special squares
+        ArrayList specialSquares = new ArrayList();
+        //Sets up the first random golden location
+        Vector2 location = (Vector2)deadEndLocations[Random.Range(0, deadEndLocations.Count)];
+        pageGridMap[(int)location.x][(int)location.y].setPageSpecialUse("gFood");
+        goldenFoodCount++;
+        specialSquares.Add(location);
+        //Finds grid farthest away from the closest special grid, only uses special grids
+        while((goldenFoodCount < goldFoodSurplusPages || goldenScrapCount < goldScrapSurplusPages) && deadEndLocations.Count > specialSquares.Count)
         {
-            int y = Random.Range(0, pageGridMap.Length);
-            int x = Random.Range(0, pageGridMap[y].Length);
-            while (pageGridMap[y][x].getPageSpecialUse() != "default")
+            float mostDistance = 0;
+            Vector2 farthestSquare = new Vector2(1,0);
+            for (int i = 0; i < deadEndLocations.Count; i++)
             {
-                y = Random.Range(0, pageGridMap.Length);
-                x = Random.Range(0, pageGridMap[y].Length);
+                Vector2 thisLoc = (Vector2)deadEndLocations[i];
+                if (pageGridMap[(int)thisLoc.y][(int)thisLoc.x].getPageSpecialUse() == "default")
+                {
+                    float closestDistance = 10000;
+                    for (int z = 0; z < specialSquares.Count; z++)
+                    {
+                        float xDiff = (thisLoc.x - ((Vector2)specialSquares[z]).x);
+                        float yDiff = (thisLoc.y - ((Vector2)specialSquares[z]).y);
+                        float distance = Mathf.Sqrt((xDiff * xDiff) + (yDiff * yDiff));
+                        if(distance < closestDistance)
+                        {
+                            closestDistance = distance;
+                        }
+                    }
+                    if(closestDistance > mostDistance)
+                    {
+                        mostDistance = closestDistance;
+                        farthestSquare = thisLoc;
+                    }
+                }
             }
-            pageGridMap[y][x].setPageSpecialUse("scrap");
+            specialSquares.Add(farthestSquare);
+            //creates golden food grid
+            if ((Random.Range(0,2) == 1 && goldenFoodCount < goldFoodSurplusPages) || goldenScrapCount >= goldScrapSurplusPages) {
+                pageGridMap[(int)farthestSquare.y][(int)farthestSquare.x].setPageSpecialUse("gFood");
+                goldenFoodCount++;
+            }
+            //creates golden scrap grid
+            else {
+                pageGridMap[(int)farthestSquare.y][(int)farthestSquare.x].setPageSpecialUse("gScrap");
+                goldenScrapCount++;
+            }
+
         }
-        //Loads in Water Grid Surplus Pages
-        //8: Loads in grid pages
+        //Fills in remaining dead end squares with food or scrap squares
+        for (int i = 0; i < deadEndLocations.Count; i++)
+        {
+            Vector2 thisLoc = (Vector2)deadEndLocations[i];
+            if (pageGridMap[(int)thisLoc.y][(int)thisLoc.x].getPageSpecialUse() == "default")
+            {
+                //creates food grid
+                if ((Random.Range(0, 2) == 1 || scrapCount >= scrapSurplusPages) && foodCount < foodSurplusPages)
+                {
+                    pageGridMap[(int)thisLoc.y][(int)thisLoc.x].setPageSpecialUse("food");
+                    foodCount++;
+                }
+                //creates golden scrap grid
+                else if (scrapCount < scrapSurplusPages)
+                {
+                    pageGridMap[(int)thisLoc.y][(int)thisLoc.x].setPageSpecialUse("scrap");
+                    scrapCount++;
+                }
+            }
+        }
+        //Uses all grids to put regular food and scrap tiles in
+        while ((foodCount < foodSurplusPages || scrapCount < scrapSurplusPages))
+        {
+            float mostDistance = 0;
+            Vector2 farthestSquare = new Vector2(1, 0);
+            for (int y = 0; y < yGridLength; y++)
+            {
+                for(int x = 0; x < xGridLength; x++)
+                {
+                    Vector2 thisLoc = new Vector2(x,y);
+                    if (pageGridMap[(int)thisLoc.y][(int)thisLoc.x].getPageSpecialUse() == "default")
+                    {
+                        float closestDistance = 10000;
+                        for (int z = 0; z < specialSquares.Count; z++)
+                        {
+                            float xDiff = (thisLoc.x - ((Vector2)specialSquares[z]).x);
+                            float yDiff = (thisLoc.y - ((Vector2)specialSquares[z]).y);
+                            float distance = Mathf.Sqrt((xDiff * xDiff) + (yDiff * yDiff));
+                            if (distance < closestDistance)
+                            {
+                                closestDistance = distance;
+                            }
+                        }
+                        if (closestDistance > mostDistance)
+                        {
+                            mostDistance = closestDistance;
+                            farthestSquare = thisLoc;
+                        }
+                    }
+                }
+            }
+            specialSquares.Add(farthestSquare);
+            //creates food grid
+            if ((Random.Range(0,2) == 1 && foodCount < foodSurplusPages) || scrapCount >= goldScrapSurplusPages)
+            {
+                pageGridMap[(int)farthestSquare.y][(int)farthestSquare.x].setPageSpecialUse("food");
+                foodCount++;
+            }
+            //creates golden scrap grid
+            else
+            {
+                pageGridMap[(int)farthestSquare.y][(int)farthestSquare.x].setPageSpecialUse("scrap");
+                scrapCount++;
+            }
+
+        }
+        //7: Loads in grid pages
         for (int y = 0; y < pageGridMap.Length; y++)
         {
             for (int x = 0; x < pageGridMap[y].Length; x++)

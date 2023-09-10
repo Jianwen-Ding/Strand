@@ -1397,8 +1397,9 @@ MonoBehaviour:
   - {fileID: 8354637023699969876, guid: e35da64915fa84e4d9d19f89f52987f5, type: 3}
   baseSymbol: {fileID: 3819938077616042871, guid: ac16ac0d97402ac4eac0a9738b19be12, type: 3}
   foodSymbol: {fileID: 5467746221839152547, guid: fc861e7e9c5306d4187a4bf9ad6b89f0, type: 3}
-  waterSymbol: {fileID: 678469768969620568, guid: 7c20744bd66f1ad4ca925ac6fa507474, type: 3}
   scrapSymbol: {fileID: 1444896889947058614, guid: 842bef6c64a5a1946bc6b4d0ac9761f7, type: 3}
+  gScrapSymbol: {fileID: 5831342509286452798, guid: 6b9a0d884f079426c9cf507a8b3f6505, type: 3}
+  gFoodSymbol: {fileID: 2314218003427183461, guid: 6c0f92b1e3ef74c9f8453d20260ad5f3, type: 3}
   gridLoader: {fileID: 0}
   higherLayerCanvas: {fileID: 1249106050}
   defaultTransformParent: {fileID: 790870310}
@@ -1408,6 +1409,7 @@ MonoBehaviour:
   onMainDisplay: 0
   loadedPlayerX: 0
   loadedPlayerY: 0
+  startExplored: 1
 --- !u!1 &418824413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,9 +1653,10 @@ MonoBehaviour:
   xGridLength: 9
   yGridLength: 9
   percentageChanceForOpen: 30
-  foodSurplusPages: 3
-  waterSurplusPages: 3
-  scrapSurplusPages: 3
+  foodSurplusPages: 7
+  goldFoodSurplusPages: 4
+  scrapSurplusPages: 7
+  goldScrapSurplusPages: 4
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -2278,7 +2281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &697102171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3679,7 +3682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 10
   currentCount: 0
-  startingPosition: {x: 9, y: -0.25}
+  startingPosition: {x: 8.9, y: -0.25}
   incrementalChange: {x: -0.7, y: 0}
   incrementedToColor: {r: 1, g: 1, b: 1, a: 1}
   incrementedBehindColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
@@ -4222,7 +4225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1499695960
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4631,7 +4634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 10
   currentCount: 0
-  startingPosition: {x: 9, y: -0.25}
+  startingPosition: {x: 8.9, y: -0.25}
   incrementalChange: {x: -0.7, y: 0}
   incrementedToColor: {r: 1, g: 1, b: 1, a: 1}
   incrementedBehindColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
@@ -4881,7 +4884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 10
   currentCount: 0
-  startingPosition: {x: 9, y: -0.7}
+  startingPosition: {x: 8.9, y: -0.7}
   incrementalChange: {x: -0.7, y: 0}
   incrementedToColor: {r: 1, g: 1, b: 1, a: 1}
   incrementedBehindColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}

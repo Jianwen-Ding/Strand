@@ -27,9 +27,11 @@ public class miniMapGenerator : MonoBehaviour
     [SerializeField]
     private GameObject foodSymbol;
     [SerializeField]
-    private GameObject waterSymbol;
-    [SerializeField]
     private GameObject scrapSymbol;
+    [SerializeField]
+    private GameObject gScrapSymbol;
+    [SerializeField]
+    private GameObject gFoodSymbol;
     //--Setup variables--
     [SerializeField]
     private gridOverallLoader gridLoader;
@@ -51,6 +53,9 @@ public class miniMapGenerator : MonoBehaviour
     private int loadedPlayerX = -99;
     [SerializeField]
     private int loadedPlayerY = -99;
+    //LARGELY A DEBUG VARIABLE- DEFUALT IS FALSE
+    [SerializeField]
+    bool startExplored;
     // Start is called before the first frame update
     public void Start()
     {
@@ -89,8 +94,11 @@ public class miniMapGenerator : MonoBehaviour
                     case "food":
                         foundSymbolPrefab = foodSymbol;
                         break;
-                    case "water":
-                        foundSymbolPrefab = waterSymbol;
+                    case "gFood":
+                        foundSymbolPrefab = gFoodSymbol;    
+                        break;
+                    case "gScrap":
+                        foundSymbolPrefab = gScrapSymbol;
                         break;
                     case "scrap":
                         foundSymbolPrefab = scrapSymbol;
@@ -105,7 +113,7 @@ public class miniMapGenerator : MonoBehaviour
                     newSymbol.transform.SetParent(generatedGrids[y][x].transform);
                 }
                 //Shuts off grid to be activated on discovery
-                generatedGrids[y][x].SetActive(false);
+                generatedGrids[y][x].SetActive(startExplored);
             }
         }
     }
