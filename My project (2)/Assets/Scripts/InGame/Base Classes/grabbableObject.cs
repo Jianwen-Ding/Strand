@@ -79,10 +79,6 @@ public class grabbableObject : MonoBehaviour
     {
         return throwVelocityToHitThreshold;
     }
-    public float getThrowStunTime()
-    {
-        return throwStunTme;
-    }
     public float getThrowKnockback()
     {
         return throwKnockback;

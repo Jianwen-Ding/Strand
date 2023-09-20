@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6686323819803154437}
   - component: {fileID: 1080233782734363842}
   - component: {fileID: 7808332853860490064}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: gridPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,6 +64,7 @@ MonoBehaviour:
   - {x: 0, y: 0.0618}
   generatedYet: 0
   loadedIn: 0
+  distanceFromCenter: 0
 --- !u!212 &-6686323819803154437
 SpriteRenderer:
   m_ObjectHideFlags: 0

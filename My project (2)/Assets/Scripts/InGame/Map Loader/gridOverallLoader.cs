@@ -350,38 +350,62 @@ public class gridOverallLoader : MonoBehaviour
                 {
                     bool deadEnd = true;
                     //Checks Page Above
-                    if (y + 1 < generationLoadMap.Length && generationLoadMap[y + 1][x] == 0 && pageGridMap[y + 1][x].getUpOpen() && pageGridMap[y][x].getDownOpen())
+                    if (y + 1 < generationLoadMap.Length && pageGridMap[y + 1][x].getUpOpen() && pageGridMap[y][x].getDownOpen())
                     {
-                        generationLoadMap[y + 1][x] = currentDistance + 1;
-                        ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x, y + 1));
-                        deadEnd = false;
+                        if((generationLoadMap[y + 1][x] > currentDistance || generationLoadMap[y + 1][x] == 0))
+                        {
+                            deadEnd = false;
+                        }
+                        if(generationLoadMap[y + 1][x] == 0)
+                        {
+                            generationLoadMap[y + 1][x] = currentDistance + 1;
+                            ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x, y + 1));
+                        }
                     }
                     //Checks Page Below
-                    if (y - 1 >= 0 && generationLoadMap[y - 1][x] == 0 && pageGridMap[y - 1][x].getDownOpen() && pageGridMap[y][x].getUpOpen())
+                    if (y - 1 >= 0 && pageGridMap[y - 1][x].getDownOpen() && pageGridMap[y][x].getUpOpen())
                     {
-                        generationLoadMap[y - 1][x] = currentDistance + 1;
-                        ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x, y - 1));
-                        deadEnd = false;
+                        if ((generationLoadMap[y - 1][x]  > currentDistance || generationLoadMap[y - 1][x] == 0))
+                        {
+                            deadEnd = false;
+                        }
+                        if (generationLoadMap[y - 1][x] == 0)
+                        {
+                            generationLoadMap[y - 1][x] = currentDistance + 1;
+                            ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x, y - 1));
+                        }
                     }
                     //Checks Page Right
                     if (x + 1 < generationLoadMap[y].Length && generationLoadMap[y][x + 1] == 0 && pageGridMap[y][x + 1].getRightOpen() && pageGridMap[y][x].getLeftOpen())
                     {
-                        generationLoadMap[y][x + 1] = currentDistance + 1;
-                        ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x + 1, y));
-                        deadEnd = false;
+                        if ((generationLoadMap[y][x + 1] > currentDistance || generationLoadMap[y][x + 1] == 0))
+                        {
+                            deadEnd = false;
+                        }
+                        if (generationLoadMap[y][x + 1] == 0)
+                        {
+                            generationLoadMap[y][x + 1] = currentDistance + 1;
+                            ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x + 1, y));
+                        }
                     }
                     //Checks Page Left
                     if (x - 1 >= 0 && generationLoadMap[y][x - 1] == 0 && pageGridMap[y][x - 1].getLeftOpen() && pageGridMap[y][x].getRightOpen())
                     {
-                        generationLoadMap[y][x - 1] = currentDistance + 1;
-                        ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x - 1, y));
-                        deadEnd = false;
+                        if (generationLoadMap[y][x - 1] > currentDistance || generationLoadMap[y][x - 1] == 0)
+                        {
+                            deadEnd = false;
+                        }
+                        if(generationLoadMap[y][x - 1] == 0)
+                        {
+                            generationLoadMap[y][x - 1] = currentDistance + 1;
+                            ((ArrayList)allLocations[currentDistance + 1]).Add(new Vector2(x - 1, y));
+                        }
                     }
                     //Registered dead end tiles
                     if (deadEnd)
                     {
                         deadEndLocations.Add(new Vector2(x,y));
-                        print("dead end location found in " + x + ", " + y);
+                        //print("dead end location found in " + x + ", " + y);
                     }
                 }
             }
@@ -497,12 +521,12 @@ public class gridOverallLoader : MonoBehaviour
             }
             specialSquares.Add(farthestSquare);
             //creates food grid
-            if ((Random.Range(0,2) == 1 && foodCount < foodSurplusPages) || scrapCount >= goldScrapSurplusPages)
+            if ((Random.Range(0,2) == 1 && foodCount < foodSurplusPages) || scrapCount >= scrapSurplusPages)
             {
                 pageGridMap[(int)farthestSquare.y][(int)farthestSquare.x].setPageSpecialUse("food");
                 foodCount++;
             }
-            //creates golden scrap grid
+            //creates scrap grid
             else
             {
                 pageGridMap[(int)farthestSquare.y][(int)farthestSquare.x].setPageSpecialUse("scrap");
