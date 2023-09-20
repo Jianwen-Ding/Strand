@@ -8,11 +8,9 @@ public class enemyAudio : MonoBehaviour
     //Index follow following pattern
     //Index:
     //0- Hurt
-    //1- Damage
-    //2- Stun
-    //3- Grabbed
-    //4- Failed Grab
-    //5 and onward- non standard class
+    //1- Stun
+    //2- Death
+    //3 and onward- non standard class
     [SerializeField]
     AudioClip[] audioStates;
     [SerializeField]

@@ -11,6 +11,7 @@ public class baseEnemy : MonoBehaviour
     private SpriteRenderer enemyRender;
     private Color originalColor;
     private GameObject playerObject;
+    private enemyAudio cacheAudio;
     //Parameter of state named "EnemyState"
     //1 - Default
     //2 - Stunned
@@ -152,9 +153,14 @@ public class baseEnemy : MonoBehaviour
     {
         return enemyRigid;
     }
+    public virtual SpriteRenderer getRenderer()
+    {
+        return enemyRender;
+    }
     //Helper functions
     public virtual void stunEnemy(float time)
     {
+        cacheAudio.playSound(1, 0);
         enemyState = "stunned";
         timeStunnedLeft = time;
         enemyRender.color = stunColor;
@@ -171,7 +177,6 @@ public class baseEnemy : MonoBehaviour
     }
     public virtual void onFailedGrab()
     {
-
     }
     //health
     public virtual void isDamaged(int damage)
@@ -179,8 +184,10 @@ public class baseEnemy : MonoBehaviour
         stunEnemy(timeStunOnDamage);
         grabArmor -= damage;
         health -= damage;
+        cacheAudio.playSound(0,0);
         if(health <= 0)
         {
+            cacheAudio.playSound(2, 0);
             onDeath();
         }
     }
@@ -203,6 +210,7 @@ public class baseEnemy : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        cacheAudio = gameObject.GetComponent<enemyAudio>();
         objectAnimator = gameObject.GetComponent<Animator>();
         timeLeftUntilDestruct = timeUntilDestruct;
         playerObject = GameObject.FindGameObjectWithTag("Player");
