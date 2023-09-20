@@ -16,13 +16,15 @@ public class grabbableObject : MonoBehaviour
     private int originalLayer;
     private Color originialColor;
     //localScale
+    private float originalAngle;
     private Vector3 originalScale; 
     private float originalDrag;
     [SerializeField]
     private float grabShrink = 0.5f;
     //Grab Variables
-    [SerializeField]
     private bool hasBeenGrabbed;
+    [SerializeField]
+    private bool willPointOutwards;
     //Slash/Use Variables
     [SerializeField]
     private int durability = 3;
@@ -38,7 +40,6 @@ public class grabbableObject : MonoBehaviour
     private float slashTimeLeft;
     [SerializeField]
     private float slashCooldown;
-    [SerializeField]
     private float slashCooldownTimeLeft;
     [SerializeField]
     private Color slashColor = Color.gray;
@@ -58,7 +59,6 @@ public class grabbableObject : MonoBehaviour
     private int throwKnockback;
     [SerializeField]
     private float thrownStateTime;
-    [SerializeField]
     private float thrownStateTimeLeft;
     [SerializeField]
     private float thrownDrag;

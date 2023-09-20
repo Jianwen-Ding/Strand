@@ -163,6 +163,7 @@ MonoBehaviour:
   hasBeenGrabbed: 0
   durability: 5
   slashKnockBackStrength: 30
+  slashStunTime: 0
   damage: 0
   slashTime: 1
   slashTimeLeft: 0
@@ -171,6 +172,10 @@ MonoBehaviour:
   slashColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
   velocityThreshold: 300
+  throwVelocityToHitThreshold: 5
+  throwDamage: 1
+  throwStunTme: 0
+  throwKnockback: 15
   thrownStateTime: 0.1
   thrownStateTimeLeft: 0
   thrownDrag: 3
