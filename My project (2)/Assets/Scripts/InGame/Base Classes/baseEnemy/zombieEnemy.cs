@@ -5,9 +5,10 @@ using UnityEngine;
 public class zombieEnemy : baseEnemy
 {
     //THE ZOMBIE
-    //The most basic enemy,
+    //The most basic enemy, not a major threat
     //Walks towards players upon line of sight and does not stop walking in a straight line until player gets a certain distance away
     //Damages on contact and has no other special abilities
+    //Zombies only have walking and not walking state, 0 and 1 animation states
     //Zombies specific variables
     [SerializeField]
     private bool inPursuit;
@@ -15,8 +16,6 @@ public class zombieEnemy : baseEnemy
     private Vector2 playerAdjust;
     [SerializeField]
     private Vector2 zombieAdjust;
-    [SerializeField]
-    private float distanceCheckPlayer;
     [SerializeField]
     private float distanceCheck;
     [SerializeField]
@@ -28,7 +27,6 @@ public class zombieEnemy : baseEnemy
         switch (insertedState)
         {
             case "default":
-                //Zombies only have walking and not walking state, 0 and 1
                 Vector2 diff;
                 float angleTowardsPlayer;
                 //Checking if player is within line of sight

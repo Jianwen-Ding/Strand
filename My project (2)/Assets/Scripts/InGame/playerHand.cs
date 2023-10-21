@@ -209,7 +209,8 @@ public class playerHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(grabState == "grabbing")
+        transform.localRotation = Quaternion.Euler(new Vector3(0, 0, objectPlayerScript.getAngleFace() - 90));
+        if (grabState == "grabbing")
         {
             objectRenderScript.sprite = grabHandSprite;
         }

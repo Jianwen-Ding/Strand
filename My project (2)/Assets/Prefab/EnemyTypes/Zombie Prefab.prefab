@@ -163,7 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabShrink: 0.5
-  hasBeenGrabbed: 0
+  willPointOutwards: 0
+  adjustAngleCheckY: 0
   durability: 99
   slashKnockBackStrength: 30
   slashStunTime: 0
@@ -171,7 +172,6 @@ MonoBehaviour:
   slashTime: 1
   slashTimeLeft: 0
   slashCooldown: 0.25
-  slashCooldownTimeLeft: 0
   slashColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
   velocityThreshold: 300
@@ -180,7 +180,6 @@ MonoBehaviour:
   throwStunTme: 0
   throwKnockback: 10
   thrownStateTime: 0.25
-  thrownStateTimeLeft: 0
   thrownDrag: 3
   releaseStateTime: 0.25
   timeUntilRelease: 1
@@ -219,7 +218,7 @@ MonoBehaviour:
   enemyState: 
   timeStunOnDamage: 0.5
   timeStunnedLeft: 0
-  stunColor: {r: 0.95149136, g: 1, b: 0, a: 1}
+  stunColor: {r: 1, g: 1, b: 0, a: 1}
   health: 5
   playerTouchPushbackOnPlayer: 20
   playerTouchPushbackOnEnemy: 20

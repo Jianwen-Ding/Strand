@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: aa3ce1ec53da641219b50176d35616c1
+guid: c2ba5ba9ec3894608aaedfb9254a6505
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8055527790927764440
-    second: ZomDog PNG_0
+      213: 2760695719659806806
+    second: ProjectileAnimation_0
   - first:
-      213: -5682530329796820052
-    second: ZomDog PNG_1
+      213: -2338574993876863261
+    second: ProjectileAnimation_1
   - first:
-      213: -7237629311808190044
-    second: ZomDog PNG_2
+      213: 6578129606912468889
+    second: ProjectileAnimation_2
   - first:
-      213: 8574191997713432413
-    second: ZomDog PNG_3
-  - first:
-      213: 8966372191018973477
-    second: ZomDog PNG_4
-  - first:
-      213: 8117610805148680239
-    second: ZomDog PNG_5
+      213: 7251862592347774187
+    second: ProjectileAnimation_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ZomDog PNG_0
+      name: ProjectileAnimation_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 32
-        height: 32
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,20 +129,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 824a6777724053090800000000000000
-      internalID: -8055527790927764440
+      spriteID: 650a3475126ff4620800000000000000
+      internalID: 2760695719659806806
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ZomDog PNG_1
+      name: ProjectileAnimation_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
+        x: 16
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,62 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca3c31bb5c89321b0800000000000000
-      internalID: -5682530329796820052
+      spriteID: 3e6bb51fe66bb8fd0800000000000000
+      internalID: -2338574993876863261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ZomDog PNG_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a9c7bdcc76ce8b90800000000000000
-      internalID: -7237629311808190044
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ZomDog PNG_3
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d5fb4b3a136adf670800000000000000
-      internalID: 8574191997713432413
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ZomDog PNG_4
+      name: ProjectileAnimation_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52970a97004fe6c70800000000000000
-      internalID: 8966372191018973477
+      spriteID: 9976f7a66063a4b50800000000000000
+      internalID: 6578129606912468889
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ZomDog PNG_5
+      name: ProjectileAnimation_3
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,8 +192,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2082c1b40c87a070800000000000000
-      internalID: 8117610805148680239
+      spriteID: bec15d01b9ac3a460800000000000000
+      internalID: 7251862592347774187
       vertices: []
       indices: 
       edges: []

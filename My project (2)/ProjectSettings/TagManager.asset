@@ -12,6 +12,7 @@ TagManager:
   - Food
   - HeartUI
   - darkenScreen
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - PageStorer
   - Enemy
   - GridPage
-  - 
+  - Projectile
   - 
   - 
   - 

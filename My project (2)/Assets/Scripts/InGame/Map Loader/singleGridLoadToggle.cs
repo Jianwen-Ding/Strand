@@ -56,6 +56,14 @@ public class singleGridLoadToggle : MonoBehaviour
     {
         gridPositionY = setPosition;
     }
+    public int getGridPositionX()
+    {
+        return gridPositionX;
+    }
+    public int getGridPositionY()
+    {
+        return gridPositionY;
+    }
     // Start is called before the first frame update
     void Awake()
     {

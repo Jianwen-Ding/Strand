@@ -25,6 +25,8 @@ public class grabbableObject : MonoBehaviour
     private bool hasBeenGrabbed;
     [SerializeField]
     private bool willPointOutwards;
+    [SerializeField]
+    private float adjustAngleCheckY;
     //Slash/Use Variables
     [SerializeField]
     private int durability = 3;
@@ -57,9 +59,15 @@ public class grabbableObject : MonoBehaviour
     private float throwStunTme;
     [SerializeField]
     private int throwKnockback;
+    //The time the thrown object goes for a set velocity
     [SerializeField]
     private float thrownStateTime;
     private float thrownStateTimeLeft;
+    //Time that a thrown object can hit for damage
+    [SerializeField]
+    private float thrownDamageTime;
+    [SerializeField]
+    private float thrownDamageTimeLeft;
     [SerializeField]
     private float thrownDrag;
     //other
@@ -119,14 +127,19 @@ public class grabbableObject : MonoBehaviour
     {
         return releaseStateTime;
     }
+    public float getThrownDamageTimeLeft()
+    {
+        return thrownDamageTimeLeft;
+    }
     //grabbed
     public virtual bool grabbedEffect(GameObject grabbedBy)
     {
-        objectCollider.isTrigger = true;
+        objectCollider.enabled = false;
         gameObject.layer = 8;
         grabbedByObject = grabbedBy;
         grabbedByObjectScript = grabbedByObject.GetComponent<playerHand>();
         grabbedByObjectRender = grabbedByObject.GetComponent<SpriteRenderer>();
+        originalAngle = transform.rotation.z;
         hasBeenGrabbed = true;
         gameObject.transform.localScale = gameObject.transform.localScale * grabShrink;
         if(objectLayerScript != null)
@@ -143,6 +156,13 @@ public class grabbableObject : MonoBehaviour
     {
         gameObject.transform.position = grabbedByObject.transform.position;
         objectRender.sortingOrder = grabbedByObjectRender.sortingOrder;
+        if (willPointOutwards)
+        {
+            float xDiff = gameObject.transform.position.x - (grabbedByObjectScript.getObjectPlayerScript().transform.position.x + adjustAngleCheckY);
+            float yDiff = gameObject.transform.position.y - (grabbedByObjectScript.getObjectPlayerScript().transform.position.y + adjustAngleCheckY);
+            float Angle = Mathf.Rad2Deg * Mathf.Atan2(yDiff, xDiff);
+            transform.localRotation = Quaternion.Euler(new Vector3(0,0, Angle - 90));
+        }
     }
     //slashing/using
     public virtual bool startSlashEffect()
@@ -170,6 +190,13 @@ public class grabbableObject : MonoBehaviour
         }
         gameObject.transform.position = grabbedByObject.transform.position;
         objectRender.sortingOrder = grabbedByObjectRender.sortingOrder;
+        if (willPointOutwards)
+        {
+            float xDiff = gameObject.transform.position.x - (grabbedByObjectScript.getObjectPlayerScript().transform.position.x + adjustAngleCheckY);
+            float yDiff = gameObject.transform.position.y - (grabbedByObjectScript.getObjectPlayerScript().transform.position.y + adjustAngleCheckY);
+            float Angle = Mathf.Rad2Deg * Mathf.Atan2(yDiff, xDiff);
+            transform.localRotation = Quaternion.Euler(new Vector3(0, 0, Angle - 90));
+        }
     }
     public virtual void slashEnd()
     {
@@ -223,13 +250,14 @@ public class grabbableObject : MonoBehaviour
         hasBeenGrabbed = false;
         objectPhysics.drag = 0;
         objectRender.color = originialColor;
-        objectCollider.isTrigger = false;
+        objectCollider.enabled = true;
         gameObject.transform.localScale = originalScale;
         thrownStateTimeLeft = thrownStateTime;
+        thrownDamageTimeLeft = thrownDamageTime;
         push(angle, strength);
         if (objectLayerScript != null)
         {
-            objectLayerScript.enabled = true;
+            objectLayerScript.enabled = false;
 
         }
     }
@@ -242,19 +270,21 @@ public class grabbableObject : MonoBehaviour
     }
     public virtual void thrownEnd()
     {
+        transform.localRotation = Quaternion.Euler(new Vector3(0, 0, originalAngle));
         objectPhysics.drag = originalDrag;
         gameObject.layer = originalLayer;
     }
     //released, independent of thrown
     public virtual void releasedEffect()
     {
-        objectCollider.isTrigger = false;
+        transform.localRotation = Quaternion.Euler(new Vector3(0, 0, originalAngle));
+        objectCollider.enabled = true;
         gameObject.transform.localScale = originalScale;
         thrownStateTimeLeft = releaseStateTime;
         hasBeenGrabbed = false;
         if (objectLayerScript != null)
         {
-            objectLayerScript.enabled = true;
+            objectLayerScript.enabled = false;
 
         }
     }
@@ -305,6 +335,10 @@ public class grabbableObject : MonoBehaviour
         if (slashCooldownTimeLeft >= 0)
         {
             slashCooldownTimeLeft -= Time.deltaTime;
+        }
+        if( thrownDamageTimeLeft >= 0)
+        {
+            thrownDamageTimeLeft -= Time.deltaTime;
         }
         if (thrownStateTimeLeft >= 0)
         {

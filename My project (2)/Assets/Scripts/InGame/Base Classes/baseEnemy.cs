@@ -62,10 +62,15 @@ public class baseEnemy : MonoBehaviour
     private GameObject destructionResidue;
     #endregion
     //private functions
-    private void OnCollisionEnter2D(Collision2D collision)
-    { 
-        PlayerMainScript colliderPlayerScript = collision.gameObject.GetComponent<PlayerMainScript>();
-        grabbableObject colliderGrabbableScript = collision.gameObject.GetComponent<grabbableObject>();
+    public virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        onContact(collision.gameObject);
+    }
+    //Deals with contact
+    public virtual void onContact(GameObject collisionObject)
+    {
+        PlayerMainScript colliderPlayerScript = collisionObject.GetComponent<PlayerMainScript>();
+        grabbableObject colliderGrabbableScript = collisionObject.GetComponent<grabbableObject>();
         //if enemy collides with player
         if (colliderPlayerScript != null)
         {
@@ -73,23 +78,23 @@ public class baseEnemy : MonoBehaviour
             colliderPlayerScript.lockMovement(playerTouchMovementLockTime);
             stunEnemy(stunOnPush);
             //-pushes both characters back
-            float Angle = Mathf.Rad2Deg * Mathf.Atan2(gameObject.transform.position.y - collision.gameObject.transform.position.y, gameObject.transform.position.x - collision.gameObject.transform.position.x);
+            float Angle = Mathf.Rad2Deg * Mathf.Atan2(gameObject.transform.position.y - collisionObject.transform.position.y, gameObject.transform.position.x - collisionObject.gameObject.transform.position.x);
             //pushes enemy back
             float xPush = Mathf.Cos(Angle * Mathf.Deg2Rad) * playerTouchPushbackOnEnemy;
             float yPush = Mathf.Sin(Angle * Mathf.Deg2Rad) * playerTouchPushbackOnEnemy;
             enemyRigid.velocity *= 0;
             enemyRigid.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
-            Rigidbody2D collisionRigid = collision.gameObject.GetComponent<Rigidbody2D>();
+            Rigidbody2D collisionRigid = collisionObject.gameObject.GetComponent<Rigidbody2D>();
             collisionRigid.velocity *= 0;
             collisionRigid.AddForce(new Vector2(-xPush, -yPush), ForceMode2D.Impulse);
         }
         //if enemy collides with thrown/fast flying grabbable object
-        else if(colliderGrabbableScript != null)
+        else if (colliderGrabbableScript != null && colliderGrabbableScript.getThrownDamageTimeLeft() >= 0)
         {
-            print(colliderGrabbableScript.getVelocityThreshold());
+            //print(colliderGrabbableScript.getVelocityThreshold());
             //Checking the magnitude of the velocity
             float colliderVelocitySum = Mathf.Sqrt(colliderGrabbableScript.getObjectPhysics().velocity.y * colliderGrabbableScript.getObjectPhysics().velocity.y + colliderGrabbableScript.getObjectPhysics().velocity.x * colliderGrabbableScript.getObjectPhysics().velocity.x);
-            if(colliderVelocitySum >= colliderGrabbableScript.getThrowVelocityThreshold())
+            if (colliderVelocitySum >= colliderGrabbableScript.getThrowVelocityThreshold())
             {
                 isDamaged(colliderGrabbableScript.getThrowDamage());
                 float colliderAngle = Mathf.Atan2(colliderGrabbableScript.getObjectPhysics().velocity.y, colliderGrabbableScript.getObjectPhysics().velocity.x);
@@ -97,12 +102,13 @@ public class baseEnemy : MonoBehaviour
                 float yPush = Mathf.Sin(colliderAngle) * colliderGrabbableScript.getThrowKnockback();
                 enemyRigid.velocity *= 0;
                 enemyRigid.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);
-                Rigidbody2D collisionRigid = collision.gameObject.GetComponent<Rigidbody2D>();
+                Rigidbody2D collisionRigid = collisionObject.gameObject.GetComponent<Rigidbody2D>();
                 collisionRigid.velocity *= 0;
                 collisionRigid.AddForce(new Vector2(-xPush, -yPush), ForceMode2D.Impulse);
             }
         }
     }
+
     //public function
     //get/set functions
     public virtual int getGrabArmor()
@@ -174,6 +180,7 @@ public class baseEnemy : MonoBehaviour
     public virtual void onDeath()
     {
         hasDied = true;
+        enemyState = "death";
     }
     public virtual void onFailedGrab()
     {

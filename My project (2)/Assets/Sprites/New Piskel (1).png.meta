@@ -1,25 +1,16 @@
 fileFormatVersion: 2
-guid: aa3ce1ec53da641219b50176d35616c1
+guid: 833d5aed6e48547fba74c401d177944a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8055527790927764440
-    second: ZomDog PNG_0
+      213: -6888756438569675735
+    second: New Piskel (1)_0
   - first:
-      213: -5682530329796820052
-    second: ZomDog PNG_1
+      213: 9173839873224666002
+    second: New Piskel (1)_1
   - first:
-      213: -7237629311808190044
-    second: ZomDog PNG_2
-  - first:
-      213: 8574191997713432413
-    second: ZomDog PNG_3
-  - first:
-      213: 8966372191018973477
-    second: ZomDog PNG_4
-  - first:
-      213: 8117610805148680239
-    second: ZomDog PNG_5
+      213: -745645855993587873
+    second: New Piskel (1)_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,12 +112,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ZomDog PNG_0
+      name: New Piskel (1)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 32
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -135,40 +126,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 824a6777724053090800000000000000
-      internalID: -8055527790927764440
+      spriteID: 9249ede64883660a0800000000000000
+      internalID: -6888756438569675735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ZomDog PNG_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca3c31bb5c89321b0800000000000000
-      internalID: -5682530329796820052
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ZomDog PNG_2
+      name: New Piskel (1)_1
       rect:
         serializedVersion: 2
         x: 0
         y: 32
-        width: 32
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -177,40 +147,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a9c7bdcc76ce8b90800000000000000
-      internalID: -7237629311808190044
+      spriteID: 29beed572c6005f70800000000000000
+      internalID: 9173839873224666002
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ZomDog PNG_3
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d5fb4b3a136adf670800000000000000
-      internalID: 8574191997713432413
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ZomDog PNG_4
+      name: New Piskel (1)_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -219,29 +168,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52970a97004fe6c70800000000000000
-      internalID: 8966372191018973477
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ZomDog PNG_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f2082c1b40c87a070800000000000000
-      internalID: 8117610805148680239
+      spriteID: f5792496b0fe6a5f0800000000000000
+      internalID: -745645855993587873
       vertices: []
       indices: 
       edges: []
