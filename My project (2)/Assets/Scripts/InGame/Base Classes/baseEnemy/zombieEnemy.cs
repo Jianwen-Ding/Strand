@@ -47,7 +47,7 @@ public class zombieEnemy : baseEnemy
                     {
                         Debug.DrawLine((Vector2)gameObject.transform.position + zombieAdjust, checker.point, Color.cyan);
                     }
-                    print(checker.collider);
+                    // print(checker.collider);
                     if(checker.collider != null && checker.collider.tag == "Player")
                     {
                         inPursuit = true;

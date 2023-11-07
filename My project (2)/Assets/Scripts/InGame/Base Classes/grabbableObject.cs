@@ -266,10 +266,13 @@ public class grabbableObject : MonoBehaviour
     }
     public virtual void throwHitEffect(Collision2D collisionInput)
     {
+        thrownDamageTimeLeft = -1;
         thrownEnd();
     }
+
     public virtual void thrownEnd()
     {
+        thrownStateTimeLeft = -1;  
         transform.localRotation = Quaternion.Euler(new Vector3(0, 0, originalAngle));
         objectPhysics.drag = originalDrag;
         gameObject.layer = originalLayer;
@@ -288,13 +291,9 @@ public class grabbableObject : MonoBehaviour
 
         }
     }
-    //On collide
+    //On collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(thrownStateTimeLeft >= 0)
-        {
-            throwHitEffect(collision);
-        }
     }
     // Start is called before the first frame update
     public virtual void Start()

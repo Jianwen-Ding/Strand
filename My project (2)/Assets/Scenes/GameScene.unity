@@ -5963,7 +5963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2594209703005610921}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 0.02, z: 0}
+  m_LocalPosition: {x: -0.69, y: 2.76, z: 0}
   m_LocalScale: {x: 4.946666, y: 4.946666, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6225,11 +6225,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2201331762763988545, guid: b42fd6890c4eb46109cac4d24ff4bf70, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.28
+      value: -11.08
       objectReference: {fileID: 0}
     - target: {fileID: 2201331762763988545, guid: b42fd6890c4eb46109cac4d24ff4bf70, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.88
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 2201331762763988545, guid: b42fd6890c4eb46109cac4d24ff4bf70, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6398,12 +6398,16 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6469299925445756569, guid: 1704e64e87b45d948ae0b80ed01470d0, type: 3}
+      propertyPath: thrownStateTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6469299925445756569, guid: 1704e64e87b45d948ae0b80ed01470d0, type: 3}
       propertyPath: thrownDamageTime
-      value: 1.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6469299925445756569, guid: 1704e64e87b45d948ae0b80ed01470d0, type: 3}
       propertyPath: velocityThreshold
-      value: 250
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6469299925445756569, guid: 1704e64e87b45d948ae0b80ed01470d0, type: 3}
       propertyPath: willPointOutwards

@@ -64,13 +64,24 @@ public class baseEnemy : MonoBehaviour
     //private functions
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        onContact(collision.gameObject);
+        onContact(collision);
     }
     //Deals with contact
-    public virtual void onContact(GameObject collisionObject)
+    public virtual void onContact(Collision2D collision)
     {
+        GameObject collisionObject = collision.gameObject;
         PlayerMainScript colliderPlayerScript = collisionObject.GetComponent<PlayerMainScript>();
         grabbableObject colliderGrabbableScript = collisionObject.GetComponent<grabbableObject>();
+        if (colliderGrabbableScript != null)
+        {
+            if(!(colliderGrabbableScript != null && colliderGrabbableScript.getThrownDamageTimeLeft() >= 0))
+            {
+                print("wow");
+            }
+            print("Result: " + (colliderGrabbableScript != null && colliderGrabbableScript.getThrownDamageTimeLeft() >= 0));
+            print("Time Left: " + colliderGrabbableScript.getThrownDamageTimeLeft());
+            print("Velocity Magnitude: " + Mathf.Sqrt(colliderGrabbableScript.getObjectPhysics().velocity.y * colliderGrabbableScript.getObjectPhysics().velocity.y + colliderGrabbableScript.getObjectPhysics().velocity.x * colliderGrabbableScript.getObjectPhysics().velocity.x));
+        }
         //if enemy collides with player
         if (colliderPlayerScript != null)
         {
@@ -88,14 +99,17 @@ public class baseEnemy : MonoBehaviour
             collisionRigid.velocity *= 0;
             collisionRigid.AddForce(new Vector2(-xPush, -yPush), ForceMode2D.Impulse);
         }
+        
         //if enemy collides with thrown/fast flying grabbable object
         else if (colliderGrabbableScript != null && colliderGrabbableScript.getThrownDamageTimeLeft() >= 0)
         {
+            print("wow");
             //print(colliderGrabbableScript.getVelocityThreshold());
             //Checking the magnitude of the velocity
             float colliderVelocitySum = Mathf.Sqrt(colliderGrabbableScript.getObjectPhysics().velocity.y * colliderGrabbableScript.getObjectPhysics().velocity.y + colliderGrabbableScript.getObjectPhysics().velocity.x * colliderGrabbableScript.getObjectPhysics().velocity.x);
             if (colliderVelocitySum >= colliderGrabbableScript.getThrowVelocityThreshold())
-            {
+            {       
+                colliderGrabbableScript.throwHitEffect(collision);
                 isDamaged(colliderGrabbableScript.getThrowDamage());
                 float colliderAngle = Mathf.Atan2(colliderGrabbableScript.getObjectPhysics().velocity.y, colliderGrabbableScript.getObjectPhysics().velocity.x);
                 float xPush = Mathf.Cos(colliderAngle) * colliderGrabbableScript.getThrowKnockback();
@@ -107,6 +121,7 @@ public class baseEnemy : MonoBehaviour
                 collisionRigid.AddForce(new Vector2(-xPush, -yPush), ForceMode2D.Impulse);
             }
         }
+
     }
 
     //public function

@@ -142,7 +142,7 @@ public class dogEnemy : baseEnemy
             {
                 Debug.DrawLine((Vector2)gameObject.transform.position + zombieAdjust, checker.point, Color.cyan);
             }
-            print(checker.collider);
+            //print(checker.collider);
         }
         return (checker.collider != null && checker.collider.tag == "Player");
     }
