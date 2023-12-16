@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabShrink: 0.5
-  willPointOutwards: 0
+  willPointOutwards: 1
   adjustAngleCheckY: 0
   durability: 99
   slashKnockBackStrength: 30
@@ -180,9 +180,11 @@ MonoBehaviour:
   throwStunTme: 0
   throwKnockback: 10
   thrownStateTime: 0.25
+  thrownDamageTime: 0.75
+  thrownDamageTimeLeft: 0
   thrownDrag: 3
   releaseStateTime: 0.25
-  timeUntilRelease: 1
+  timeUntilRelease: 4
   timeUntilReleaseLeft: 0
 --- !u!95 &2201331762763988567
 Animator:
@@ -235,7 +237,6 @@ MonoBehaviour:
   inPursuit: 0
   playerAdjust: {x: 0, y: -0.35}
   zombieAdjust: {x: 0, y: -0.4}
-  distanceCheckPlayer: 0
   distanceCheck: 7
   distanceUntilDisconnect: 9
   walkSpeed: 4

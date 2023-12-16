@@ -45,7 +45,26 @@ public class enemyAudio : MonoBehaviour
         }
         else
         {
-            print("ERROR- Enemy Audio was given too high of an index");
+            if(clipIndex >= audioStates.Length)
+            {
+                print("ERROR- Enemy Audio was given too high of an clip index to play: " + clipIndex);
+            }
+            if(sourceIndex >= audioStates.Length)
+            {
+                print("ERROR- Enemy Audio was given too high of an source index to play: " + sourceIndex);
+            }
+        }
+    }
+    // To stop a sound at a specific index temporarily
+    public void muteSound(int sourceIndex)
+    {
+        if (sourceIndex < audioStates.Length)
+        {
+            source[sourceIndex].volume = 0;
+        }
+        else
+        {
+            print("ERROR- Enemy Audio was given too high of an index to stop: " + sourceIndex);
         }
     }
 }

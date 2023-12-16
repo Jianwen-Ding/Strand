@@ -11,9 +11,6 @@ public class flyingHeadScript : baseEnemy
     //-- ACTIVE STATE --
     //Casts projectiles in random directions that attempt to home on to the player in regular intervals
     //Moves in short bursts of speed, circles player constantly.
-    //If too close to player begins to move in oppisite direction
-    //When at a right distance from player attempt to orbit the player
-    //When too far away from player return to idle state
     //-- IDLE STATE --
     //When the player enters the grid that the flying head is also on, the flying head enters active state 
     //Animation states
@@ -22,6 +19,12 @@ public class flyingHeadScript : baseEnemy
     //2 - stun
     //3 - hurt
     //4 - death
+
+
+    //Audio States
+    //3 - flap
+    //4 - fire
+    //5 - is held
     #region vars
     //--Active State--
     [SerializeField]
@@ -35,14 +38,10 @@ public class flyingHeadScript : baseEnemy
     float angleModifyCircle;
     [SerializeField]
     float timeUntilMove;
-    [SerializeField]
     float timeLeftUntilMove;
-    [SerializeField]
-    float minDistanceFromPlayer;
     //Shoot
     [SerializeField]
     float timeUntilFire;
-    [SerializeField]
     float timeLeftUntilFire;
     [SerializeField]
     float angleThreshold;
@@ -51,12 +50,14 @@ public class flyingHeadScript : baseEnemy
     //--Idle State--
     [SerializeField]
     gridOverallLoader gridInfoGet;
-    [SerializeField]
     int currentXGrid;
-    [SerializeField]
     int currentYGrid;
     #endregion
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        onContact(collision.gameObject);
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 11)
@@ -77,6 +78,8 @@ public class flyingHeadScript : baseEnemy
         base.isDamaged(damage);
         getObjectAnimator().SetInteger("EnemyState", 3);
     }
+
+    // decides what the flying head does frame to frame depending on state
     public override void stateUpdate(string insertedState)
     {
         switch (insertedState)
@@ -85,37 +88,47 @@ public class flyingHeadScript : baseEnemy
                 //Actively attacking enemies
                 if (isActive)
                 {
+                    getObjectAnimator().SetInteger("EnemyState", 1);
                     float xDiffrence = gameObject.transform.position.x - getPlayerObject().transform.position.x;
                     float yDiffrence = gameObject.transform.position.y - getPlayerObject().transform.position.y;
                     float angleTowardsPlayer = Mathf.Atan2(yDiffrence, xDiffrence) * Mathf.Rad2Deg;
-                    float distance = Mathf.Sqrt(xDiffrence * xDiffrence + xDiffrence);
+                    float distance = Mathf.Sqrt(xDiffrence * xDiffrence + yDiffrence * yDiffrence);
                     timeLeftUntilFire -= Time.deltaTime;
                     timeLeftUntilMove -= Time.deltaTime;
                     // Burst movement
                     if(timeLeftUntilMove <= 0)
                     {
                         float circleAngle = angleModifyCircle + angleTowardsPlayer;
-                        Vector2 burstForce = new Vector2(Mathf.Cos(circleAngle * Mathf.Deg2Rad), Mathf.Sin(circleAngle * Mathf.Deg2Rad));
+                        Vector2 burstForce = new Vector2(Mathf.Cos(circleAngle * Mathf.Deg2Rad) * burstMovement, Mathf.Sin(circleAngle * Mathf.Deg2Rad) * burstMovement);
                         getObjectRigidbody().AddForce(burstForce, ForceMode2D.Impulse);
                         timeLeftUntilMove = timeUntilMove;
+                        getCacheAudio().playSound(3, 0);
                     }
                     //Fire projectile
                     if(timeLeftUntilFire <= 0)
                     {
-                        float randomizedAngle = Random.Range(angleTowardsPlayer - angleThreshold, angleTowardsPlayer + angleThreshold);
+                        float randomizedAngle = Mathf.Abs(Random.Range(angleTowardsPlayer - angleThreshold, angleTowardsPlayer + angleThreshold) + 180) % 360;
                         GameObject createdProjectile = Instantiate(projectilePrefab);
+                        createdProjectile.gameObject.transform.position = transform.position;
+                        createdProjectile.GetComponent<homingProjectile>().setAngle(randomizedAngle);
                         timeLeftUntilFire = timeUntilFire;
+                        getCacheAudio().playSound(4, 0);
                     }
                     if (distance > maxDistanceUntilDisconnect)
                     {
+                        timeLeftUntilMove = timeUntilMove;
+                        timeLeftUntilFire = timeUntilFire;
                         isActive = false;
                     }
                 }
                 //If searching for Player, not active
                 else
                 {
-                    if(gridInfoGet.getPlayerPositionX() == currentXGrid && gridInfoGet.getPlayerPositionY() == currentYGrid)
+                    getObjectAnimator().SetInteger("EnemyState", 0);
+                    getObjectRigidbody().velocity = Vector2.zero;
+                    if (gridInfoGet.getPlayerPositionX() == currentXGrid && gridInfoGet.getPlayerPositionY() == currentYGrid)
                     {
+
                         isActive = true;
                     }
                 }

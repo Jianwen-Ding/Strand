@@ -160,23 +160,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabShrink: 0.5
-  hasBeenGrabbed: 0
+  willPointOutwards: 1
+  adjustAngleCheckY: 0
   durability: 5
   slashKnockBackStrength: 30
-  slashStunTime: 0
-  damage: 0
+  slashStunTime: 0.5
+  damage: 1
   slashTime: 1
   slashTimeLeft: 0
   slashCooldown: 0.25
-  slashCooldownTimeLeft: 0
   slashColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
-  velocityThreshold: 300
-  throwVelocityToHitThreshold: 5
+  velocityThreshold: 250
+  throwVelocityToHitThreshold: 3
   throwDamage: 1
   throwStunTme: 0
   throwKnockback: 15
-  thrownStateTime: 0.1
-  thrownStateTimeLeft: 0
+  thrownStateTime: 0.15
+  thrownDamageTime: 0.8
+  thrownDamageTimeLeft: 0
   thrownDrag: 3
   releaseStateTime: 0.1

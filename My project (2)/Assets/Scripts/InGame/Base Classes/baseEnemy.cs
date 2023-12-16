@@ -64,24 +64,22 @@ public class baseEnemy : MonoBehaviour
     //private functions
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        onContact(collision);
+        onContact(collision.gameObject);
     }
+
     //Deals with contact
-    public virtual void onContact(Collision2D collision)
+    public virtual void onContact(GameObject collisionObject)
     {
-        GameObject collisionObject = collision.gameObject;
         PlayerMainScript colliderPlayerScript = collisionObject.GetComponent<PlayerMainScript>();
         grabbableObject colliderGrabbableScript = collisionObject.GetComponent<grabbableObject>();
-        if (colliderGrabbableScript != null)
+        /*if (colliderGrabbableScript != null)
         {
             if(!(colliderGrabbableScript != null && colliderGrabbableScript.getThrownDamageTimeLeft() >= 0))
             {
                 print("wow");
             }
-            print("Result: " + (colliderGrabbableScript != null && colliderGrabbableScript.getThrownDamageTimeLeft() >= 0));
-            print("Time Left: " + colliderGrabbableScript.getThrownDamageTimeLeft());
-            print("Velocity Magnitude: " + Mathf.Sqrt(colliderGrabbableScript.getObjectPhysics().velocity.y * colliderGrabbableScript.getObjectPhysics().velocity.y + colliderGrabbableScript.getObjectPhysics().velocity.x * colliderGrabbableScript.getObjectPhysics().velocity.x));
-        }
+            print("Time Left: " + colliderGrabbableScript.getThrownDamageTimeLeft() + " Result: " + (colliderGrabbableScript != null && colliderGrabbableScript.getThrownDamageTimeLeft() >= 0) + "Velocity Magnitude: " + Mathf.Sqrt(colliderGrabbableScript.getObjectPhysics().velocity.y * colliderGrabbableScript.getObjectPhysics().velocity.y + colliderGrabbableScript.getObjectPhysics().velocity.x * colliderGrabbableScript.getObjectPhysics().velocity.x));
+        }*/
         //if enemy collides with player
         if (colliderPlayerScript != null)
         {
@@ -103,13 +101,12 @@ public class baseEnemy : MonoBehaviour
         //if enemy collides with thrown/fast flying grabbable object
         else if (colliderGrabbableScript != null && colliderGrabbableScript.getThrownDamageTimeLeft() >= 0)
         {
-            print("wow");
             //print(colliderGrabbableScript.getVelocityThreshold());
             //Checking the magnitude of the velocity
             float colliderVelocitySum = Mathf.Sqrt(colliderGrabbableScript.getObjectPhysics().velocity.y * colliderGrabbableScript.getObjectPhysics().velocity.y + colliderGrabbableScript.getObjectPhysics().velocity.x * colliderGrabbableScript.getObjectPhysics().velocity.x);
             if (colliderVelocitySum >= colliderGrabbableScript.getThrowVelocityThreshold())
             {       
-                colliderGrabbableScript.throwHitEffect(collision);
+                colliderGrabbableScript.throwHitEffect();
                 isDamaged(colliderGrabbableScript.getThrowDamage());
                 float colliderAngle = Mathf.Atan2(colliderGrabbableScript.getObjectPhysics().velocity.y, colliderGrabbableScript.getObjectPhysics().velocity.x);
                 float xPush = Mathf.Cos(colliderAngle) * colliderGrabbableScript.getThrowKnockback();
@@ -161,6 +158,10 @@ public class baseEnemy : MonoBehaviour
     public virtual void setEnemyState(string setString)
     {
         enemyState = setString;
+    }
+    public virtual enemyAudio getCacheAudio()
+    {
+        return cacheAudio;
     }
     public virtual GameObject getPlayerObject()
     {
@@ -241,6 +242,12 @@ public class baseEnemy : MonoBehaviour
         originalColor = enemyRender.color;
     }
 
+    // Calls upon deletion of enemy
+    public virtual void deathDestruct()
+    {
+        Instantiate(destructionResidue, transform.position, Quaternion.identity.normalized);
+        Destroy(gameObject);
+    }
     // Update is called once per frame
     public virtual void Update()
     {
@@ -257,8 +264,7 @@ public class baseEnemy : MonoBehaviour
             timeLeftUntilDestruct -= Time.deltaTime;
             if(timeLeftUntilDestruct <= 0)
             {
-                Instantiate(destructionResidue, transform.position, Quaternion.identity.normalized);
-                Destroy(gameObject);
+                deathDestruct();
             }
         }
         stateUpdate(enemyState);

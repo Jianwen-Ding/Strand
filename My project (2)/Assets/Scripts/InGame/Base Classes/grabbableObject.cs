@@ -107,6 +107,14 @@ public class grabbableObject : MonoBehaviour
     {
         return grabbedByObjectScript;
     }
+    public PlayerMainScript getGrabbedByPlayerScript()
+    {
+        return grabbedByObjectScript.getObjectPlayerScript();
+    }
+    public Rigidbody2D getGrabbedByPlayerPhysics()
+    {
+        return grabbedByObjectScript.getPlayerObjectPhysics();
+    }
     public int getDurability()
     {
         return durability;
@@ -130,6 +138,10 @@ public class grabbableObject : MonoBehaviour
     public float getThrownDamageTimeLeft()
     {
         return thrownDamageTimeLeft;
+    }
+    public Collider2D getCollider()
+    {
+        return objectCollider;
     }
     //grabbed
     public virtual bool grabbedEffect(GameObject grabbedBy)
@@ -264,7 +276,7 @@ public class grabbableObject : MonoBehaviour
     public virtual void whileThrownEffect()
     {
     }
-    public virtual void throwHitEffect(Collision2D collisionInput)
+    public virtual void throwHitEffect()
     {
         thrownDamageTimeLeft = -1;
         thrownEnd();
@@ -291,10 +303,7 @@ public class grabbableObject : MonoBehaviour
 
         }
     }
-    //On collision
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-    }
+
     // Start is called before the first frame update
     public virtual void Start()
     {
