@@ -175,7 +175,7 @@ MonoBehaviour:
   slashColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
   velocityThreshold: 300
-  throwVelocityToHitThreshold: 3
+  throwVelocityToHitThreshold: 1.5
   throwDamage: 1
   throwStunTme: 0
   throwKnockback: 10
@@ -236,8 +236,8 @@ MonoBehaviour:
   destructionResidue: {fileID: 1941439566673320384, guid: e598903fb66d24882b21c2d81b3d394f, type: 3}
   playerAdjust: {x: 0, y: -0.35}
   bomberAdjust: {x: 0, y: -0.5}
-  distanceCheck: 10
-  distanceUntilDisconnect: 15
+  distanceCheck: 9
+  distanceUntilDisconnect: 12
   walkStepForce: 30
   timeUntilStepWalk: 1
   rageSteps: 5
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioStates:
-  - {fileID: 8300000, guid: 162b1ac9d77634b6cabc72ce0fc1aa7d, type: 3}
+  - {fileID: 8300000, guid: fd6478d521e7e4c56af7813d08b19a93, type: 3}
   - {fileID: 8300000, guid: 0ceef8f58824f42279dff9ef51501faa, type: 3}
   - {fileID: 8300000, guid: fd6478d521e7e4c56af7813d08b19a93, type: 3}
   - {fileID: 8300000, guid: 0fe489a8742bd49b4b5365b8acf059e2, type: 3}

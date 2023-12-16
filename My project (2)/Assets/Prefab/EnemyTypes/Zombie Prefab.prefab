@@ -175,7 +175,7 @@ MonoBehaviour:
   slashColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
   velocityThreshold: 300
-  throwVelocityToHitThreshold: 3
+  throwVelocityToHitThreshold: 1.5
   throwDamage: 1
   throwStunTme: 0
   throwKnockback: 10
@@ -231,7 +231,7 @@ MonoBehaviour:
   grabArmor: 2
   defaultGrabArmor: 2
   hasDied: 0
-  timeUntilDestruct: 0.2
+  timeUntilDestruct: 0.5
   timeLeftUntilDestruct: 0
   destructionResidue: {fileID: 1941439566673320384, guid: e598903fb66d24882b21c2d81b3d394f, type: 3}
   inPursuit: 0

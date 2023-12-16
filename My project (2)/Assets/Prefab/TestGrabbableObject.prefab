@@ -172,7 +172,7 @@ MonoBehaviour:
   slashColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
   velocityThreshold: 250
-  throwVelocityToHitThreshold: 3
+  throwVelocityToHitThreshold: 1.5
   throwDamage: 1
   throwStunTme: 0
   throwKnockback: 15

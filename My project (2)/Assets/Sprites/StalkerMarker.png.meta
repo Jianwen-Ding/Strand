@@ -1,37 +1,58 @@
 fileFormatVersion: 2
-guid: 06b6f003972a8435b91003bd54572604
+guid: a37acacb64b404b5fbd684cbbe425fb6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8847118253800537473
-    second: BomberEnemy_0
+      213: 2786331282647212401
+    second: StalkerMarker_0
   - first:
-      213: 2968978854097260572
-    second: BomberEnemy_1
+      213: 2720604844343512303
+    second: StalkerMarker_1
   - first:
-      213: -5921281197280922988
-    second: BomberEnemy_2
+      213: 1614718245763105735
+    second: StalkerMarker_2
   - first:
-      213: 5856811310201434425
-    second: BomberEnemy_3
+      213: -5914772356672524191
+    second: StalkerMarker_3
   - first:
-      213: 8271108874591143517
-    second: BomberEnemy_4
+      213: 7307870706504251081
+    second: StalkerMarker_4
   - first:
-      213: 7154779106036865868
-    second: BomberEnemy_5
+      213: 8403045520957558261
+    second: StalkerMarker_5
   - first:
-      213: 4599219634204347583
-    second: BomberEnemy_6
+      213: -1981304390962746989
+    second: StalkerMarker_6
   - first:
-      213: -1740256081619780763
-    second: BomberEnemy_7
+      213: 2013419661342364527
+    second: StalkerMarker_7
   - first:
-      213: -2564067416352635880
-    second: BomberEnemy_8
+      213: -910519004311096202
+    second: StalkerMarker_8
   - first:
-      213: 163393305025659329
-    second: BomberEnemy_9
+      213: -2285154010766012731
+    second: StalkerMarker_9
+  - first:
+      213: -4771007785188277750
+    second: StalkerMarker_10
+  - first:
+      213: 5557343871004060051
+    second: StalkerMarker_11
+  - first:
+      213: 4525829522311101172
+    second: StalkerMarker_12
+  - first:
+      213: 7251353493886411698
+    second: StalkerMarker_13
+  - first:
+      213: -8783866156363447621
+    second: StalkerMarker_14
+  - first:
+      213: 7410753156789128187
+    second: StalkerMarker_15
+  - first:
+      213: -1368038198585830473
+    second: StalkerMarker_16
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,7 +130,7 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: 2
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -181,13 +202,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BomberEnemy_0
+      name: StalkerMarker_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 200
-        width: 64
-        height: 100
+        y: 128
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +216,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f72485c72d8b83580800000000000000
-      internalID: -8847118253800537473
+      spriteID: 171eeb8f9890ba620800000000000000
+      internalID: 2786331282647212401
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_1
+      name: StalkerMarker_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fec4d4901b781c520800000000000000
+      internalID: 2720604844343512303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StalkerMarker_2
       rect:
         serializedVersion: 2
         x: 64
-        y: 200
-        width: 64
-        height: 100
+        y: 128
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +258,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c101d18998ee33920800000000000000
-      internalID: 2968978854097260572
+      spriteID: 7c34d0b70b1a86610800000000000000
+      internalID: 1614718245763105735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_2
+      name: StalkerMarker_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 160fb3121e18aeda0800000000000000
+      internalID: -5914772356672524191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StalkerMarker_4
       rect:
         serializedVersion: 2
         x: 128
-        y: 200
-        width: 64
-        height: 100
+        y: 128
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +300,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 492fed49f1263dda0800000000000000
-      internalID: -5921281197280922988
+      spriteID: 9c63ba550b5ca6560800000000000000
+      internalID: 7307870706504251081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_3
+      name: StalkerMarker_5
       rect:
         serializedVersion: 2
-        x: 192
-        y: 200
-        width: 64
-        height: 100
+        x: 160
+        y: 128
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 931fb0d1bd2974150800000000000000
-      internalID: 5856811310201434425
+      spriteID: 5fdcc1c416d9d9470800000000000000
+      internalID: 8403045520957558261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_4
+      name: StalkerMarker_6
       rect:
         serializedVersion: 2
         x: 0
-        y: 100
-        width: 64
-        height: 100
+        y: 64
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +342,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d56069003b1e8c270800000000000000
-      internalID: 8271108874591143517
+      spriteID: 3996eb0672ef084e0800000000000000
+      internalID: -1981304390962746989
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_5
+      name: StalkerMarker_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f635912b38a11fb10800000000000000
+      internalID: 2013419661342364527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StalkerMarker_8
       rect:
         serializedVersion: 2
         x: 64
-        y: 100
-        width: 64
-        height: 100
+        y: 64
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,20 +384,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4bd6b570b1ea4360800000000000000
-      internalID: 7154779106036865868
+      spriteID: 6747bca2acf2d53f0800000000000000
+      internalID: -910519004311096202
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_6
+      name: StalkerMarker_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ce8b33d8808940e0800000000000000
+      internalID: -2285154010766012731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StalkerMarker_10
       rect:
         serializedVersion: 2
         x: 128
-        y: 100
-        width: 64
-        height: 100
+        y: 64
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,20 +426,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbc80ccb3e5b3df30800000000000000
-      internalID: 4599219634204347583
+      spriteID: a02ca3f72b9f9cdb0800000000000000
+      internalID: -4771007785188277750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_7
+      name: StalkerMarker_11
       rect:
         serializedVersion: 2
-        x: 192
-        y: 100
-        width: 64
-        height: 100
+        x: 160
+        y: 64
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,20 +447,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56bf6d4605e59d7e0800000000000000
-      internalID: -1740256081619780763
+      spriteID: 39924ed7ec6af1d40800000000000000
+      internalID: 5557343871004060051
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_8
+      name: StalkerMarker_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 100
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,20 +468,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 814c524154a9a6cd0800000000000000
-      internalID: -2564067416352635880
+      spriteID: 4fa345fb8f9fece30800000000000000
+      internalID: 4525829522311101172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BomberEnemy_9
+      name: StalkerMarker_13
       rect:
         serializedVersion: 2
-        x: 64
+        x: 32
         y: 0
-        width: 64
-        height: 100
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,8 +489,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c14bb0685d744200800000000000000
-      internalID: 163393305025659329
+      spriteID: 2b323e7559bf1a460800000000000000
+      internalID: 7251353493886411698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StalkerMarker_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb2816b0540791680800000000000000
+      internalID: -8783866156363447621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StalkerMarker_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfb45847bb848d660800000000000000
+      internalID: 7410753156789128187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StalkerMarker_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b3502ea180c30de0800000000000000
+      internalID: -1368038198585830473
       vertices: []
       indices: 
       edges: []
