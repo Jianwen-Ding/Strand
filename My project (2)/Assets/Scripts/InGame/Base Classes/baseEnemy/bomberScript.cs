@@ -71,7 +71,7 @@ public class bomberScript : baseEnemy
     public override void deathDestruct()
     {
         Instantiate(explosionPrefab, transform.position, Quaternion.identity.normalized);
-        Destroy(gameObject);
+        base.deathDestruct();
     }
     // decides what the bomber does frame to frame depending on state
     public override void stateUpdate(string insertedState)

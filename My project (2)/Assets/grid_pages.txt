@@ -52,7 +52,7 @@ pageSpecialUse: {string}
 pageMap:
 [2D ARRAY]
 
-|||||||||||||||||||||||||||||DATA||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||DATA|||||||||||||||||||||||||||||
 -base page-
 upOpen: {true}
 downOpen: {true}

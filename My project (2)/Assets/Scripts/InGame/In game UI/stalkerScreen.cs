@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class stalkerScreen : MonoBehaviour
 {
-    [SerializeField]
-    bool isStalked;
+    resourceSystem overallResources;
     [SerializeField]
     float opacityConvertSpeed;
     [SerializeField]
@@ -20,7 +19,8 @@ public class stalkerScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (isStalked)
+        overallResources = Camera.main.gameObject.GetComponent<resourceSystem>();
+        if (overallResources.getStalkHunger())
         {
             cacheAudioSource.Play();
         }
@@ -33,7 +33,7 @@ public class stalkerScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isStalked)
+        if (overallResources.getStalkHunger())
         {
             if (currentOpacity < baseOpacity)
             {
@@ -45,7 +45,7 @@ public class stalkerScreen : MonoBehaviour
                 }
             }
         }
-        else if(!isStalked){
+        else {
             if (currentOpacity > 0)
             {
                 currentOpacity -= Time.deltaTime * opacityConvertSpeed;

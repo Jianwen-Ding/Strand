@@ -14,9 +14,13 @@ public class miniMapGenerator : MonoBehaviour
     [SerializeField]
     private Image[][] generatedSpriteRenderers;
     [SerializeField]
+    private bool[][] generatedIsStalkerInfected;
+    [SerializeField]
     private Vector2 displacementStart;
     [SerializeField]
     private Color defualtGridColor;
+    [SerializeField]
+    private Color stalkerInfestedColor;
     [SerializeField]
     private Color playerOnGridColor;
     //--Generative Prefabs--
@@ -65,10 +69,12 @@ public class miniMapGenerator : MonoBehaviour
         gridLoader = Camera.main.gameObject.GetComponent<gridOverallLoader>();
         generatedGrids = new GameObject[gridLoader.getYGridLength()][];
         generatedSpriteRenderers = new Image[gridLoader.getYGridLength()][];
+        generatedIsStalkerInfected = new bool[gridLoader.getYGridLength()][];
         for (int y = 0; y < generatedGrids.Length; y++)
         {
             generatedGrids[y] = new GameObject[gridLoader.getXGridLength()];
             generatedSpriteRenderers[y] = new Image[gridLoader.getXGridLength()];
+            generatedIsStalkerInfected[y] = new bool[gridLoader.getXGridLength()];
             for (int x = 0; x < generatedGrids[y].Length; x++)
             {
                 //Finds matching generated grid prefab
@@ -85,6 +91,8 @@ public class miniMapGenerator : MonoBehaviour
                 generatedGrids[y][x].transform.SetParent(gameObject.transform);
                 //gets sprite renderer component
                 generatedSpriteRenderers[y][x] = generatedGrids[y][x].GetComponent<Image>();
+                //gets grid script component
+                generatedIsStalkerInfected[y][x] = false;
                 //Spawns in special symbol
                 GameObject foundSymbolPrefab = null;
                 switch (gridLoader.getPageGridMap()[y][x].getPageSpecialUse()) 
@@ -136,7 +144,14 @@ public class miniMapGenerator : MonoBehaviour
             loadedPlayerX = xGrid;
             loadedPlayerY = yGrid;
         }
-        generatedSpriteRenderers[loadedPlayerY][loadedPlayerX].color = defualtGridColor;
+        if (generatedIsStalkerInfected[loadedPlayerY][loadedPlayerX])
+        {
+            generatedSpriteRenderers[loadedPlayerY][loadedPlayerX].color = stalkerInfestedColor;
+        }
+        else
+        {
+            generatedSpriteRenderers[loadedPlayerY][loadedPlayerX].color = defualtGridColor;
+        }
         generatedSpriteRenderers[yGrid][xGrid].color = playerOnGridColor;
         if(!onMainDisplay)
         {
@@ -167,6 +182,14 @@ public class miniMapGenerator : MonoBehaviour
         gameObject.transform.SetParent(defaultTransformParent.transform);
         gameObject.transform.localScale = displayDefaultScale;
         gameObject.transform.position += gameObject.transform.parent.position - generatedGrids[loadedPlayerY][loadedPlayerX].transform.position;
+    }
+    public void setStalkerActivated(int xGrid, int yGrid)
+    {
+        generatedIsStalkerInfected[yGrid][xGrid] = true;
+        if(!(xGrid == loadedPlayerX && yGrid == loadedPlayerY))
+        {
+            generatedSpriteRenderers[yGrid][xGrid].color = stalkerInfestedColor;
+        }
     }
     // Update is called once per frame
     void Update()

@@ -51,7 +51,7 @@ public class baseEnemy : MonoBehaviour
     //max grab armor, will default to after being succesfully grabbed
     [SerializeField]
     private int defaultGrabArmor;
-    //Death variables
+    //--Death variables--
     [SerializeField]
     private bool hasDied;
     [SerializeField]
@@ -60,6 +60,12 @@ public class baseEnemy : MonoBehaviour
     private float timeLeftUntilDestruct;
     [SerializeField]
     private GameObject destructionResidue;
+    //Food Drop
+    [SerializeField]
+    private GameObject foodDropPrefab;
+    //Out of one
+    [SerializeField]
+    private float dropRate;
     #endregion
     //private functions
     public virtual void OnCollisionEnter2D(Collision2D collision)
@@ -245,6 +251,10 @@ public class baseEnemy : MonoBehaviour
     // Calls upon deletion of enemy
     public virtual void deathDestruct()
     {
+        if(Random.Range((float)0.0001,1) <= dropRate)
+        {
+            Instantiate(foodDropPrefab, transform.position, Quaternion.identity.normalized);
+        }
         Instantiate(destructionResidue, transform.position, Quaternion.identity.normalized);
         Destroy(gameObject);
     }

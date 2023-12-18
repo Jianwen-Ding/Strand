@@ -27,6 +27,8 @@ public class gridPageStorer : MonoBehaviour
     // "[" and "," and "]" are used to signify the 2D array
     //DO NOT USE THOSE SYMBOLS OUTSIDE OF THOSE USES OR RISK ERROR
     [SerializeField]
+    private TextAsset gridTextFile;
+    [SerializeField]
     private static string gridInfo = "GRID PAGES.TXT HAS NOT BEEN ACCSESSED YET";
     //File Location of TXT file
     [SerializeField]
@@ -164,8 +166,11 @@ public class gridPageStorer : MonoBehaviour
         gridKeyListStatic = gridKeyListSerialized;
         string pathFull = Application.dataPath + AccessGridInfoPathFull;
         //Loads in grid pages.txt into gridInfo
-        gridInfo = File.ReadAllText(pathFull);
-        gridInfo = gridInfo.Substring(gridInfo.IndexOf("|"));
+        //gridInfo = File.ReadAllText(pathFull);
+        gridInfo = gridTextFile.text;
+        gridInfo = gridInfo.Substring(gridInfo.IndexOf("|||||||||||||||||||||||||||||DATA|||||||||||||||||||||||||||||"));
+        //print(gridInfo);
+        //print(gridTextFile);
         // Loads Text Into page classes
         /*-FORMAT-
     

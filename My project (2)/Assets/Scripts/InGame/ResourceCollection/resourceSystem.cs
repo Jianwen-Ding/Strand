@@ -24,6 +24,11 @@ public class resourceSystem : MonoBehaviour
     float hungerOverfillUntilRegenLeft = 0;
     [SerializeField]
     PlayerMainScript playerScript;
+    // once a stalker infected tile has been entered increase hunger rate
+    [SerializeField]
+    bool stalkHunger;
+    [SerializeField]
+    float stalkHungerAccelerateRatio;
     //public functions
     //public get/set
     public void fillHunger(float amount)
@@ -66,6 +71,14 @@ public class resourceSystem : MonoBehaviour
     {
         return scrapCollected;
     }
+    public bool getStalkHunger()
+    {
+        return stalkHunger;
+    }
+    public void setStalkHunger(bool setBool)
+    {
+        stalkHunger = setBool;
+    }
     public void triggerWinCondition()
     {
 
@@ -93,7 +106,14 @@ public class resourceSystem : MonoBehaviour
         }
         else
         {
-            hungerMeter -= Time.deltaTime;
+            if (stalkHunger)
+            {
+                hungerMeter -= Time.deltaTime * stalkHungerAccelerateRatio;
+            }
+            else
+            {
+                hungerMeter -= Time.deltaTime;
+            }
         }
     }
 }

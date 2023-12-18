@@ -13,6 +13,7 @@ TagManager:
   - HeartUI
   - darkenScreen
   - Projectile
+  - StalkerEnemy
   layers:
   - Default
   - TransparentFX

@@ -575,6 +575,10 @@ public class gridOverallLoader : MonoBehaviour
         miniMap.recenterMiniMap(playerLocationX, playerLocationY);
         miniMap.getMiniMapGridSymbols()[positionY][positionX].SetActive(true);
     }
+    public void setStalkerInfected(int positionX, int positionY)
+    {
+        miniMap.setStalkerActivated(positionX, positionY);
+    }
     public int getPlayerPositionX()
     {
         return playerLocationX;

@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5826996304062472479}
   m_Layer: 10
   m_Name: BomberPrefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,8 +222,8 @@ MonoBehaviour:
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
   health: 5
-  playerTouchPushbackOnPlayer: 10
-  playerTouchPushbackOnEnemy: 10
+  playerTouchPushbackOnPlayer: 30
+  playerTouchPushbackOnEnemy: 30
   stunOnPush: 0.05
   playerTouchMovementLockTime: 0.03
   failedGrabPushBackEnemy: 5
@@ -234,6 +234,8 @@ MonoBehaviour:
   timeUntilDestruct: 0.5
   timeLeftUntilDestruct: 3
   destructionResidue: {fileID: 1941439566673320384, guid: e598903fb66d24882b21c2d81b3d394f, type: 3}
+  foodDropPrefab: {fileID: 4258430185833240029, guid: 55552c1fa834d4ba4822e673efe37626, type: 3}
+  dropRate: 1
   playerAdjust: {x: 0, y: -0.35}
   bomberAdjust: {x: 0, y: -0.5}
   distanceCheck: 9

@@ -28,9 +28,15 @@ public class dogEnemy : baseEnemy
     //Distance dog raycast checks for players away
     [SerializeField]
     private float distanceCheck;
+    //Distance dog raycast checks for barriers to change direction
+    [SerializeField]
+    private float barrierCheckDist;
+    [SerializeField]
+    private float barrierVerticleOffSet;
     //Speed dog walks back and forth on patrol
     [SerializeField]
     private float patrolSpeed;
+    //Distance dog checks ahead for collisions
     [SerializeField]
     private bool facingLeft;
     //--Hunt Variables--
@@ -55,60 +61,7 @@ public class dogEnemy : baseEnemy
     private float timeUntiDisconnect;
     [SerializeField]
     private float timeUntilDisconnectLeft;
-    //Switches direction upon hitting wall
-    public override void OnCollisionEnter2D(Collision2D collision)
-    {
-        base.OnCollisionEnter2D(collision);
-        //If dog is patrolling, it turns direction upon hitting a wall
-        if (getEnemyState() == "default" && !inHunt)
-        {
-            Rigidbody2D potentialCollisionRigid = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (potentialCollisionRigid == null)
-            {
-                int layerMask = 1 << 0 | 1 << 6;
-                RaycastHit2D checker;
-                if (facingLeft)
-                {
-                    checker = Physics2D.Raycast((Vector2)gameObject.transform.position + zombieAdjust, Vector2.left, 1, layerMask);
-                }
-                else
-                {
-                    checker = Physics2D.Raycast((Vector2)gameObject.transform.position + zombieAdjust, Vector2.right, 1, layerMask);
-                }
-                if (checker.collider != null)
-                {
-                    facingLeft = !facingLeft;
-                    getRenderer().flipX = facingLeft;
-                }
-            }
-        }
-    }
-    public void OnCollisionStay2D(Collision2D collision)
-    {
-        //If dog is patrolling, it turns direction upon hitting a wall
-        if (getEnemyState() == "default" && !inHunt)
-        {
-            Rigidbody2D potentialCollisionRigid = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (potentialCollisionRigid == null)
-            {
-                int layerMask = 1 << 0 | 1 << 6;
-                RaycastHit2D checker;
-                if (facingLeft)
-                {
-                    checker = Physics2D.Raycast((Vector2)gameObject.transform.position + zombieAdjust, Vector2.left, 1, layerMask);
-                }
-                else
-                {
-                    checker = Physics2D.Raycast((Vector2)gameObject.transform.position + zombieAdjust, Vector2.right, 1, layerMask);
-                }
-                if(checker.collider != null)
-                {
-                    facingLeft = !facingLeft;
-                    getRenderer().flipX = facingLeft;
-                }
-            }
-        }
-    }
+
     //Goes into pursuit mode after being damaged or stunned
     public override void isDamaged(int damage)
     {
@@ -117,6 +70,7 @@ public class dogEnemy : baseEnemy
         playerLastSceenLoc = (Vector2)getPlayerObject().transform.position;
         inHunt = true;
     }
+
     public override void stunEnemy(float time)
     {
         base.stunEnemy(time);
@@ -124,6 +78,8 @@ public class dogEnemy : baseEnemy
         inHunt = true;
         playerInSights = true;
     }
+
+    //Checks if player is in sightline
     public virtual bool checkSightLine(bool debugging)
     {
         Vector2 diff = ((Vector2)getPlayerObject().transform.position + playerAdjust) - ((Vector2)gameObject.transform.position + zombieAdjust);
@@ -146,6 +102,16 @@ public class dogEnemy : baseEnemy
         }
         return (checker.collider != null && checker.collider.tag == "Player");
     }
+
+    //Checks for nearby stationary objects 
+    public virtual bool barrierCheckRayCast(Vector2 offset, Vector2 direction)
+    {
+        int layerMask = 1 << 0 | 1 << 6;
+        RaycastHit2D checker = Physics2D.Raycast((Vector2)gameObject.transform.position + offset, direction, barrierCheckDist, layerMask);
+        return checker.collider != null && checker.collider.GetComponent<Rigidbody2D>() == null;
+    }
+
+    //
     public override void stateUpdate(string insertedState)
     {
         switch (insertedState)
@@ -174,7 +140,21 @@ public class dogEnemy : baseEnemy
                         patrolVelocity = new Vector2(patrolSpeed, 0);
                     }
                     getObjectRigidbody().velocity = patrolVelocity;
-                    getRenderer().flipX = facingLeft; 
+                    getRenderer().flipX = facingLeft;
+                    bool leftTopCheck = barrierCheckRayCast(zombieAdjust + new Vector2(0, barrierVerticleOffSet), Vector2.left);
+                    bool leftMidCheck = barrierCheckRayCast(zombieAdjust, Vector2.left);
+                    bool leftBotCheck = barrierCheckRayCast(zombieAdjust - new Vector2(0, barrierVerticleOffSet), Vector2.left);
+                    if (leftTopCheck || leftMidCheck || leftBotCheck)
+                    {
+                        facingLeft = false;
+                    }
+                    bool rightTopCheck = barrierCheckRayCast(zombieAdjust + new Vector2(0, barrierVerticleOffSet), Vector2.right);
+                    bool rightMidCheck = barrierCheckRayCast(zombieAdjust, Vector2.right);
+                    bool rightBotCheck = barrierCheckRayCast(zombieAdjust - new Vector2(0, barrierVerticleOffSet), Vector2.right);
+                    if (rightTopCheck || rightMidCheck || rightBotCheck)
+                    {
+                        facingLeft = true;
+                    }
                 }
                 //Is in active hunt
                 else
