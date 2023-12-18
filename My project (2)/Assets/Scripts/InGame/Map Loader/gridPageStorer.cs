@@ -30,11 +30,12 @@ public class gridPageStorer : MonoBehaviour
     private TextAsset gridTextFile;
     [SerializeField]
     private static string gridInfo = "GRID PAGES.TXT HAS NOT BEEN ACCSESSED YET";
+    /* DEPRECATED
     //File Location of TXT file
     [SerializeField]
     private const string AccessGridInfoPath = "grid_pages";
     [SerializeField]
-    private const string AccessGridInfoPathFull = "/grid_pages.txt";
+    private const string AccessGridInfoPathFull = "/grid_pages.txt";*/
     //Stores all grids here !! USE PAGE CLASS !!
     [SerializeField]
     private static ArrayList gridsAvailable = new ArrayList();
@@ -164,7 +165,6 @@ public class gridPageStorer : MonoBehaviour
     void Awake()
     {
         gridKeyListStatic = gridKeyListSerialized;
-        string pathFull = Application.dataPath + AccessGridInfoPathFull;
         //Loads in grid pages.txt into gridInfo
         //gridInfo = File.ReadAllText(pathFull);
         gridInfo = gridTextFile.text;
