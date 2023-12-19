@@ -39,6 +39,8 @@ public class baseEnemy : MonoBehaviour
     [SerializeField]
     private float stunOnPush;
     [SerializeField]
+    private int damageOnTouch = 1;
+    [SerializeField]
     float playerTouchMovementLockTime;
     //-GRAB ARMOR-
     [SerializeField]
@@ -89,7 +91,7 @@ public class baseEnemy : MonoBehaviour
         //if enemy collides with player
         if (colliderPlayerScript != null)
         {
-            colliderPlayerScript.damagePlayer(1);
+            colliderPlayerScript.damagePlayer(damageOnTouch);
             colliderPlayerScript.lockMovement(playerTouchMovementLockTime);
             stunEnemy(stunOnPush);
             //-pushes both characters back

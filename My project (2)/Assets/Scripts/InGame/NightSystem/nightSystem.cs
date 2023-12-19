@@ -21,6 +21,13 @@ public class nightSystem : MonoBehaviour
     private float currentTimePassedSet;
     [SerializeField]
     private float timeDifficultyMultiplierSet;
+    //--Nightfall Spawn--
+    [SerializeField]
+    GameObject stalkerPrefab;
+    [SerializeField]
+    Vector2[] stalkerSpawnpoints;
+    [SerializeField]
+    int[] stalkerSpawnDayThresholds;
     //--public fucntions--
     public static void setTimeUntilNight(float setTime)
     {
@@ -48,6 +55,17 @@ public class nightSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Spawns multiple stalkers upon nightfall
+        if (currentTimePassed <= timeUntilNight && currentTimePassed + Time.deltaTime > timeUntilNight)
+        {
+            for(int i = 0; i < stalkerSpawnDayThresholds.Length; i++)
+            {
+                if (stalkerSpawnDayThresholds[i] <= PlayerPrefs.GetInt("daysSpent", 0))
+                {
+                    Instantiate(stalkerPrefab, stalkerSpawnpoints[i], Quaternion.identity.normalized);
+                }
+            }
+        }
         currentTimePassed += Time.deltaTime;
     }
 }
