@@ -10,6 +10,7 @@ public class grabbableObject : MonoBehaviour
     private SpriteRenderer objectRender;
     private SpriteYLayering objectLayerScript;
     private Rigidbody2D objectPhysics;
+    private Animator objectAnimator;
     private GameObject grabbedByObject;
     private playerHand grabbedByObjectScript;
     private SpriteRenderer grabbedByObjectRender;
@@ -28,6 +29,8 @@ public class grabbableObject : MonoBehaviour
     [SerializeField]
     private float adjustAngleCheckY;
     //Slash/Use Variables
+    [SerializeField]
+    private bool signifiesDamage;
     [SerializeField]
     private int durability = 3;
     [SerializeField]
@@ -83,6 +86,18 @@ public class grabbableObject : MonoBehaviour
     }
     //--public functions--
     //get/set functions
+    public bool getSignifiesDamage()
+    {
+        return signifiesDamage;
+    }
+    public Animator getObjectAnimator()
+    {
+        return objectAnimator;
+    }
+    public List<GameObject> getObjectsHit()
+    {
+        return objectsHit;
+    }
     public float getThrowVelocityThreshold()
     {
         return throwVelocityToHitThreshold;
@@ -213,13 +228,16 @@ public class grabbableObject : MonoBehaviour
     public virtual void slashEnd()
     {
         slashCooldownTimeLeft = slashCooldown;
-        objectRender.color = originialColor;
-        objectsHit.Clear();
+        if(objectRender != null)
+        {
+            objectRender.color = originialColor;
+            objectsHit.Clear();
+        }
     }
     public virtual bool slashObject(GameObject slashedObject, Vector3 slashFromLocation)
     {
         bool hasHitObject = false;
-        if(grabbedByObjectScript.getAngleVelocity() > velocityThreshold && objectsHit.IndexOf(slashedObject) == -1)
+        if(grabbedByObjectScript.getAngleVelocity() > velocityThreshold && objectsHit.IndexOf(slashedObject) == -1 && slashedObject != null)
         {
             objectsHit.Add(slashedObject);
             //Pushes back object
@@ -241,14 +259,22 @@ public class grabbableObject : MonoBehaviour
             }
             if (hasHitObject)
             {
-                durability -= 1;
-                if(durability < 0)
-                {
-                    durabilityGone();
-                }
+                durabilityDamage();
             }
         }
         return hasHitObject;
+    }
+    public virtual void durabilityDamage()
+    {
+        durability -= 1;
+        if(signifiesDamage && durability == 0)
+        {
+            objectAnimator.SetBool("IsDamaged", true);
+        }
+        if (durability < 0)
+        {
+            durabilityGone();
+        }
     }
     public virtual void durabilityGone()
     {
@@ -327,6 +353,10 @@ public class grabbableObject : MonoBehaviour
         originialColor = objectRender.color;
         originalDrag = objectPhysics.drag;
         originalScale = gameObject.transform.localScale;
+        if (signifiesDamage)
+        {
+            objectAnimator = gameObject.GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
