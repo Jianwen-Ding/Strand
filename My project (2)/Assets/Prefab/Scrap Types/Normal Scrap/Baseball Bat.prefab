@@ -206,7 +206,7 @@ MonoBehaviour:
   throwStunTme: 0
   throwKnockback: 15
   thrownStateTime: 0.08
-  thrownDamageTime: 0.8
+  thrownDamageTime: 0.6
   thrownDamageTimeLeft: 0
   thrownDrag: 3
   releaseStateTime: 0.1

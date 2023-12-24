@@ -190,16 +190,22 @@ public class baseEnemy : MonoBehaviour
     //Helper functions
     public virtual void stunEnemy(float time)
     {
-        cacheAudio.playSound(1, 0);
-        enemyState = "stunned";
-        timeStunnedLeft = time;
-        enemyRender.color = stunColor;
+        if (!hasDied)
+        {
+            cacheAudio.playSound(1, 0);
+            enemyState = "stunned";
+            timeStunnedLeft = time;
+            enemyRender.color = stunColor;
+        }
     }
     public virtual void destunEnemy()
     {
-        timeStunnedLeft = -1;
-        enemyState = "default";
-        enemyRender.color = originalColor;
+        if (!hasDied)
+        {
+            timeStunnedLeft = -1;
+            enemyState = "default";
+            enemyRender.color = originalColor;
+        }
     }
     public virtual void onDeath()
     {
@@ -212,14 +218,17 @@ public class baseEnemy : MonoBehaviour
     //health
     public virtual void isDamaged(int damage)
     {
-        stunEnemy(timeStunOnDamage);
-        grabArmor -= damage;
-        health -= damage;
-        cacheAudio.playSound(0,0);
-        if(health <= 0)
+        if (!hasDied)
         {
-            cacheAudio.playSound(2, 0);
-            onDeath();
+            stunEnemy(timeStunOnDamage);
+            grabArmor -= damage;
+            health -= damage;
+            cacheAudio.playSound(0, 0);
+            if (health <= 0)
+            {
+                cacheAudio.playSound(2, 0);
+                onDeath();
+            }
         }
     }
     //updates depends on state

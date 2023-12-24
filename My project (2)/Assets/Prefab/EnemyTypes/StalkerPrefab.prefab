@@ -251,7 +251,7 @@ MonoBehaviour:
   enemyState: 
   timeStunOnDamage: 0.5
   timeStunnedLeft: 0
-  stunColor: {r: 1, g: 1, b: 1, a: 1}
+  stunColor: {r: 1, g: 0, b: 0, a: 1}
   health: 1000
   playerTouchPushbackOnPlayer: 20
   playerTouchPushbackOnEnemy: 20

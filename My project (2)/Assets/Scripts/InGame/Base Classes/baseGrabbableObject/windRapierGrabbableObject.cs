@@ -29,6 +29,7 @@ public class windRapierGrabbableObject : grabbableObject
         }
         return returnResult;
     }
+
     public override bool slashObject(GameObject slashedObject, Vector3 slashFromLocation)
     {
         bool returnResult = base.slashObject(slashedObject, slashFromLocation);

@@ -191,7 +191,7 @@ MonoBehaviour:
   willPointOutwards: 0
   adjustAngleCheckY: 0
   signifiesDamage: 1
-  durability: 2
+  durability: 1
   slashKnockBackStrength: 30
   slashStunTime: 0.5
   damage: 2

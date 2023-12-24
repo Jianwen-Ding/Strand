@@ -30,6 +30,21 @@ public class baseProjectile : MonoBehaviour
         angle = setAngle;
     }
 
+    public int getPlayerDamage()
+    {
+        return playerDamage;
+    }
+
+    public float getPlayerPushBack()
+    {
+        return playerPushBack;
+    }
+
+    public float getPlayerLock()
+    {
+        return playerLock;
+    }
+
     // Trigger
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -52,6 +67,7 @@ public class baseProjectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     // Start is called before the first frame update
     public virtual void Start()
     {
