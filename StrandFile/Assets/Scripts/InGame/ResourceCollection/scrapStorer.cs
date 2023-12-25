@@ -7,8 +7,8 @@ public class scrapStorer : MonoBehaviour
 {
     [SerializeField]
     private TextAsset baseScrapFile;
-    private string pathAddOn = "currentSave.txt";
-    private string currentFilePath;
+    private string pathAddOn = "/StreamingAssets";
+    private string _currentFilePath = "";
     private const string beforeScrapCollectedIndicator = "TOTAL SCRAP COLLECTED";
     private const string beforeEscapesIndicator = "TIMES ESCAPED";
     private const string beforeGoldenIndicator = "<GOLDEN>";
@@ -18,23 +18,38 @@ public class scrapStorer : MonoBehaviour
     [SerializeField]
     GameObject[] goldenScrapPrefabs;
 
+    public string currentFilePath()
+    {
+        if (_currentFilePath == "")
+        {
+            _currentFilePath = Application.persistentDataPath + pathAddOn;
+        }
+        return _currentFilePath;
+    }
+
     public void revertCurrentScrap()
     {
-        File.WriteAllText(currentFilePath, baseScrapFile.text);
+        File.WriteAllText(currentFilePath(), baseScrapFile.text);
     }
 
     private void deleteFile()
     {
-        File.Delete(currentFilePath);
+        File.Delete(currentFilePath());
     }
-    
+
     private string getText()
     {
         string totalText;
-        using (StreamReader outputFile = new StreamReader(currentFilePath))
+        if (!File.Exists(currentFilePath()))
         {
-            totalText = outputFile.ReadToEnd();
+            totalText = "";
+        } else {
+            using (StreamReader outputFile = new StreamReader(currentFilePath()))
+            {
+                totalText = outputFile.ReadToEnd();
+            }
         }
+    
         return totalText;
     }
     private string getFileRelevantText()
@@ -46,7 +61,7 @@ public class scrapStorer : MonoBehaviour
     private void setFileRelevantText(string relevantText)
     {
         string totalText = getText();
-        using (StreamWriter outputFile = new StreamWriter(currentFilePath))
+        using (StreamWriter outputFile = new StreamWriter(currentFilePath()))
         {
             outputFile.WriteLine(totalText.Substring(0,totalText.IndexOf("===========DATA===========")) + relevantText);
         }
@@ -57,22 +72,38 @@ public class scrapStorer : MonoBehaviour
         beforeScrap = beforeScrap.Substring(beforeScrap.IndexOf("|") + 1);
         return int.Parse(beforeScrap.Substring(0, beforeScrap.IndexOf("|")));
     }
+    private void Awake()
+    {
+        //currentFilePath = Application.persistentDataPath + pathAddOn;
+        //if (!File.Exists(currentFilePath))
+        //{
+        //    File.Create(currentFilePath);
+        //}
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
-        currentFilePath = Path.Combine(Application.streamingAssetsPath, pathAddOn);
-        if (getText() == "")
+        /*
+        currentFilePath = Application.persistentDataPath + pathAddOn;
+        if (!File.Exists(currentFilePath))
         {
             using (StreamWriter outputFile = new StreamWriter(currentFilePath))
             {
                 outputFile.Write(baseScrapFile.text);
             }
+        }*/
+        if(getText() == "")
+        {
+            revertCurrentScrap();
         }
         print(getText());
         if(getScrap() == 0)
         {
             Time.timeScale = 5;
         }
+        File.Delete(currentFilePath());
     }
 
     // Update is called once per frame
