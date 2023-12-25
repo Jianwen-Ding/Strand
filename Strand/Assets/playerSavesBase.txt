@@ -1,0 +1,41 @@
+THIS TEXT FILE STORES THE TOTAL SCRAP COLLECTED, TIMES ESCAPED, AND SCRAP TYPES UNLOCKED
+===========KEY===========
+==OTHER VAR KEY==
+"|" contains total scrap collected and times escaped
+
+-EXAMPLE-
+TOTAL SCRAP COLLECTED = |5|
+TIMES ESCAPED = |2|
+
+==UNLOCKED SCRAP TYPE KEY==
+"[]" Contains the entirety of the scrap type with this format
+[NAME OF THE SCRAP TYPE PREFAB, IF IT IS ENABLED (T for enabled and F for disabled)]
+"<>" Seperate golden scrap and normal scrap (GOLDEN/NORMAL)
+-EXAMPLE-
+<GOLDEN>
+[EXAMPLENAME,T]
+[OTHEREXAMPLE,F]
+
+<NORMAL>
+[EXAMPLENAME,T]
+[OTHEREXAMPLE,T]
+
+===========DATA===========
+==OTHER DATA==
+TOTAL SCRAP COLLECTED = |0|
+TIMES ESCAPED = |0|
+
+==SCRAP TYPE DATA==
+<GOLDEN>
+[EXAMPLENAME,T]
+[OTHEREXAMPLE,F]
+
+<NORMAL>
+[Baseball Bat,T]
+[Ninja Star,T]
+[Racket,T]
+[Rounded Blade,T]
+[Slammer,T]
+[Sword,T]
+[Toy,T]
+[Unicorn Sword,T]
