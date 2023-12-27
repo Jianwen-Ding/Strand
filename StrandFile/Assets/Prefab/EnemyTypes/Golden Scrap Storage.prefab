@@ -192,7 +192,7 @@ MonoBehaviour:
   timeUntilDestruct: 0.5
   timeLeftUntilDestruct: 0.5
   destructionResidue: {fileID: 938533612504793457, guid: d2c3713006a1c43a8946d6b6805724d4, type: 3}
-  foodDropPrefab: {fileID: 912605799572356491, guid: f57d1e034eb6c324dad84a0bd67228fa, type: 3}
+  foodDropPrefab: {fileID: 5790742829303492605, guid: ed962f9b11de14119ba5e6d406fb8bf1, type: 3}
   dropRate: 1
 --- !u!114 &6333768659609651695
 MonoBehaviour:

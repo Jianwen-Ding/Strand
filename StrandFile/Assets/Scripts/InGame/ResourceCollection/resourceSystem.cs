@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class resourceSystem : MonoBehaviour
 {
     //once it reacher scrap victory threshold the gane is won
@@ -29,6 +30,14 @@ public class resourceSystem : MonoBehaviour
     bool stalkHunger;
     [SerializeField]
     float stalkHungerAccelerateRatio;
+    [SerializeField]
+    GameObject getWinGameObject;
+    Image getWinImage;
+    [SerializeField]
+    string winScene;
+    [SerializeField]
+    float transitionSpeed;
+    bool isWinning = false;
     //public functions
     //public get/set
     public void fillHunger(float amount)
@@ -81,7 +90,10 @@ public class resourceSystem : MonoBehaviour
     }
     public void triggerWinCondition()
     {
-
+        Time.timeScale = 0;
+        getWinGameObject.SetActive(true);
+        isWinning = true;
+        getWinImage = getWinGameObject.GetComponent<Image>();
     }
 
     // Start is called before the first frame update
@@ -113,6 +125,18 @@ public class resourceSystem : MonoBehaviour
             else
             {
                 hungerMeter -= Time.deltaTime;
+            }
+        }
+        if (isWinning)
+        {
+            if (getWinImage.color.a + Time.unscaledDeltaTime * transitionSpeed >= 1)
+            {
+                getWinImage.color = new Color(getWinImage.color.r, getWinImage.color.g, getWinImage.color.b, 1);
+                SceneManager.LoadScene(winScene);
+            }
+            else
+            {
+                getWinImage.color = new Color(getWinImage.color.r, getWinImage.color.g, getWinImage.color.b, getWinImage.color.a + Time.unscaledDeltaTime * transitionSpeed);
             }
         }
     }

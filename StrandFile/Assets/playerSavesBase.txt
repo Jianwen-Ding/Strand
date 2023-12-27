@@ -27,15 +27,23 @@ TIMES ESCAPED = |0|
 
 ==SCRAP TYPE DATA==
 <GOLDEN>
-[EXAMPLENAME,T]
-[OTHEREXAMPLE,F]
+[Chainsaw,T]
+[Golden Disk,T]
+[Golden Gear,F]
+[Golden Sword,T]
+[Skull Container,F]
+[Stalker Blade,F]
+[Teleporter,F]
+[Wind Rapier,T]
+<GOLDEN-END>
 
 <NORMAL>
 [Baseball Bat,T]
 [Ninja Star,T]
-[Racket,T]
-[Rounded Blade,T]
+[Racket,F]
+[Rounded Blade,F]
 [Slammer,T]
 [Sword,T]
-[Toy,T]
-[Unicorn Sword,T]
+[Toy,F]
+[Unicorn Sword,F]
+<NORMAL-END>

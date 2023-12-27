@@ -29,8 +29,7 @@ public class sleepButton : MonoBehaviour
     {
         if (startedTransition)
         {
-            
-            if(transitionRender.color.a + Time.deltaTime > 1)
+            if(transitionRender.color.a + Time.fixedDeltaTime * transitionSpeed > 1)
             {
                 transitionRender.color = new Color(transitionRender.color.r, transitionRender.color.g, transitionRender.color.b, 1);
                 SceneManager.LoadScene(nightSceneName);

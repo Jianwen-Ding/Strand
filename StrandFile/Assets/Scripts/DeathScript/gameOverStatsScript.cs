@@ -7,8 +7,13 @@ public class gameOverStatsScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         TextMeshProUGUI textControl = gameObject.GetComponent<TextMeshProUGUI>();
-        textControl.text = "Scrap Collected: " + PlayerPrefs.GetInt("Scrap", 0) + "\nNights Spent: " + PlayerPrefs.GetInt("daysSpent", 0);
+        if (scrapStorer.checkInitialized())
+        {
+            scrapStorer.setScrap(scrapStorer.getScrap() + PlayerPrefs.GetInt("Scrap", 0));
+        }
+        textControl.text = "Scrap Collected: " + PlayerPrefs.GetInt("Scrap", 0) + "\nNights Spent: " + PlayerPrefs.GetInt("daysSpent", 0) + "\nTotal Scrap Stored: " + scrapStorer.getScrap();
         PlayerPrefs.DeleteAll();
     }
 }

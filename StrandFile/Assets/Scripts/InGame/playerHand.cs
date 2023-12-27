@@ -126,7 +126,7 @@ public class playerHand : MonoBehaviour
             grabState = "grabbing";
             for (int i = 0; i < objectsInRange.Count; i++)
             {
-                if (objectsInRange[i].GetComponent<grabbableObject>() != null)
+                if (objectsInRange[i]  != null && objectsInRange[i].GetComponent<grabbableObject>() != null)
                 {
                     grabObject(objectsInRange[i]);
                     break;
