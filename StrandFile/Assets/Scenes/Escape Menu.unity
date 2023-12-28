@@ -900,7 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3338e7e6bb556949a3e78c3ed5b68f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneKey: MainMenu
+  sceneKey: Transition Menu
   activated: 0
 --- !u!1 &1517004414
 GameObject:

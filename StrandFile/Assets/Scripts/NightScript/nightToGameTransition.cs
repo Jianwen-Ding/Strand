@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class nightToGameTransition : MonoBehaviour
 {
     [SerializeField]
+    float timeScale = 1;
+    [SerializeField]
     string sceneKey;
     [SerializeField]
     bool activated;
@@ -19,12 +21,12 @@ public class nightToGameTransition : MonoBehaviour
     {
         if (activated)
         {
-            if(mask.color.a + Time.deltaTime > 1)
+            if(mask.color.a + Time.deltaTime * timeScale > 1)
             {
                 mask.color = new Color(mask.color.r, mask.color.g, mask.color.b, 1);
                 SceneManager.LoadScene(sceneKey);
             }
-            mask.color = new Color(mask.color.r, mask.color.g, mask.color.b, mask.color.a + Time.deltaTime);
+            mask.color = new Color(mask.color.r, mask.color.g, mask.color.b, mask.color.a + Time.deltaTime * timeScale);
         }
     }
 }

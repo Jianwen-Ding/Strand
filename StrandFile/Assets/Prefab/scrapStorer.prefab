@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3730169568652743565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8058529517999623587}
+  - component: {fileID: 451347101845434930}
+  m_Layer: 0
+  m_Name: scrapStorer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8058529517999623587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3730169568652743565}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.0764822, y: 1.4929434, z: -0.09686279}
+  m_LocalScale: {x: 1.0000166, y: 1.0000166, z: 1.0000166}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &451347101845434930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3730169568652743565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d6a828ea25f454393a4b79cb3f1ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseScrapFile: {fileID: 4900000, guid: 1e09aa5fc66bc4b9998185ca00e8aa94, type: 3}
+  normalScrapPrefabs:
+  - {fileID: 5257089574847725022, guid: f813f66d078ce43abb70ee46e760709d, type: 3}
+  - {fileID: 7626314519404776565, guid: 6305680107f064ed8b1a9508368181e2, type: 3}
+  - {fileID: 8562933525851303712, guid: c077c151c206c4fbd81b4ae97d0c0dbd, type: 3}
+  - {fileID: 2748008040551116095, guid: 1b04c3bc4301243e29e252772f59e8e0, type: 3}
+  - {fileID: 309380622772557295, guid: 99fc924d58786461595705f119326a84, type: 3}
+  - {fileID: 6196791972233306303, guid: 90f9d3fd755c24962add53e36e92b838, type: 3}
+  - {fileID: 2506750482055736081, guid: 0dbd17889fbdf454c8e6cd83204adc79, type: 3}
+  - {fileID: 6054899187237601354, guid: 0dd793dc51c2b4b6886e63c6e240b76a, type: 3}
+  goldenScrapPrefabs:
+  - {fileID: 9143767229752990009, guid: 9b2cbb96892a0420ca036ece8e14ed31, type: 3}
+  - {fileID: 3623952720614765301, guid: c65418a398b24426c8ccc7e3e990bf54, type: 3}
+  - {fileID: 7171448544877308027, guid: 0b3e3e72b66a0430bbe1fd3be93407b0, type: 3}
+  - {fileID: 907974474388409633, guid: 51cdfea573d3140b6bdb1f896ef5d57b, type: 3}
+  - {fileID: 5049809576574932601, guid: 6844a8eee9e9c466db08c4c7e9834a3a, type: 3}
+  - {fileID: 8396611022764874996, guid: ba47bf094d4ae4510b3bea4ee29033a9, type: 3}
+  - {fileID: 6785305358938099123, guid: a3fc087465d1d4f76ba70e947c32be1e, type: 3}
+  - {fileID: 7929529986811982218, guid: a71bc070fba58446aa6341eed971e31a, type: 3}

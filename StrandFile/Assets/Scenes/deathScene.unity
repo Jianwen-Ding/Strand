@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3338e7e6bb556949a3e78c3ed5b68f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneKey: MainMenu
+  sceneKey: Transition Menu
   activated: 0
 --- !u!114 &258616547
 MonoBehaviour:
@@ -508,11 +508,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: efd9bf194ae21864e94d2ef09adfd927, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 20642b3bd40578f46a2801cc1a7df863, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

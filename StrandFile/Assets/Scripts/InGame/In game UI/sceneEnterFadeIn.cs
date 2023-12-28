@@ -19,7 +19,7 @@ public class sceneEnterFadeIn : MonoBehaviour
     {
         if(objectImage.color.a - Time.unscaledDeltaTime * transitionSpeed <= 0)
         {
-            objectImage.color = new Color(objectImage.color.r, objectImage.color.g, objectImage.color.b, objectImage.color.a - 0);
+            objectImage.color = new Color(objectImage.color.r, objectImage.color.g, objectImage.color.b, 0);
             Destroy(gameObject);
         }
         else
