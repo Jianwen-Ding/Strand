@@ -50,9 +50,13 @@ public class dogEnemy : baseEnemy
     private GameObject scentMarkerPrefab;
     [SerializeField]
     private float huntAccelerate;
+    [SerializeField]
+    float daysPerHuntAccelerateAdvance = 1000;
     //The cap on speed
     [SerializeField]
     private float maxSpeed;
+    [SerializeField]
+    float daysPerMaxSpeedAdvance = 1000;
     //When enemy is accelerating in oppisite direction as velocity it gains more acceleration
     [SerializeField]
     private float deAccelerateRatio;
@@ -61,6 +65,13 @@ public class dogEnemy : baseEnemy
     private float timeUntiDisconnect;
     [SerializeField]
     private float timeUntilDisconnectLeft;
+
+    public override void Start()
+    {
+        base.Start();
+        huntAccelerate = huntAccelerate + PlayerPrefs.GetInt("daysSpent", 0) / daysPerHuntAccelerateAdvance;
+        maxSpeed = maxSpeed + PlayerPrefs.GetInt("daysSpent", 0) / daysPerMaxSpeedAdvance;
+    }
 
     //Goes into pursuit mode after being damaged or stunned
     public override void isDamaged(int damage)

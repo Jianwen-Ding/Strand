@@ -343,5 +343,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNotSFXandIsMusic: 0
-  baseVolume: 0.5
+  baseVolume: 0.75
   cacheAudio: {fileID: 6745278147689321739}

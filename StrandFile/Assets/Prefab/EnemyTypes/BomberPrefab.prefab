@@ -192,6 +192,7 @@ MonoBehaviour:
   grabShrink: 0.5
   willPointOutwards: 1
   adjustAngleCheckY: 0
+  signifiesDamage: 0
   durability: 99
   slashKnockBackStrength: 30
   slashStunTime: 0
@@ -251,6 +252,7 @@ MonoBehaviour:
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
   health: 5
+  daysPerHealthAdvance: 2
   playerTouchPushbackOnPlayer: 30
   playerTouchPushbackOnEnemy: 30
   stunOnPush: 0.05
@@ -271,8 +273,10 @@ MonoBehaviour:
   distanceCheck: 9
   distanceUntilDisconnect: 12
   walkStepForce: 30
+  daysPerWalkStepForceAdvance: 0.25
   timeUntilStepWalk: 1
   rageSteps: 5
+  daysPerRageStepAdvance: 2
   rageStepForce: 45
   timeUntilStepRage: 0.33333334
   explosionPrefab: {fileID: 93651683204942767, guid: da2549d4ebb354dc8a022c0815f5b4be, type: 3}

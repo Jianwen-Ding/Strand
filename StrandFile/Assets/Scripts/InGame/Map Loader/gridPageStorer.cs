@@ -12,6 +12,7 @@ public class gridPageStorer : MonoBehaviour
     
     *ALL CAPTALIZED BEGGINING DESCRIPTOR
     -ALL CAPTALIZED NAME OF PAGE-
+    difficulty: {int}
     upOpen: {boolean}
     downOpen: {boolean}
     leftOpen: {boolean}
@@ -48,6 +49,9 @@ public class gridPageStorer : MonoBehaviour
     public class page
     {
         private string pageName;
+        // Goes from difficulty
+        // 1-3 happens more often the more nights go on
+        private int difficulty;
         private bool upOpen;
         private bool downOpen;
         private bool leftOpen;
@@ -66,8 +70,9 @@ public class gridPageStorer : MonoBehaviour
         //-4- reward potential spawn point
         private int[][] pageMap;
         //Constructor for page
-        public page(string setPageName, bool setUpOpen, bool setDownOpen, bool setLeftOpen, bool setRightOpen, string setPageTheme, string setPageSpecialUse, int[][] setPageMap)
+        public page(int setDifficulty,string setPageName, bool setUpOpen, bool setDownOpen, bool setLeftOpen, bool setRightOpen, string setPageTheme, string setPageSpecialUse, int[][] setPageMap)
         {
+            difficulty = setDifficulty;
             pageName = setPageName;
             upOpen = setUpOpen;
             downOpen = setDownOpen;
@@ -78,14 +83,14 @@ public class gridPageStorer : MonoBehaviour
             pageMap = setPageMap;
         }
         //Checks if page falls in line with given parameters and is a viable canidate to be placed in
-        public bool pageQualifies(bool checkUpOpen, bool checkDownOpen, bool checkLeftOpen, bool checkRightOpen, string checkPageTheme, string checkPageSpecialUse)
+        public bool pageQualifies(int checkDifficulty, bool checkUpOpen, bool checkDownOpen, bool checkLeftOpen, bool checkRightOpen, string checkPageTheme, string checkPageSpecialUse)
         {
-            return ((checkUpOpen == upOpen || upOpen) && (checkDownOpen == downOpen || downOpen) && (checkRightOpen == rightOpen || rightOpen) && (checkLeftOpen == leftOpen || leftOpen) && (checkPageTheme.Equals(pageTheme) || pageTheme.Equals("all")) && checkPageSpecialUse.Equals(pageSpecialUse));
+            return ((checkDifficulty == difficulty) && (checkUpOpen == upOpen || upOpen) && (checkDownOpen == downOpen || downOpen) && (checkRightOpen == rightOpen || rightOpen) && (checkLeftOpen == leftOpen || leftOpen) && (checkPageTheme.Equals(pageTheme) || pageTheme.Equals("all")) && checkPageSpecialUse.Equals(pageSpecialUse));
         }
         //Gives Out Entire Value of Map
         public override string ToString()
         {
-            string initialString ="Name of the page: "  + pageName + "\n upOpen: " + upOpen + "\n downOpen: " + downOpen + "\n leftOpen: " + leftOpen + "\n rightOpen: " + rightOpen + "\n pageTheme: " + pageTheme + "\n pageSpecialUse: " + pageSpecialUse + " \n pageMap: \n";
+            string initialString ="Name of the page: "  + pageName + "\n difficulty: " + difficulty + "\n upOpen: " + upOpen + "\n downOpen: " + downOpen + "\n leftOpen: " + leftOpen + "\n rightOpen: " + rightOpen + "\n pageTheme: " + pageTheme + "\n pageSpecialUse: " + pageSpecialUse + " \n pageMap: \n";
             string gridPrint = "[";
             for(int y = 0; y < pageMap.Length; y++)
             {
@@ -118,13 +123,13 @@ public class gridPageStorer : MonoBehaviour
         }
     }
     //Finds random suitable Page
-    public static page findRandomSuitablePage(bool checkUpOpen, bool checkDownOpen, bool checkLeftOpen, bool checkRightOpen, string checkPageTheme, string checkPageSpecialUse)
+    public static page findRandomSuitablePage(int checkDifficulty, bool checkUpOpen, bool checkDownOpen, bool checkLeftOpen, bool checkRightOpen, string checkPageTheme, string checkPageSpecialUse)
     {
         ArrayList suitablePages = new ArrayList();
         for (int i = 0; i < gridsAvailable.Count; i++)
         {
             page currentPage = (page)gridsAvailable[i];
-            if (currentPage.pageQualifies(checkUpOpen, checkDownOpen, checkLeftOpen, checkRightOpen, checkPageTheme, checkPageSpecialUse))
+            if (currentPage.pageQualifies(checkDifficulty, checkUpOpen, checkDownOpen, checkLeftOpen, checkRightOpen, checkPageTheme, checkPageSpecialUse))
             {
                 suitablePages.Add(currentPage);
             }
@@ -176,6 +181,7 @@ public class gridPageStorer : MonoBehaviour
     
         *ALL CAPTALIZED BEGGINING DESCRIPTOR
         -ALL CAPTALIZED NAME OF PAGE-
+        difficulty: {int}
         upOpen: {boolean}
         downOpen: {boolean}
         leftOpen: {boolean}
@@ -191,6 +197,7 @@ public class gridPageStorer : MonoBehaviour
         while (textNew.IndexOf("-") != -1)
         {
             string newPageName;
+            int newDifficulty;
             bool newUpOpen;
             bool newDownOpen;
             bool newLeftOpen;
@@ -203,6 +210,10 @@ public class gridPageStorer : MonoBehaviour
             textNew = textNew.Substring(textNew.IndexOf("-") + 1);
             newPageName = textNew.Substring(0, textNew.IndexOf("-"));
             textNew = textNew.Substring(textNew.IndexOf("-") + 1);
+            //Finds Difficulty
+            textNew = textNew.Substring(textNew.IndexOf("{") + 1);
+            newDifficulty = int.Parse(textNew.Substring(0, textNew.IndexOf("}")));
+            textNew = textNew.Substring(textNew.IndexOf("}") + 1);
             //Finds Up Open
             textNew = textNew.Substring(textNew.IndexOf("{") + 1);
             newUpOpen = bool.Parse(textNew.Substring(0, textNew.IndexOf("}")));
@@ -258,7 +269,7 @@ public class gridPageStorer : MonoBehaviour
                 yAxisIndex++;
             }
             //Combines all information into new page
-            gridsAvailable.Add(new page(newPageName, newUpOpen, newDownOpen, newLeftOpen, newRightOpen, newPageTheme, newPageSpecialUse, newPageMap));
+            gridsAvailable.Add(new page(newDifficulty, newPageName, newUpOpen, newDownOpen, newLeftOpen, newRightOpen, newPageTheme, newPageSpecialUse, newPageMap));
         }
         /*
         for(int i = 0; i < gridsAvailable.Count; i++)

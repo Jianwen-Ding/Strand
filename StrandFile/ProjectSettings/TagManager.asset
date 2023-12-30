@@ -16,6 +16,7 @@ TagManager:
   - StalkerEnemy
   - GoldScrap
   - GoldGearScrap
+  - Spike
   layers:
   - Default
   - TransparentFX

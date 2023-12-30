@@ -15,6 +15,8 @@ public class singleGridPageLoader : MonoBehaviour
     private float gridYDistance;
     //-- adjustable parameters to load grid with--
     [SerializeField]
+    private int difficulty;
+    [SerializeField]
     private bool upOpen;
     [SerializeField]
     private bool downOpen;
@@ -105,13 +107,21 @@ public class singleGridPageLoader : MonoBehaviour
     {
         loadedIn = set;
     }
+    public int getDifficulty()
+    {
+        return difficulty;
+    }
+    public void setDifficulty(int set)
+    {
+        difficulty = set;
+    }
     public void generateGrid()
     {
         if (!generatedYet)
         {
             generatedYet = true;
             //gets needed variables
-            gridPageStorer.page page = gridPageStorer.findRandomSuitablePage(upOpen, downOpen, leftOpen, rightOpen, pageTheme, pageSpecialUse);
+            gridPageStorer.page page = gridPageStorer.findRandomSuitablePage(difficulty, upOpen, downOpen, leftOpen, rightOpen, pageTheme, pageSpecialUse);
             if (page != null)
             {
                 pageMap = page.getMap();

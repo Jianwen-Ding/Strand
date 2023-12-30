@@ -46,9 +46,13 @@ public class bomberScript : baseEnemy
     [SerializeField]
     float walkStepForce;
     [SerializeField]
+    float daysPerWalkStepForceAdvance = 1000;
+    [SerializeField]
     float timeUntilStepWalk;
     [SerializeField]
     float rageSteps;
+    [SerializeField]
+    int daysPerRageStepAdvance = 1000;
     float rageStepsLeft = 0;
     [SerializeField]
     float rageStepForce;
@@ -60,6 +64,12 @@ public class bomberScript : baseEnemy
     [SerializeField]
     GameObject explosionPrefab;
 
+    public override void Start()
+    {
+        base.Start();
+        rageSteps = rageSteps + (int)Mathf.Floor(PlayerPrefs.GetInt("daysSpent", 0) / daysPerRageStepAdvance);
+        walkStepForce = walkStepForce + (int)Mathf.Floor(PlayerPrefs.GetInt("daysSpent", 0) / daysPerWalkStepForceAdvance);
+    }
     // Changes animation on damage
     public override void isDamaged(int damage)
     {

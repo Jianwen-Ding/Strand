@@ -193,6 +193,7 @@ MonoBehaviour:
   grabShrink: 0.5
   willPointOutwards: 0
   adjustAngleCheckY: 0
+  signifiesDamage: 0
   durability: 99
   slashKnockBackStrength: 30
   slashStunTime: 0
@@ -253,6 +254,7 @@ MonoBehaviour:
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
   health: 3
+  daysPerHealthAdvance: 3
   playerTouchPushbackOnPlayer: 20
   playerTouchPushbackOnEnemy: 20
   stunOnPush: 0.2
@@ -271,9 +273,11 @@ MonoBehaviour:
   isActive: 0
   maxDistanceUntilDisconnect: 15
   burstMovement: 26
+  daysPerBurstForceAdvance: 1
   angleModifyCircle: 140
   timeUntilMove: 0.8
-  timeUntilFire: 4
+  timeUntilFire: 2
+  timeUntilFireDayAddOn: 2
   angleThreshold: 100
   projectilePrefab: {fileID: 1184393580136825620, guid: 7274ebcdc9703496da9dd63dc8d955d5, type: 3}
   gridInfoGet: {fileID: 0}

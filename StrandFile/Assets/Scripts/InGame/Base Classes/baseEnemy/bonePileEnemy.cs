@@ -54,6 +54,8 @@ public class bonePileEnemy : baseEnemy
     //--Activated Vars--
     [SerializeField]
     float timeUntilStartShoot;
+    [SerializeField]
+    float timeUntilStartShootDayAddOn;
     float timeLeftUntilStartShoot;
     [SerializeField]
     float distanceUntilDisconnect;
@@ -68,6 +70,7 @@ public class bonePileEnemy : baseEnemy
     {
         base.Start();
         gridInfoGet = Camera.main.gameObject.GetComponent<gridOverallLoader>();
+        timeUntilStartShoot = timeUntilStartShoot + timeUntilStartShootDayAddOn / (1 + PlayerPrefs.GetInt("daysSpent", 0));
     }
 
     private void OnTriggerStay2D(Collider2D collision)

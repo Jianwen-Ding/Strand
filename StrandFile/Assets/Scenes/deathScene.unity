@@ -325,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3338e7e6bb556949a3e78c3ed5b68f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScale: 1
   sceneKey: Transition Menu
   activated: 0
 --- !u!114 &258616547
@@ -759,6 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3338e7e6bb556949a3e78c3ed5b68f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScale: 1
   sceneKey: GameScene
   activated: 0
 --- !u!114 &791897423
@@ -1466,7 +1468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbc950478efc4599a8b63eb2af3ef6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionSpeed: 0.25
+  transitionSpeed: 0.75
 --- !u!114 &2056745794
 MonoBehaviour:
   m_ObjectHideFlags: 0

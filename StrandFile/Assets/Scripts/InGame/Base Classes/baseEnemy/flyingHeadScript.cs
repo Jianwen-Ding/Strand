@@ -35,6 +35,8 @@ public class flyingHeadScript : baseEnemy
     [SerializeField]
     float burstMovement;
     [SerializeField]
+    float daysPerBurstForceAdvance = 1000;
+    [SerializeField]
     float angleModifyCircle;
     [SerializeField]
     float timeUntilMove;
@@ -42,6 +44,8 @@ public class flyingHeadScript : baseEnemy
     //Shoot
     [SerializeField]
     float timeUntilFire;
+    [SerializeField]
+    float timeUntilFireDayAddOn;
     float timeLeftUntilFire;
     [SerializeField]
     float angleThreshold;
@@ -70,6 +74,8 @@ public class flyingHeadScript : baseEnemy
     public override void Start()
     {
         base.Start();
+        timeUntilFire = timeUntilFire + timeUntilFireDayAddOn / (1 + PlayerPrefs.GetInt("daysSpent", 0));
+        burstMovement = burstMovement + PlayerPrefs.GetInt("daysSpent", 0) / daysPerBurstForceAdvance;
         gridInfoGet = Camera.main.gameObject.GetComponent<gridOverallLoader>();
     }
     //Goes into pursuit mode after being damaged or stunned

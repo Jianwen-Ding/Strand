@@ -192,6 +192,7 @@ MonoBehaviour:
   grabShrink: 0.5
   willPointOutwards: 1
   adjustAngleCheckY: 0
+  signifiesDamage: 0
   durability: 99
   slashKnockBackStrength: 30
   slashStunTime: 0
@@ -251,6 +252,7 @@ MonoBehaviour:
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
   health: 5
+  daysPerHealthAdvance: 2
   playerTouchPushbackOnPlayer: 20
   playerTouchPushbackOnEnemy: 20
   stunOnPush: 0.2

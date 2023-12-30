@@ -252,6 +252,7 @@ MonoBehaviour:
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
   health: 5
+  daysPerHealthAdvance: 3
   playerTouchPushbackOnPlayer: 20
   playerTouchPushbackOnEnemy: 20
   stunOnPush: 0.15
@@ -272,14 +273,16 @@ MonoBehaviour:
   zombieAdjust: {x: 0, y: -0.1}
   distanceCheck: 7
   barrierCheckDist: 1
-  barrierVerticleOffSet: 0.2
+  barrierVerticleOffSet: 0.1
   patrolSpeed: 3
   facingLeft: 0
   playerInSights: 0
   playerLastSceenLoc: {x: 0, y: 0}
   scentMarkerPrefab: {fileID: 0}
   huntAccelerate: 60
-  maxSpeed: 6
+  daysPerHuntAccelerateAdvance: 1
+  maxSpeed: 9
+  daysPerMaxSpeedAdvance: 4
   deAccelerateRatio: 2
   timeUntiDisconnect: 3
   timeUntilDisconnectLeft: 3

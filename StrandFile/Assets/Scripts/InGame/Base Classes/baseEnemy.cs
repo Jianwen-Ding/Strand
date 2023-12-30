@@ -33,6 +33,8 @@ public class baseEnemy : MonoBehaviour
     [SerializeField]
     private int health;
     [SerializeField]
+    private int daysPerHealthAdvance = 1000;
+    [SerializeField]
     private float playerTouchPushbackOnPlayer;
     [SerializeField]
     private float playerTouchPushbackOnEnemy;
@@ -247,6 +249,7 @@ public class baseEnemy : MonoBehaviour
                 break;
         }
     }
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -257,6 +260,10 @@ public class baseEnemy : MonoBehaviour
         enemyRigid = gameObject.GetComponent<Rigidbody2D>();
         enemyRender = gameObject.GetComponent<SpriteRenderer>();
         originalColor = enemyRender.color;
+        if (daysPerHealthAdvance != 0)
+        {
+            health = health + (int)Mathf.Floor(PlayerPrefs.GetInt("daysSpent", 0) / daysPerHealthAdvance);
+        }
     }
 
     // Calls upon deletion of enemy

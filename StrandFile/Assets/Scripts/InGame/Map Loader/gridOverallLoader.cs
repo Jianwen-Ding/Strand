@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class gridOverallLoader : MonoBehaviour
 {
-    //Setup variables
-    //This needs to be attached through serializeField
+    // Setup variables
+    // This needs to be attached through serializeField
     [SerializeField]
     private miniMapGenerator miniMap;
-    //Player Locations 
+    // Player Locations 
     [SerializeField]
     private int playerLocationX;
     [SerializeField]
     private int playerLocationY;
-    //Grid Set
+    // Grid Set
     private singleGridPageLoader[][] pageGridMap;
-    //Grid Set Toggles
+    // Grid Set Toggles
     private singleGridLoadToggle[][] pageGridMapToggle;
-    //--Information for initial generation--
+    // --Information for initial generation--
     [SerializeField]
     private GameObject pagePrefab;
-    //Steps for generation
+    // Steps for generation
     //1- Loads Grid into postion
     //2- Randomly arrange the openings of the pages (each opening calculated using percentageChanceForOpen)
     //3- Resolves one sided connections and patches outstanding opennings
@@ -40,17 +40,30 @@ public class gridOverallLoader : MonoBehaviour
     private int xGridLength;
     [SerializeField]
     private int yGridLength;
-    //Chance for open side on page in percentage out of 100
+    // Day scaled difficulty
+    // Random number is picked between 0-100
+    // Barriers divide difficulty
+    [SerializeField]
+    private float one_twoBarrierBase;
+    [SerializeField]
+    private float one_twoBarrierLowerPerDay;
+    private float one_twoBarrierExpress;
+    [SerializeField]
+    private float two_threeBarrierBase;
+    [SerializeField]
+    private float two_threeBarrierLowerPerDay;
+    private float two_threeBarrierExpress;
+    // Chance for open side on page in percentage out of 100
     [SerializeField]
     private float percentageChanceForOpen;
     private int centerX;
     private int centerY;
-    //Amount of Food Surplus pages
+    // Amount of Food Surplus pages
     [SerializeField]
     private int foodSurplusPages;
     [SerializeField]
     private int goldFoodSurplusPages;
-    //Amount of Scrap Surplus pages
+    // Amount of Scrap Surplus pages
     [SerializeField]
     private int scrapSurplusPages;
     [SerializeField]
@@ -58,6 +71,9 @@ public class gridOverallLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //--Generates Difficulty--
+        one_twoBarrierExpress = one_twoBarrierBase - PlayerPrefs.GetInt("daysSpent", 0) * one_twoBarrierLowerPerDay;
+        two_threeBarrierExpress = two_threeBarrierBase - PlayerPrefs.GetInt("daysSpent", 0) * two_threeBarrierLowerPerDay;
         //--Generates grid--
         //Used in step 4
         int[][] generationLoadMap;
@@ -89,6 +105,20 @@ public class gridOverallLoader : MonoBehaviour
                 currentLoadedScript.setPageTheme(theme);
                 currentLoadedScript.setPageSpecialUse("default");
                 currentLoadedScript.setLoadedIn(false);
+                //Arrange difficulty
+                int randomGiven = Random.Range(0, 101);
+                if(randomGiven < one_twoBarrierExpress)
+                {
+                    currentLoadedScript.setDifficulty(1);
+                }
+                else if(randomGiven < two_threeBarrierExpress)
+                {
+                    currentLoadedScript.setDifficulty(2);
+                }
+                else {
+                    currentLoadedScript.setDifficulty(3);
+                }
+
             }
         }
         //2:

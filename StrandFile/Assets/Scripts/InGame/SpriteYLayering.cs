@@ -10,6 +10,14 @@ public class SpriteYLayering : MonoBehaviour
     [SerializeField]
     private float yAdjust;
     private SpriteRenderer objectSpriteRender;
+    public float getAdjust()
+    {
+        return yAdjust;
+    }
+    public void setAdjust(float adjust)
+    {
+        yAdjust = adjust;
+    }
     // Start is called before the first frame update
     void Start()
     {
