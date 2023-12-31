@@ -165,5 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabList:
   - {fileID: 463262368936735934, guid: 34b6e1ea3f57d45e9ad83e7232124bce, type: 3}
+  - {fileID: 938533612504793457, guid: d2c3713006a1c43a8946d6b6805724d4, type: 3}
   chanceList:
+  - 1
   - 1

@@ -73,6 +73,11 @@ public class dogEnemy : baseEnemy
         maxSpeed = maxSpeed + PlayerPrefs.GetInt("daysSpent", 0) / daysPerMaxSpeedAdvance;
     }
 
+    public void facingLeftSet(bool set)
+    {
+        facingLeft = set;
+    }
+
     //Goes into pursuit mode after being damaged or stunned
     public override void isDamaged(int damage)
     {
@@ -152,20 +157,20 @@ public class dogEnemy : baseEnemy
                     }
                     getObjectRigidbody().velocity = patrolVelocity;
                     getRenderer().flipX = facingLeft;
-                    bool leftTopCheck = barrierCheckRayCast(zombieAdjust + new Vector2(0, barrierVerticleOffSet), Vector2.left);
-                    bool leftMidCheck = barrierCheckRayCast(zombieAdjust, Vector2.left);
-                    bool leftBotCheck = barrierCheckRayCast(zombieAdjust - new Vector2(0, barrierVerticleOffSet), Vector2.left);
-                    if (leftTopCheck || leftMidCheck || leftBotCheck)
-                    {
-                        facingLeft = false;
-                    }
-                    bool rightTopCheck = barrierCheckRayCast(zombieAdjust + new Vector2(0, barrierVerticleOffSet), Vector2.right);
-                    bool rightMidCheck = barrierCheckRayCast(zombieAdjust, Vector2.right);
-                    bool rightBotCheck = barrierCheckRayCast(zombieAdjust - new Vector2(0, barrierVerticleOffSet), Vector2.right);
-                    if (rightTopCheck || rightMidCheck || rightBotCheck)
-                    {
-                        facingLeft = true;
-                    }
+                    //bool leftTopCheck = barrierCheckRayCast(zombieAdjust + new Vector2(0, barrierVerticleOffSet), Vector2.left);
+                    //bool leftMidCheck = barrierCheckRayCast(zombieAdjust, Vector2.left);
+                    //bool leftBotCheck = barrierCheckRayCast(zombieAdjust - new Vector2(0, barrierVerticleOffSet), Vector2.left);
+                    //if (leftTopCheck || leftMidCheck || leftBotCheck)
+                    //{
+                    //    facingLeft = false;
+                    //}
+                    //bool rightTopCheck = barrierCheckRayCast(zombieAdjust + new Vector2(0, barrierVerticleOffSet), Vector2.right);
+                    //bool rightMidCheck = barrierCheckRayCast(zombieAdjust, Vector2.right);
+                    //bool rightBotCheck = barrierCheckRayCast(zombieAdjust - new Vector2(0, barrierVerticleOffSet), Vector2.right);
+                    //if (rightTopCheck || rightMidCheck || rightBotCheck)
+                    //{
+                    //    facingLeft = true;
+                    //}
                 }
                 //Is in active hunt
                 else

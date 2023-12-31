@@ -300,11 +300,9 @@ public class scrapStorer : MonoBehaviour
         {
             if (states[i].getScrapPrefab() == scrapName && states[i].getIsEnabled())
             {
-                print(scrapName + " is enabled");
                 return true;
             }
         }
-        print(scrapName + " is disabled");
         return false;
     }
 

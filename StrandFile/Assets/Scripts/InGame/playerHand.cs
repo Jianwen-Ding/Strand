@@ -101,21 +101,20 @@ public class playerHand : MonoBehaviour
     //public functions
     public void releaseObject()
     {
-        if (grabbedScript != null && grabState == "grabbed")
+        if (grabState == "grabbed")
         {
-            if (grabState == "slashing")
+            if (grabState == "slashing" && grabbedScript != null)
             {
                 grabbedScript.slashEnd();
             }
             objectRenderScript.enabled = true;
             grabState = "none";
-            grabbedScript.releasedEffect();
+            if(grabbedScript != null)
+            {
+                grabbedScript.releasedEffect();
+            }
             objectGrabbed = null;
             grabbedScript = null;
-        }
-        else if(grabbedScript == null)
-        {
-            print("ERROR- object being ungrabbed by " + gameObject.name + " does not have require -grabbableObject- script");
         }
 
     }
@@ -175,6 +174,8 @@ public class playerHand : MonoBehaviour
         }
         else
         {
+            objectGrabbed = null;
+            grabbedScript = null;
             print("ERROR- object being ungrabbed by " + gameObject.name + " does not have require -grabbableObject- script");
         }
     }
@@ -213,6 +214,10 @@ public class playerHand : MonoBehaviour
         if (grabState == "grabbing")
         {
             objectRenderScript.sprite = grabHandSprite;
+        }
+        else if(grabState == "grabbed" && objectGrabbed == null)
+        {
+            releaseObject();
         }
         else
         {
