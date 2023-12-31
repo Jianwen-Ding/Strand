@@ -397,7 +397,7 @@ Transform:
   m_GameObject: {fileID: 107837035}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.34, y: 0.38, z: 0}
+  m_LocalPosition: {x: -2.09, y: -0.09, z: 0}
   m_LocalScale: {x: 2.473333, y: 2.473333, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -423,7 +423,7 @@ MonoBehaviour:
   - {fileID: -1651246674, guid: 0facb70e7030c4d6abc1fd641ca38afa, type: 3}
   - {fileID: 1763814037, guid: 0facb70e7030c4d6abc1fd641ca38afa, type: 3}
   - {fileID: 494520318, guid: 0facb70e7030c4d6abc1fd641ca38afa, type: 3}
-  progressThreshold: 00000000010000000200000003000000040000000500000006000000
+  progressThreshold: 000000000200000004000000080000000a0000000c0000000e000000
   objectRenderer: {fileID: 0}
   resource: {fileID: 0}
 --- !u!1 &112227523
@@ -694,7 +694,7 @@ Transform:
   m_GameObject: {fileID: 213747955}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.46, y: -2.11, z: 0}
+  m_LocalPosition: {x: -0.67, y: -0.41, z: 0}
   m_LocalScale: {x: 2.473333, y: 2.473333, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1759,7 +1759,7 @@ MonoBehaviour:
   onMainDisplay: 0
   loadedPlayerX: 0
   loadedPlayerY: 0
-  startExplored: 1
+  startExplored: 0
 --- !u!1 &418824413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,7 +2147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrapCollected: 0
-  scrapVictoryThreshold: 20
+  scrapVictoryThreshold: 15
   hungerMeter: 100
   maxHunger: 100
   hungerHurtRate: 5
