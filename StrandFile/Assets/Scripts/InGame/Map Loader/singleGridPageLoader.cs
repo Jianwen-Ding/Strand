@@ -8,6 +8,8 @@ public class singleGridPageLoader : MonoBehaviour
     //loads a grid of objects
     //-- parameters that will most likely stay the same--
     [SerializeField]
+    private bool loadOnStart;
+    [SerializeField]
     private Vector2 initialDisplacement;
     [SerializeField]
     private float gridXDistance;
@@ -115,6 +117,11 @@ public class singleGridPageLoader : MonoBehaviour
     {
         difficulty = set;
     }
+    public void addLoadedObject(GameObject addedObject)
+    {
+        loadedObject.Add(addedObject);
+        addedObject.transform.parent = gameObject.transform;
+    }
     public void generateGrid()
     {
         if (!generatedYet)
@@ -186,10 +193,21 @@ public class singleGridPageLoader : MonoBehaviour
                                 newObject = Instantiate(pageKey[1], new Vector3(displacementKey[1].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[1].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             }
                             break;
+                        case 18:
+                            newObject = Instantiate(pageKey[pageMap[y][x]], new Vector3(displacementKey[pageMap[y][x]].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[pageMap[y][x]].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                            newObject.GetComponent<tileSpawner>().setLoader(this);
+                            break;
+                        case 19:
+                            newObject = Instantiate(pageKey[pageMap[y][x]], new Vector3(displacementKey[pageMap[y][x]].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[pageMap[y][x]].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                            newObject.GetComponent<tileSpawner>().setLoader(this);
+                            break;
+                        case 20:
+                            newObject = Instantiate(pageKey[pageMap[y][x]], new Vector3(displacementKey[pageMap[y][x]].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[pageMap[y][x]].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
+                            newObject.GetComponent<tileSpawner>().setLoader(this);
+                            break;
 
                     }
-                    loadedObject.Add(newObject);
-                    newObject.transform.parent = gameObject.transform;
+                    addLoadedObject(newObject);
                 }
             }
         }
@@ -198,5 +216,12 @@ public class singleGridPageLoader : MonoBehaviour
             print("ERROR- THIS GRID SEEMS TO HAVE ALREADY BEEN GENERATED BUT FUNCTION -generateGrid- HAS BEEN CALLED AGAIN");
         }
         
+    }
+    private void Start()
+    {
+        if (loadOnStart)
+        {
+            generateGrid();
+        }
     }
 }

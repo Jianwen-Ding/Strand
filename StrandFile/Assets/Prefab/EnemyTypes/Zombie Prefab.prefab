@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unmoving: 0
-  yAdjust: -0.4
+  yAdjust: -0.3
 --- !u!114 &2201331762763988564
 MonoBehaviour:
   m_ObjectHideFlags: 0

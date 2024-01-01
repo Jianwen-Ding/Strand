@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6771844952558179229}
   - component: {fileID: 5168556979869131081}
   - component: {fileID: 7812349703591604418}
-  - component: {fileID: 8873157668190405287}
+  - component: {fileID: -568599348849756894}
   m_Layer: 0
   m_Name: pusherRandomizedTile
   m_TagString: Untagged
@@ -119,7 +119,7 @@ MonoBehaviour:
   - {fileID: 5553193017879077982, guid: ab4649a19eae51b41bf7c09aa9cf0ca8, type: 3}
   - {fileID: -3847230832577257337, guid: ab4649a19eae51b41bf7c09aa9cf0ca8, type: 3}
   randomSet: 0
---- !u!114 &8873157668190405287
+--- !u!114 &-568599348849756894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 333955053541487916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf65f039d7574053b5b17fffe6c1e6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 50848c4556f1a46358aecbd066323f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefabList:

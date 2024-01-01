@@ -20,6 +20,11 @@ public class AudioScaler : MonoBehaviour
         //caches component
         cacheAudio = gameObject.GetComponent<AudioSource>();
     }
+
+    public void setVolume(float set)
+    {
+        baseVolume = set;
+    }
     // Update is called once per frame
     void Update()
     {

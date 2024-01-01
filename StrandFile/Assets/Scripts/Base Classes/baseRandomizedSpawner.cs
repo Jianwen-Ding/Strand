@@ -27,6 +27,13 @@ public class baseRandomizedSpawner : MonoBehaviour
     {
         return gameObject.transform.position;
     }
+
+    //Returns object spawned
+    public virtual GameObject gameObjectSpawn(GameObject prefab ,Vector3 position)
+    {
+        return Instantiate(prefab, position, Quaternion.identity.normalized);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +52,7 @@ public class baseRandomizedSpawner : MonoBehaviour
         {
             if(chanceLand <= chanceList[i])
             {
-                Instantiate(prefabList[i], positionSpawn, Quaternion.identity.normalized);
+                gameObjectSpawn(prefabList[i], positionSpawn);
                 Destroy(gameObject);
                 break;
             }

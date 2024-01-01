@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8377403981992532121}
   - component: {fileID: 4122599783167512152}
   - component: {fileID: 7695496472540669908}
-  - component: {fileID: 8856249906553718484}
+  - component: {fileID: 7464603837981328322}
   m_Layer: 0
   m_Name: spikeRandomizedTile
   m_TagString: Untagged
@@ -119,7 +119,7 @@ MonoBehaviour:
   - {fileID: 5553193017879077982, guid: ab4649a19eae51b41bf7c09aa9cf0ca8, type: 3}
   - {fileID: -3847230832577257337, guid: ab4649a19eae51b41bf7c09aa9cf0ca8, type: 3}
   randomSet: 0
---- !u!114 &8856249906553718484
+--- !u!114 &7464603837981328322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4323064504794542433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf65f039d7574053b5b17fffe6c1e6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 50848c4556f1a46358aecbd066323f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefabList:
