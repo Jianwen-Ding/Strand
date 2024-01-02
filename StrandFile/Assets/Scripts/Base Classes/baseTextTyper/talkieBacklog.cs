@@ -12,6 +12,11 @@ public class talkieBacklog : textTyper
     bool deactivated = true;
     List<string> talkList = new List<string>();
 
+    public bool getDeactivated()
+    {
+        return deactivated;
+    }
+
     public void addToTalk(string add)
     {
         talkList.Add(add);
@@ -28,21 +33,24 @@ public class talkieBacklog : textTyper
     }
     public override void Update()
     {
-        base.Update();
-        if (hasCompletedText() && !deactivated)
+        if (!deactivated)
         {
-            untilNextTextLeft -= Time.deltaTime;
-            if(untilNextTextLeft <= 0)
+            base.Update();
+            if (hasCompletedText())
             {
-                untilNextTextLeft = untilNextText;
-                talkList.RemoveAt(0);
-                if(talkList.Count <= 0)
+                untilNextTextLeft -= Time.deltaTime;
+                if (untilNextTextLeft <= 0)
                 {
-                    deactivated = true;
-                }
-                else
-                {
-                    setText(talkList[0]);
+                    untilNextTextLeft = untilNextText;
+                    talkList.RemoveAt(0);
+                    if (talkList.Count <= 0)
+                    {
+                        deactivated = true;
+                    }
+                    else
+                    {
+                        setText(talkList[0]);
+                    }
                 }
             }
         }

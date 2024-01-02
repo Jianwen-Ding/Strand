@@ -51,13 +51,14 @@ public class textTyper : MonoBehaviour
         objectAudioScale = gameObject.GetComponent<AudioScaler>();
         objectText = gameObject.GetComponent<TextMeshProUGUI>();
         objectText.text = "";
+        setTextStart();
         clearText();
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        if (!hasCompleted)
+        if (!hasCompleted && objectText.enabled)
         {
             timePerWordLeft -= Time.deltaTime;
             if (timePerWordLeft <= 0)

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class resourceSystem : MonoBehaviour
 {
+    [SerializeField]
+    bool isTutorial = false;
     //once it reacher scrap victory threshold the gane is won
     [SerializeField]
     int scrapCollected = 0;
@@ -80,6 +82,10 @@ public class resourceSystem : MonoBehaviour
     {
         return scrapCollected;
     }
+    public int getWinCondition()
+    {
+        return scrapVictoryThreshold;
+    }
     public bool getStalkHunger()
     {
         return stalkHunger;
@@ -132,6 +138,10 @@ public class resourceSystem : MonoBehaviour
             if (getWinImage.color.a + Time.unscaledDeltaTime * transitionSpeed >= 1)
             {
                 getWinImage.color = new Color(getWinImage.color.r, getWinImage.color.g, getWinImage.color.b, 1);
+                if (isTutorial)
+                {
+                    PlayerPrefs.DeleteAll();
+                }
                 SceneManager.LoadScene(winScene);
             }
             else

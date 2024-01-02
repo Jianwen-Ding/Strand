@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class gameOverStatsScript : MonoBehaviour
+public class gameOverStatsScript : textTyper
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void setTextStart()
     {
         Time.timeScale = 1;
         TextMeshProUGUI textControl = gameObject.GetComponent<TextMeshProUGUI>();
@@ -13,7 +12,9 @@ public class gameOverStatsScript : MonoBehaviour
         {
             scrapStorer.setScrap(scrapStorer.getScrap() + PlayerPrefs.GetInt("Scrap", 0));
         }
-        textControl.text = "Scrap Collected: " + PlayerPrefs.GetInt("Scrap", 0) + "\nNights Spent: " + PlayerPrefs.GetInt("daysSpent", 0) + "\nTotal Scrap Stored: " + scrapStorer.getScrap();
+        string retText = "Scrap Collected: " + PlayerPrefs.GetInt("Scrap", 0) + "\nNights Spent: " + PlayerPrefs.GetInt("daysSpent", 0) + "\nTotal Scrap Stored: " + scrapStorer.getScrap();
+        setText(retText);
         PlayerPrefs.DeleteAll();
+        base.setTextStart();
     }
 }

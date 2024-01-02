@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScale: 2
-  sceneKey: Craft
+  sceneKey: TutorialScene
   activated: 0
 --- !u!114 &432787958
 MonoBehaviour:

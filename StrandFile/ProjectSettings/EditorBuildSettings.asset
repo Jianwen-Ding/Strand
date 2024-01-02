@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Transition Menu.unity
     guid: 61d4f6f6dbc3b4bafadd26ea5aacea0a
   - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: cd8a0d0b0ea2244c7ac309b88eaf0a7a
+  - enabled: 1
     path: Assets/Scenes/Scrap Menu.unity
     guid: dadce11fec5e443b38eaf6d51cb03a40
   m_configObjects: {}
