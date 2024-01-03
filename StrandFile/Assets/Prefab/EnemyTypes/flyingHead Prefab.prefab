@@ -253,7 +253,7 @@ MonoBehaviour:
   timeStunOnDamage: 0.5
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
-  health: 3
+  health: 2
   daysPerHealthAdvance: 3
   playerTouchPushbackOnPlayer: 20
   playerTouchPushbackOnEnemy: 20
@@ -262,8 +262,8 @@ MonoBehaviour:
   playerTouchMovementLockTime: 0.03
   failedGrabPushBackEnemy: 15
   failedGrabPushBackPlayer: 15
-  grabArmor: 3
-  defaultGrabArmor: 3
+  grabArmor: 2
+  defaultGrabArmor: 2
   hasDied: 0
   timeUntilDestruct: 0.5
   timeLeftUntilDestruct: 3
@@ -276,7 +276,7 @@ MonoBehaviour:
   daysPerBurstForceAdvance: 1
   angleModifyCircle: 140
   timeUntilMove: 0.8
-  timeUntilFire: 2
+  timeUntilFire: 4
   timeUntilFireDayAddOn: 2
   angleThreshold: 100
   projectilePrefab: {fileID: 1184393580136825620, guid: 7274ebcdc9703496da9dd63dc8d955d5, type: 3}
@@ -304,7 +304,7 @@ MonoBehaviour:
   - 0.15
   - 0.3
   - 0.5
-  - 0.2
+  - 0.6
   amountOfSources: 1
   source:
   - {fileID: 0}

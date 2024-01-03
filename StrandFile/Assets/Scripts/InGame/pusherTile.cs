@@ -42,7 +42,9 @@ public class pusherTile : MonoBehaviour
         if (collision.gameObject != null && !insideObjects.Contains(collision.gameObject))
         {
             Rigidbody2D potentialRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (potentialRigidbody != null)
+            flyingHeadScript flyingHeadScript = collision.gameObject.GetComponent<flyingHeadScript>();
+            stalkerEnemy stalkerScript = collision.gameObject.GetComponent<stalkerEnemy>();
+            if (potentialRigidbody != null && flyingHeadScript == null && stalkerScript == null)
             {
                 insideObjects.Add(collision.gameObject);
             }

@@ -81,10 +81,13 @@ public class dogEnemy : baseEnemy
     //Goes into pursuit mode after being damaged or stunned
     public override void isDamaged(int damage)
     {
-        base.isDamaged(damage);
-        getObjectAnimator().SetInteger("EnemyState", 3);
-        playerLastSceenLoc = (Vector2)getPlayerObject().transform.position;
-        inHunt = true;
+        if(gameObject != null)
+        {
+            base.isDamaged(damage);
+            getObjectAnimator().SetInteger("EnemyState", 3);
+            playerLastSceenLoc = (Vector2)getPlayerObject().transform.position;
+            inHunt = true;
+        }
     }
 
     public override void stunEnemy(float time)

@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Transition Menu.unity
     guid: 61d4f6f6dbc3b4bafadd26ea5aacea0a
   - enabled: 1
+    path: Assets/Scenes/Credits Menu.unity
+    guid: fdb64d1a6ed9c45fcab7b91a2d9bb45d
+  - enabled: 1
     path: Assets/Scenes/TutorialScene.unity
     guid: cd8a0d0b0ea2244c7ac309b88eaf0a7a
   - enabled: 1

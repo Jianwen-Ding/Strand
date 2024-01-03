@@ -46,7 +46,14 @@ public class singleGridLoadToggle : MonoBehaviour
             }
             for (int i = 0; i < enemiesInGrid.Count; i++)
             {
-                ((GameObject)enemiesInGrid[i]).SetActive(false);
+                if((GameObject)enemiesInGrid[i] != null && ((GameObject)enemiesInGrid[i]).GetComponent<stalkerEnemy>() == null)
+                {
+                    ((GameObject)enemiesInGrid[i]).SetActive(false);
+                }
+                else
+                {
+                    enemiesInGrid.RemoveAt(i);
+                }
             }
         }
     }

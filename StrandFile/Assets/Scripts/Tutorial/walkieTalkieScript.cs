@@ -31,6 +31,7 @@ public class walkieTalkieScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.DeleteAll();
         objectRenderer = gameObject.GetComponent<Image>();
         objectAnimator = gameObject.GetComponent<Animator>();
         talkieBubble = transform.GetChild(0).gameObject.GetComponent<Image>();

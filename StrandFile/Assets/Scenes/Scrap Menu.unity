@@ -479,7 +479,7 @@ MonoBehaviour:
   scrapName: Racket
   successClip: {fileID: 8300000, guid: f4b765ccffe4c4890a4f61c8a36a7bf9, type: 3}
   failClip: {fileID: 8300000, guid: 8cd9d9c003f534444ad22d4e4328baf6, type: 3}
-  scrapCost: 10
+  scrapCost: 5
 --- !u!114 &91969557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1565,7 +1565,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GOLDEN  \n-20
+  m_text: 'GOLDEN  \n-15
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc033f9db282ce84ba121dad00d448a6, type: 2}
   m_sharedMaterial: {fileID: 157024893611359227, guid: dc033f9db282ce84ba121dad00d448a6, type: 2}
@@ -2042,7 +2044,7 @@ MonoBehaviour:
   scrapName: Skull Container
   successClip: {fileID: 8300000, guid: f4b765ccffe4c4890a4f61c8a36a7bf9, type: 3}
   failClip: {fileID: 8300000, guid: 8cd9d9c003f534444ad22d4e4328baf6, type: 3}
-  scrapCost: 20
+  scrapCost: 15
 --- !u!114 &672317137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3853,11 +3855,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2edeaa1ac923f43e382115101795c1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGolden: 0
-  scrapName: 
+  isGolden: 1
+  scrapName: Teleporter
   successClip: {fileID: 8300000, guid: f4b765ccffe4c4890a4f61c8a36a7bf9, type: 3}
   failClip: {fileID: 8300000, guid: 8cd9d9c003f534444ad22d4e4328baf6, type: 3}
-  scrapCost: 20
+  scrapCost: 15
 --- !u!114 &1237695042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4180,7 +4182,7 @@ MonoBehaviour:
   scrapName: Toy
   successClip: {fileID: 8300000, guid: f4b765ccffe4c4890a4f61c8a36a7bf9, type: 3}
   failClip: {fileID: 8300000, guid: 8cd9d9c003f534444ad22d4e4328baf6, type: 3}
-  scrapCost: 10
+  scrapCost: 5
 --- !u!114 &1279529408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4413,7 +4415,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NORMAL-10
+  m_text: 'NORMAL-5
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc033f9db282ce84ba121dad00d448a6, type: 2}
   m_sharedMaterial: {fileID: 157024893611359227, guid: dc033f9db282ce84ba121dad00d448a6, type: 2}
@@ -5682,7 +5686,7 @@ MonoBehaviour:
   scrapName: Unicorn Sword
   successClip: {fileID: 8300000, guid: f4b765ccffe4c4890a4f61c8a36a7bf9, type: 3}
   failClip: {fileID: 8300000, guid: 8cd9d9c003f534444ad22d4e4328baf6, type: 3}
-  scrapCost: 10
+  scrapCost: 5
 --- !u!114 &1892942330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6005,7 +6009,7 @@ MonoBehaviour:
   scrapName: Rounded Blade
   successClip: {fileID: 8300000, guid: f4b765ccffe4c4890a4f61c8a36a7bf9, type: 3}
   failClip: {fileID: 8300000, guid: 8cd9d9c003f534444ad22d4e4328baf6, type: 3}
-  scrapCost: 10
+  scrapCost: 5
 --- !u!114 &1897807579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6598,7 +6602,7 @@ MonoBehaviour:
   scrapName: Stalker Blade
   successClip: {fileID: 8300000, guid: f4b765ccffe4c4890a4f61c8a36a7bf9, type: 3}
   failClip: {fileID: 8300000, guid: 8cd9d9c003f534444ad22d4e4328baf6, type: 3}
-  scrapCost: 20
+  scrapCost: 15
 --- !u!114 &2013309104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7122,7 +7126,7 @@ MonoBehaviour:
   scrapName: Golden Gear
   successClip: {fileID: 8300000, guid: f4b765ccffe4c4890a4f61c8a36a7bf9, type: 3}
   failClip: {fileID: 8300000, guid: 8cd9d9c003f534444ad22d4e4328baf6, type: 3}
-  scrapCost: 20
+  scrapCost: 15
 --- !u!114 &2080543975
 MonoBehaviour:
   m_ObjectHideFlags: 0

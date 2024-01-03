@@ -435,7 +435,7 @@ MonoBehaviour:
   timeStunOnDamage: 0.5
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
-  health: 5
+  health: 4
   daysPerHealthAdvance: 3
   playerTouchPushbackOnPlayer: 20
   playerTouchPushbackOnEnemy: 20
@@ -444,8 +444,8 @@ MonoBehaviour:
   playerTouchMovementLockTime: 0.03
   failedGrabPushBackEnemy: 15
   failedGrabPushBackPlayer: 15
-  grabArmor: 3
-  defaultGrabArmor: 3
+  grabArmor: 2
+  defaultGrabArmor: 2
   hasDied: 0
   timeUntilDestruct: 0.5
   timeLeftUntilDestruct: 3
@@ -463,9 +463,9 @@ MonoBehaviour:
   playerInSights: 0
   playerLastSceenLoc: {x: 0, y: 0}
   scentMarkerPrefab: {fileID: 0}
-  huntAccelerate: 60
+  huntAccelerate: 55
   daysPerHuntAccelerateAdvance: 1
-  maxSpeed: 9
+  maxSpeed: 8
   daysPerMaxSpeedAdvance: 4
   deAccelerateRatio: 2
   timeUntiDisconnect: 3

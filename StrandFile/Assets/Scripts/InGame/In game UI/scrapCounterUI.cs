@@ -16,6 +16,6 @@ public class scrapCounterUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        getText.text = ": " + PlayerPrefs.GetInt("Scrap", 0) + "/" + GetResourceSystem.getWinCondition();
+        getText.text = ": " + PlayerPrefs.GetInt("Scrap", 0) + "/" + (GetResourceSystem.getWinCondition() + 1);
     }
 }
