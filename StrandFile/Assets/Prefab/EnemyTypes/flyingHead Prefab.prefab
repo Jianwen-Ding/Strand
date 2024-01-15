@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 463262368936735933}
   - component: {fileID: 463262368936736068}
   - component: {fileID: 463262368936735935}
+  - component: {fileID: -8250024128789054476}
   m_Layer: 10
   m_Name: flyingHead Prefab
   m_TagString: Enemy
@@ -193,6 +194,8 @@ MonoBehaviour:
   grabShrink: 0.5
   willPointOutwards: 0
   adjustAngleCheckY: 0
+  isActivelySlashing: 0
+  signifiesSlash: 1
   signifiesDamage: 0
   durability: 99
   slashKnockBackStrength: 30
@@ -203,7 +206,7 @@ MonoBehaviour:
   slashCooldown: 0.25
   slashColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
-  velocityThreshold: 300
+  velocityThreshold: 20
   throwVelocityToHitThreshold: 0
   throwDamage: 1
   throwStunTme: 0
@@ -253,6 +256,7 @@ MonoBehaviour:
   timeStunOnDamage: 0.5
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
+  maxHealth: 0
   health: 2
   daysPerHealthAdvance: 3
   playerTouchPushbackOnPlayer: 20
@@ -308,6 +312,29 @@ MonoBehaviour:
   amountOfSources: 1
   source:
   - {fileID: 0}
+--- !u!114 &-8250024128789054476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463262368936735934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6717de7c383c485a9f0e86a128d5171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  grab: 0
+  healthBarPrefab: {fileID: 7783674343843737612, guid: 0bc07c4e9347a4ce2b862f6bee60d4ec, type: 3}
+  grabBarPrefab: {fileID: 8672896576184619908, guid: c79052e2df2e14e5a90f27b771377c36, type: 3}
+  healthBarCenter: {x: 0, y: 0.5}
+  xDistPerHealthSeg: 0.0989
+  grabBarAdjust: {x: 0, y: -0.0989347}
+  xDistPerGrabSeg: 0.0989
+  hasLoaded: 0
+  isHealthInvin: 0
+  isGrabInvin: 0
 --- !u!1 &463262369289270873
 GameObject:
   m_ObjectHideFlags: 0

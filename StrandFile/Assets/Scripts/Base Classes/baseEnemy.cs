@@ -12,6 +12,7 @@ public class baseEnemy : MonoBehaviour
     private Color originalColor;
     private GameObject playerObject;
     private enemyAudio cacheAudio;
+    private enemyIndicators cacheBars;
     //Parameter of state named "EnemyState"
     //1 - Default
     //2 - Stunned
@@ -30,6 +31,8 @@ public class baseEnemy : MonoBehaviour
     [SerializeField]
     private Color stunColor;
     //-Health-
+    [SerializeField]
+    private int maxHealth;
     [SerializeField]
     private int health;
     [SerializeField]
@@ -133,6 +136,18 @@ public class baseEnemy : MonoBehaviour
 
     //public function
     //get/set functions
+    public virtual int getMaxHealth()
+    {
+        return maxHealth;
+    }
+    public virtual int getHealth()
+    {
+        return health;
+    }
+    public virtual enemyIndicators getCacheBars()
+    {
+        return cacheBars;
+    }
     public virtual int getGrabArmor()
     {
         return grabArmor;
@@ -225,6 +240,8 @@ public class baseEnemy : MonoBehaviour
             stunEnemy(timeStunOnDamage);
             grabArmor -= damage;
             health -= damage;
+            cacheBars.updateHealth(health);
+            cacheBars.updateGrabArmor(grabArmor);
             cacheAudio.playSound(0, 0);
             if (health <= 0)
             {
@@ -253,6 +270,7 @@ public class baseEnemy : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        cacheBars = gameObject.GetComponent<enemyIndicators>();
         cacheAudio = gameObject.GetComponent<enemyAudio>();
         objectAnimator = gameObject.GetComponent<Animator>();
         timeLeftUntilDestruct = timeUntilDestruct;
@@ -264,6 +282,8 @@ public class baseEnemy : MonoBehaviour
         {
             health = health + (int)Mathf.Floor(PlayerPrefs.GetInt("daysSpent", 0) / daysPerHealthAdvance);
         }
+        cacheBars.load(health, grabArmor);
+        maxHealth = health;
     }
 
     // Calls upon deletion of enemy

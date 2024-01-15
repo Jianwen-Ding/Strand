@@ -200,6 +200,10 @@ public class PlayerMainScript : MonoBehaviour
             if (isGrabbingTimeLeft >= 0)
             {
                 isGrabbingTimeLeft -= Time.deltaTime;
+                if (isGrabbingTimeLeft < 0)
+                {
+                    endGrab();
+                }
             }
             else
             {
@@ -224,14 +228,7 @@ public class PlayerMainScript : MonoBehaviour
                     lastAngleChanges.Dequeue();
                 }
             }
-            if (grabTimeLeft >= 0)
-            {
-                grabTimeLeft -= Time.deltaTime;
-                if (grabTimeLeft < 0)
-                {
-                    endGrab();
-                }
-            }
+            grabTimeLeft -= Time.deltaTime;
             //Movement
             bool hasMoved = false;
             if (!movementLocked)

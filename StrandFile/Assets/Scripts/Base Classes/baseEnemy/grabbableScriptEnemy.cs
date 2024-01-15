@@ -27,9 +27,21 @@ public class grabbableScriptEnemy : grabbableObject
         enemyScript.stunEnemy(getThrownStateTime());
         timeUntilReleaseLeft = timeUntilRelease;
     }
+    public override void thrownEnd()
+    {
+        base.thrownEnd();
+        if (enemyScript.getCacheBars() != null)
+        {
+            enemyScript.getCacheBars().showBars();
+        }
+    }
     public override void releasedEffect()
     {
         base.releasedEffect();
+        if (enemyScript.getCacheBars() != null)
+        {
+            enemyScript.getCacheBars().showBars();
+        }
         enemyScript.stunEnemy(getReleaseStateTime());
         timeUntilReleaseLeft = timeUntilRelease;
     }
@@ -39,15 +51,21 @@ public class grabbableScriptEnemy : grabbableObject
         //succesful grab
         if (enemyScript.getGrabArmor() <= 0)
         {
+            if (enemyScript.getCacheBars() != null)
+            {
+                enemyScript.getCacheBars().hideBars();
+            }
             base.grabbedEffect(grabbedBy);
             enemyScript.stunEnemy(timeUntilRelease);
             enemyScript.setGrabArmor(enemyScript.getDefaultGrabArmor());
+            enemyScript.getCacheBars().updateGrabArmor(enemyScript.getGrabArmor());
             return true;
         }
         //failed grab
         else
         {
             enemyScript.loseGrabArmor(1);
+            enemyScript.getCacheBars().updateGrabArmor(enemyScript.getGrabArmor());
             enemyScript.stunEnemy(enemyScript.getStunOnPush());
             //-pushes both characters back
             float Angle = Mathf.Rad2Deg * Mathf.Atan2(gameObject.transform.position.y - grabbedByHandScript.getObjectPlayerScript().transform.position.y, gameObject.transform.position.x - grabbedByHandScript.getObjectPlayerScript().transform.position.x );
@@ -74,6 +92,12 @@ public class grabbableScriptEnemy : grabbableObject
             }
         }
     }
+
+    public override bool getSignifiesSlash()
+    {
+        return base.getSignifiesSlash();
+    }
+
     // Start is called before the first frame update
     public override void Start()
     {

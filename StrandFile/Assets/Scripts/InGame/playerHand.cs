@@ -6,7 +6,7 @@ using UnityEngine;
 public class playerHand : MonoBehaviour
 {
     #region variables
-    //Setup Objects
+    //Cache Vars
     [SerializeField]
     private GameObject playerObject;
     [SerializeField]
@@ -21,6 +21,14 @@ public class playerHand : MonoBehaviour
     private Sprite defaultHandSprite;
     [SerializeField]
     private Sprite grabHandSprite;
+    [SerializeField]
+    // Animation states
+    // 0 - nothing happening
+    // 1 - is grabbing
+    // 2 - is idlely slashing
+    // 3 - is actively slashing
+    private Animator objectHitboxAnim;
+    private SpriteRenderer objectHitboxRend;
     //Orbit variables
     [SerializeField]
     private float yAddition;
@@ -48,6 +56,8 @@ public class playerHand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        objectHitboxAnim = transform.GetChild(0).gameObject.GetComponent<Animator>();
+        objectHitboxRend = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
         playerObject = gameObject.transform.parent.gameObject;
         objectPlayerScript = playerObject.GetComponent<PlayerMainScript>();
         objectPlayerRenderScript = playerObject.GetComponent<SpriteRenderer>();
@@ -210,6 +220,37 @@ public class playerHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        objectHitboxRend.sortingOrder = objectRenderScript.sortingOrder - 1;
+        // Switches hitbox animations
+        switch (grabState)
+        {
+            case "grabbing":
+                objectHitboxAnim.SetInteger("hitboxState", 1);
+                break;
+            case "grabbed":
+                objectHitboxAnim.SetInteger("hitboxState", 0);
+                break;
+            case "slashing":
+                if (grabbedScript.getSignifiesSlash())
+                {
+                    if (grabbedScript.getIsActivelySlashing())
+                    {
+                        objectHitboxAnim.SetInteger("hitboxState", 3);
+                    }
+                    else
+                    {
+                        objectHitboxAnim.SetInteger("hitboxState", 2);
+                    }
+                }
+                else
+                {
+                    objectHitboxAnim.SetInteger("hitboxState", 0);
+                }
+                break;
+            case "none":
+                objectHitboxAnim.SetInteger("hitboxState", 0);
+                break;
+        }
         transform.localRotation = Quaternion.Euler(new Vector3(0, 0, objectPlayerScript.getAngleFace() - 90));
         if (grabState == "grabbing")
         {

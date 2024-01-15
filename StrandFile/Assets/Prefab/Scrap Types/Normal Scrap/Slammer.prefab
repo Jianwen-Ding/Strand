@@ -190,6 +190,8 @@ MonoBehaviour:
   grabShrink: 1
   willPointOutwards: 1
   adjustAngleCheckY: 0
+  isActivelySlashing: 0
+  signifiesSlash: 1
   signifiesDamage: 1
   durability: 5
   slashKnockBackStrength: 45
@@ -200,7 +202,7 @@ MonoBehaviour:
   slashCooldown: 0.25
   slashColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
-  velocityThreshold: 250
+  velocityThreshold: 20
   throwVelocityToHitThreshold: 0
   throwDamage: 1
   throwStunTme: 0

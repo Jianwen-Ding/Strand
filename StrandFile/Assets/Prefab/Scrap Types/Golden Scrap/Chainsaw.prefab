@@ -192,6 +192,7 @@ MonoBehaviour:
   grabShrink: 1
   willPointOutwards: 1
   adjustAngleCheckY: 0
+  signifiesSlash: 1
   signifiesDamage: 1
   durability: 30
   slashKnockBackStrength: 5

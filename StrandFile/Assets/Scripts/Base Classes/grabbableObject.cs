@@ -30,6 +30,10 @@ public class grabbableObject : MonoBehaviour
     private float adjustAngleCheckY;
     //Slash/Use Variables
     [SerializeField]
+    private bool isActivelySlashing;
+    [SerializeField]
+    private bool signifiesSlash;
+    [SerializeField]
     private bool signifiesDamage;
     [SerializeField]
     private int durability = 3;
@@ -86,6 +90,14 @@ public class grabbableObject : MonoBehaviour
     }
     //--public functions--
     //get/set functions
+    public bool getIsActivelySlashing()
+    {
+        return isActivelySlashing;
+    }
+    public virtual bool getSignifiesSlash()
+    {
+        return signifiesSlash;
+    }
     public bool getSignifiesDamage()
     {
         return signifiesDamage;
@@ -207,7 +219,8 @@ public class grabbableObject : MonoBehaviour
     }
     public virtual void whileSlashingEffect()
     {
-        if (grabbedByObjectScript.getAngleVelocity() > velocityThreshold)
+        isActivelySlashing = grabbedByObjectScript.getAngleVelocity() > velocityThreshold;
+        if (isActivelySlashing)
         {
             objectRender.color = fullVelSlashColor;
         }
