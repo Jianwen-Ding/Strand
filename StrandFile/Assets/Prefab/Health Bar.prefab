@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8299223690019680614}
   - component: {fileID: 6212082520468007481}
   - component: {fileID: 4489675097048492824}
+  - component: {fileID: 1371701033073551384}
   m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
@@ -106,3 +107,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1371701033073551384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7783674343843737612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92840852a63d345e0aff042cc7ae3d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

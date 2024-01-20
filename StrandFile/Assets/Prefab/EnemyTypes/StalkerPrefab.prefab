@@ -273,7 +273,7 @@ MonoBehaviour:
   destructionResidue: {fileID: 1941439566673320384, guid: e598903fb66d24882b21c2d81b3d394f, type: 3}
   foodDropPrefab: {fileID: 4258430185833240029, guid: 55552c1fa834d4ba4822e673efe37626, type: 3}
   dropRate: 0
-  movementSpeed: 1
+  movementSpeed: 2
 --- !u!114 &6902797594749251773
 MonoBehaviour:
   m_ObjectHideFlags: 0

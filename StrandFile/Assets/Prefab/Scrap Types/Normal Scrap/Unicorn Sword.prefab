@@ -193,10 +193,10 @@ MonoBehaviour:
   isActivelySlashing: 0
   signifiesSlash: 1
   signifiesDamage: 1
-  durability: 1
+  durability: 2
   slashKnockBackStrength: 45
   slashStunTime: 0.5
-  damage: 4
+  damage: 5
   slashTime: 1
   slashTimeLeft: 0
   slashCooldown: 0.25

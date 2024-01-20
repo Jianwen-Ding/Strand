@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394ee5588f13e44498e26093930d9c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadOnStart: 0
   initialDisplacement: {x: -8.45, y: -4.8}
   gridXDistance: 1.185284
   gridYDistance: 0.6666667

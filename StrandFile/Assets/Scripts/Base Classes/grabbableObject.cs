@@ -90,6 +90,10 @@ public class grabbableObject : MonoBehaviour
     }
     //--public functions--
     //get/set functions
+    public bool getHasBeenGrabbed()
+    {
+        return hasBeenGrabbed;
+    }
     public bool getIsActivelySlashing()
     {
         return isActivelySlashing;
@@ -259,7 +263,6 @@ public class grabbableObject : MonoBehaviour
             if (slashedRigidbody2D != null)
             {
                 float Angle = Mathf.Rad2Deg * Mathf.Atan2(slashedObject.transform.position.y - slashFromLocation.y, slashedObject.transform.position.x - slashFromLocation.x);
-                hasHitObject = true;
                 float xPush = Mathf.Cos(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
                 float yPush = Mathf.Sin(Angle * Mathf.Deg2Rad) * slashKnockBackStrength;
                 slashedRigidbody2D.AddForce(new Vector2(xPush, yPush), ForceMode2D.Impulse);

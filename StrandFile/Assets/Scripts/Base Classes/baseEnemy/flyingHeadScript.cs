@@ -83,6 +83,7 @@ public class flyingHeadScript : baseEnemy
     {
         base.isDamaged(damage);
         getObjectAnimator().SetInteger("EnemyState", 3);
+        isActive = true;    
     }
 
     // decides what the flying head does frame to frame depending on state

@@ -220,7 +220,7 @@ public class playerHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        objectHitboxRend.sortingOrder = objectRenderScript.sortingOrder - 1;
+        objectHitboxRend.sortingOrder = objectRenderScript.sortingOrder - 5;
         // Switches hitbox animations
         switch (grabState)
         {

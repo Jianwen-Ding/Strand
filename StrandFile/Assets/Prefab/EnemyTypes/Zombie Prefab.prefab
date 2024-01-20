@@ -124,7 +124,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02481391, y: -0.10339737}
+  m_Offset: {x: -0.022787526, y: -0.079078786}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -135,7 +135,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.136273, y: 0.10497308}
+  m_Size: {x: 0.15653828, y: 0.16982247}
   m_EdgeRadius: 0
 --- !u!50 &2201331762763988557
 Rigidbody2D:
@@ -255,8 +255,8 @@ MonoBehaviour:
   timeStunnedLeft: 0
   stunColor: {r: 1, g: 1, b: 0, a: 1}
   maxHealth: 0
-  health: 3
-  daysPerHealthAdvance: 2
+  health: 2
+  daysPerHealthAdvance: 3
   playerTouchPushbackOnPlayer: 20
   playerTouchPushbackOnEnemy: 20
   stunOnPush: 0.2

@@ -256,7 +256,7 @@ MonoBehaviour:
   stunColor: {r: 1, g: 1, b: 0, a: 1}
   maxHealth: 0
   health: 5
-  daysPerHealthAdvance: 2
+  daysPerHealthAdvance: 1
   playerTouchPushbackOnPlayer: 30
   playerTouchPushbackOnEnemy: 30
   stunOnPush: 0.05

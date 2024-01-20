@@ -37,6 +37,8 @@ public class pusherTile : MonoBehaviour
     Collider2D getCollider;
     SpriteYLayering objectLayering;
     SpriteRenderer objectRenderer;
+
+    // Finds objects inside of hitbox
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject != null && !insideObjects.Contains(collision.gameObject))
@@ -59,6 +61,7 @@ public class pusherTile : MonoBehaviour
         }
     }
 
+    // pushes a gameobject out
     private void push(GameObject pushGameObject)
     {
         if(pushGameObject != null)
@@ -86,8 +89,9 @@ public class pusherTile : MonoBehaviour
             }
         }
     }
+
     // Start is called before the first frame update
-    void Start()
+    public virtual void Awake()
     {
         objectRenderer = gameObject.GetComponent<SpriteRenderer>();
         objectAnimator = gameObject.GetComponent<Animator>();
@@ -96,38 +100,55 @@ public class pusherTile : MonoBehaviour
         currentStateTime = stateTimes[0];
     }
 
-    // Update is called once per frame
-    void Update()
+    // Happens on Rise
+    public void prepareSolidify()
     {
-        currentStateTime -= Time.deltaTime;
-        if(currentStateTime <= 0)
+        for (int i = 0; i < insideObjects.Count; i++)
         {
-            currentState++;
-            switch (currentState)
-            {
-                case 2:
-                    for(int i = 0; i < insideObjects.Count; i++)
-                    {
-                        push(insideObjects[i]);
-                    }
-                    insideObjects.Clear();
-                    gameObject.layer = upLayer;
-                    break;
-                case 3:
-                    objectRenderer.sortingLayerName = upAdjust;
-                    getCollider.isTrigger = false;
-                    break;
-                case 6:
-                    objectRenderer.sortingLayerName = downAdjust;
-                    getCollider.isTrigger = true;
-                    currentState = 0;
-                    gameObject.layer = downLayer;
-                    break;
-            }
-            objectAnimator.SetInteger("Next State", currentState);
-            currentStateTime = stateTimes[currentState];
+            push(insideObjects[i]);
         }
-        if(currentState > 1)
+        insideObjects.Clear();
+        gameObject.layer = upLayer;
+    }
+
+    // Happens on Up Idle
+    public void solidify()
+    {
+        objectRenderer.sortingLayerName = upAdjust;
+        getCollider.isTrigger = false;
+    }
+
+    // Happens on State Down Idle
+    public void desolidify()
+    {
+        objectRenderer.sortingLayerName = downAdjust;
+        getCollider.isTrigger = true;
+        currentState = 0;
+        gameObject.layer = downLayer;
+    }
+
+    public void switchState(int newState)
+    {
+        currentState = newState;
+        switch (newState)
+        {
+            case 2:
+                prepareSolidify();
+                break;
+            case 3:
+                solidify();
+                break;
+            case 6:
+                desolidify();
+                break;
+        }
+        objectAnimator.SetInteger("Next State", currentState);
+        currentStateTime = stateTimes[currentState];
+    }
+
+    public void checkSolidUpdate()
+    {
+        if (currentState > 1)
         {
             for (int i = 0; i < insideObjects.Count; i++)
             {
@@ -135,5 +156,32 @@ public class pusherTile : MonoBehaviour
             }
             insideObjects.Clear();
         }
+    }
+
+    // get/set functions
+    public int getCurrentState()
+    {
+        return currentState;
+    }
+
+    public void setCurrentState(int set)
+    {
+        currentState = set;
+    }
+
+    public float getStateTimes(int setIndex)
+    {
+        return stateTimes[setIndex];
+    }
+
+    // Update is called once per frame
+    public virtual void Update()
+    {
+        currentStateTime -= Time.deltaTime;
+        if(currentStateTime <= 0)
+        {
+            switchState(currentState + 1);
+        }
+        checkSolidUpdate();
     }
 }

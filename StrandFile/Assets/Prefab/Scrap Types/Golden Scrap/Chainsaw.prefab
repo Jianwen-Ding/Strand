@@ -192,9 +192,10 @@ MonoBehaviour:
   grabShrink: 1
   willPointOutwards: 1
   adjustAngleCheckY: 0
+  isActivelySlashing: 0
   signifiesSlash: 1
   signifiesDamage: 1
-  durability: 30
+  durability: 40
   slashKnockBackStrength: 5
   slashStunTime: 0.06
   damage: 1
@@ -214,7 +215,7 @@ MonoBehaviour:
   thrownDrag: 3
   releaseStateTime: 0.1
   refreshTime: 0.1
-  durabilityUntilDisplay: 5
+  durabilityUntilDisplay: 10
   chainsawStart: {fileID: 8300000, guid: 3b3aad3cbc7034296bee3260d4e72339, type: 3}
   chainsawEnd: {fileID: 8300000, guid: d54d2728f1b834cad820f8a9a78572d5, type: 3}
   blowBack: 5

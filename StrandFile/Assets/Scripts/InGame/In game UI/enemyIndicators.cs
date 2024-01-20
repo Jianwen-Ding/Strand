@@ -143,9 +143,16 @@ public class enemyIndicators : MonoBehaviour
                 {
                     grabBarSegAnimators[0].SetBool("isLeft", true);
                 }
+                else {
+                    print(this.gameObject.name);
+                }
                 if (grabAmount > 1)
                 {
                     grabBarSegAnimators[grabAmount - 1].SetBool("isRight", true);
+                }
+                else
+                {
+                    print(this.gameObject.name);
                 }
             }
             else

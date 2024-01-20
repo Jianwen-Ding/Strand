@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class sleepButton : MonoBehaviour
 {
     [SerializeField]
+    int scrapCost;
+    [SerializeField]
     GameObject transitionScreen;
     [SerializeField]
     Image transitionRender;
@@ -17,11 +19,15 @@ public class sleepButton : MonoBehaviour
     string nightSceneName;
     public void transitionToNextDay()
     {
-        PlayerPrefs.SetInt("daysSpent", PlayerPrefs.GetInt("daysSpent", 0) + 1);
-        startedTransition = true;
-        transitionScreen.SetActive(true);
-        transitionRender = transitionScreen.GetComponent<Image>();
-        Time.timeScale = 0;
+        if(scrapCost <= PlayerPrefs.GetInt("Scrap", 0))
+        {
+            PlayerPrefs.SetInt("Scrap", PlayerPrefs.GetInt("Scrap", 0) - scrapCost);
+            PlayerPrefs.SetInt("daysSpent", PlayerPrefs.GetInt("daysSpent", 0) + 1);
+            startedTransition = true;
+            transitionScreen.SetActive(true);
+            transitionRender = transitionScreen.GetComponent<Image>();
+            Time.timeScale = 0;
+        }
     }
 
     // Update is called once per frame

@@ -15,14 +15,14 @@ public class dogCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject != transform.parent.gameObject)
+        if((collision.gameObject.layer != 2 || collision.gameObject.GetComponent<singleSpike>()) && collision.gameObject != transform.parent.gameObject)
         {
             dogScript.facingLeftSet(leftFace);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject != transform.parent.gameObject)
+        if ((collision.gameObject.layer != 2 || collision.gameObject.GetComponent<singleSpike>()) && collision.gameObject != transform.parent.gameObject)
         {
             dogScript.facingLeftSet(leftFace);
         }
