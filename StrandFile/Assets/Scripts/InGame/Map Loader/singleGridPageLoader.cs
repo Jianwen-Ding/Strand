@@ -147,6 +147,11 @@ public class singleGridPageLoader : MonoBehaviour
                     switch (pageMap[y][x]) 
                     { 
                         default:
+                            //For debugging
+                            /*if(pageKey.Length <= pageMap[y][x])
+                            {
+                                print(pageMap[y][x]);
+                            }*/
                             newObject = Instantiate(pageKey[pageMap[y][x]], new Vector3(displacementKey[pageMap[y][x]].x + initialDisplacement.x + gameObject.transform.position.x + gridXDistance * x, displacementKey[pageMap[y][x]].y + initialDisplacement.y + gameObject.transform.position.y + gridYDistance * y), Quaternion.identity.normalized);
                             break;
 
