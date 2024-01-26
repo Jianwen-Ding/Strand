@@ -53,6 +53,11 @@ public class gridOverallLoader : MonoBehaviour
     [SerializeField]
     private float two_threeBarrierLowerPerDay;
     private float two_threeBarrierExpress;
+    [SerializeField]
+    private float three_fourBarrierBase;
+    [SerializeField]
+    private float three_fourBarrierLowerPerDay;
+    private float three_fourBarrierExpress;
     // Chance for open side on page in percentage out of 100
     [SerializeField]
     private float percentageChanceForOpen;
@@ -74,6 +79,7 @@ public class gridOverallLoader : MonoBehaviour
         //--Generates Difficulty--
         one_twoBarrierExpress = one_twoBarrierBase - PlayerPrefs.GetInt("daysSpent", 0) * one_twoBarrierLowerPerDay;
         two_threeBarrierExpress = two_threeBarrierBase - PlayerPrefs.GetInt("daysSpent", 0) * two_threeBarrierLowerPerDay;
+        three_fourBarrierExpress = three_fourBarrierBase - PlayerPrefs.GetInt("daysSpent", 0) * three_fourBarrierLowerPerDay;
         //--Generates grid--
         //Used in step 4
         int[][] generationLoadMap;
@@ -115,8 +121,12 @@ public class gridOverallLoader : MonoBehaviour
                 {
                     currentLoadedScript.setDifficulty(2);
                 }
-                else {
+                else if (randomGiven < three_fourBarrierExpress)
+                {
                     currentLoadedScript.setDifficulty(3);
+                }
+                else {
+                    currentLoadedScript.setDifficulty(4);
                 }
 
             }

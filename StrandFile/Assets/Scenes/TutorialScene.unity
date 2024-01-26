@@ -7746,8 +7746,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: addText
-      value: Weapons can break if swung too much. Move on once you break your current
-        weapon on this enemy!
+      value: Weapons can break if swung too much. You will be able to move on once
+        you break your current weapon on this enemy!
       objectReference: {fileID: 0}
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: timeUntilRepeat
@@ -9965,8 +9965,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: addText
-      value: You begin to take damage after not eating for exteneded periods of time.
-        If you eat enough you can even heal!
+      value: You take damage after not eating for exteneded periods of time. If you
+        eat enough you can even heal!
       objectReference: {fileID: 0}
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: timeUntilRepeat
@@ -10490,7 +10490,7 @@ MonoBehaviour:
   givenText: W WE EEE^1^|1|FFFF^0.25^|0.08|EE    EEE----efs%efse
   timePerWordBase: 0.035
   baseVolume: 0.5
-  untilNextText: 10
+  untilNextText: 15
   untilNextTextLeft: 0
   deactivated: 1
 --- !u!1001 &1230853179

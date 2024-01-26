@@ -1452,14 +1452,16 @@ MonoBehaviour:
   xGridLength: 9
   yGridLength: 9
   one_twoBarrierBase: 75
-  one_twoBarrierLowerPerDay: 15
+  one_twoBarrierLowerPerDay: 20
   two_threeBarrierBase: 95
   two_threeBarrierLowerPerDay: 10
+  three_fourBarrierBase: 101
+  three_fourBarrierLowerPerDay: 5
   percentageChanceForOpen: 30
-  foodSurplusPages: 7
-  goldFoodSurplusPages: 4
-  scrapSurplusPages: 8
-  goldScrapSurplusPages: 5
+  foodSurplusPages: 8
+  goldFoodSurplusPages: 5
+  scrapSurplusPages: 9
+  goldScrapSurplusPages: 6
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1582,7 +1584,7 @@ MonoBehaviour:
   - {x: 0, y: -46}
   - {x: -82, y: 0}
   - {x: 82, y: 0}
-  stalkerSpawnDayThresholds: 0000000000000000010000000300000004000000050000000600000007000000
+  stalkerSpawnDayThresholds: 0000000000000000020000000400000005000000060000000700000008000000
 --- !u!114 &519420036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1597,9 +1599,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTutorial: 0
   scrapCollected: 0
-  scrapVictoryThreshold: 14
-  hungerMeter: 125
-  maxHunger: 125
+  scrapVictoryThreshold: 19
+  hungerMeter: 100
+  maxHunger: 100
   hungerHurtRate: 5
   hungerHurtTimeLeft: 0
   hungerOverfillUntilRegen: 25

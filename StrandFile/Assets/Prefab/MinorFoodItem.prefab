@@ -200,4 +200,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74de9e53098d82b4bb00687b3135faa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodFill: 30
+  foodFill: 40
