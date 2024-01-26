@@ -12,6 +12,10 @@ public class talkieBacklog : textTyper
     bool deactivated = true;
     List<string> talkList = new List<string>();
 
+    public float getUntilNextTextLeft()
+    {
+        return untilNextTextLeft;
+    }
     public bool getDeactivated()
     {
         return deactivated;
@@ -39,7 +43,7 @@ public class talkieBacklog : textTyper
             if (hasCompletedText())
             {
                 untilNextTextLeft -= Time.deltaTime;
-                if (untilNextTextLeft <= 0)
+                if (untilNextTextLeft <= 0 || Input.GetAxisRaw("skipButton") != 0)
                 {
                     untilNextTextLeft = untilNextText;
                     talkList.RemoveAt(0);

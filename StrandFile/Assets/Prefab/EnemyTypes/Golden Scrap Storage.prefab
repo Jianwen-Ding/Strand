@@ -271,9 +271,10 @@ MonoBehaviour:
   grab: 0
   healthBarPrefab: {fileID: 7783674343843737612, guid: 0bc07c4e9347a4ce2b862f6bee60d4ec, type: 3}
   grabBarPrefab: {fileID: 8672896576184619908, guid: c79052e2df2e14e5a90f27b771377c36, type: 3}
-  healthBarCenter: {x: 0, y: 2}
+  healthBarCenter: {x: 0, y: 0.85}
   xDistPerHealthSeg: 0.0989
   grabBarAdjust: {x: 0, y: -0.0989347}
   xDistPerGrabSeg: 0.0989
+  hasLoaded: 0
   isHealthInvin: 0
   isGrabInvin: 1

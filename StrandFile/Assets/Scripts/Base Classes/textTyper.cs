@@ -18,6 +18,7 @@ public class textTyper : MonoBehaviour
     float timePerWordLeft = 0;
     int currentIndex = 0;
     bool hasCompleted = false;
+
     public virtual void setText(string set)
     {
         givenText = set;

@@ -11,6 +11,8 @@ public class pusherToggleGrab : MonoBehaviour
     grabbableObject getToggleObject;
 
     [SerializeField]
+    baseEnemy deadOnCompletion;
+    [SerializeField]
     bool lowers;
 
     // Update is called once per frame
@@ -20,6 +22,10 @@ public class pusherToggleGrab : MonoBehaviour
         {
             if (lowers)
             {
+                if(deadOnCompletion != null)
+                {
+                    deadOnCompletion.isDamaged(100000);
+                }
                 getGather.allLower();
             }
             else

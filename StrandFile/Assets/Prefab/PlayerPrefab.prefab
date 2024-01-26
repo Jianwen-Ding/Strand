@@ -133,7 +133,7 @@ MonoBehaviour:
   throwStrength: 30
   angleChangeVelocity: 0
   lastAngle: 0
-  timeAngleVelocityNormalization: 0.2
+  timeAngleVelocityNormalization: 0.05
   hasLeftClicked: 0
   hasRightClicked: 0
   movementLocked: 0

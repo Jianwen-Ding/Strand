@@ -10,7 +10,9 @@ public class walkieTalkieScript : MonoBehaviour
     Animator objectAnimator;
     Image talkieBubble;
     talkieBacklog talkieTextBackLog;
-    TextMeshProUGUI talkieText;
+    TextMeshProUGUI talkieMainText;
+    TextMeshProUGUI talkieSideText;
+
     // Walkie States
     // 0- walkie idle
     // 1- walkie rise
@@ -19,13 +21,15 @@ public class walkieTalkieScript : MonoBehaviour
     [SerializeField]
     int walkieState = 0;
     [SerializeField]
-    bool walkieInRange = false;
-    [SerializeField]
     float timeRise;
     [SerializeField]
     float timeDrop;
     [SerializeField]
     float timeUntilIdleCut;
+    [SerializeField]
+    string talkieSideTextStart;
+    [SerializeField]
+    string talkieSideTextEnd;
     float timeStateLeft;
 
     // Start is called before the first frame update
@@ -36,7 +40,8 @@ public class walkieTalkieScript : MonoBehaviour
         objectAnimator = gameObject.GetComponent<Animator>();
         talkieBubble = transform.GetChild(0).gameObject.GetComponent<Image>();
         talkieTextBackLog = transform.GetChild(0).GetChild(0).gameObject.GetComponent<talkieBacklog>();
-        talkieText = transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        talkieMainText = transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        talkieSideText = transform.GetChild(0).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
     }
 
 
@@ -67,17 +72,20 @@ public class walkieTalkieScript : MonoBehaviour
                     objectAnimator.SetInteger("talkieState", 2);
                     walkieState = 2;
                     talkieBubble.enabled = true;
-                    talkieText.enabled = true;
+                    talkieMainText.enabled = true;
+                    talkieSideText.enabled = true;
                 }
                 break;
             case 2:
+                talkieSideText.text = talkieSideTextStart + Mathf.CeilToInt(talkieTextBackLog.getUntilNextTextLeft()) + talkieSideTextEnd;
                 if (talkieTextBackLog.getDeactivated())
                 {
                     walkieState = 3;
                     timeStateLeft = timeDrop;
                     objectAnimator.SetInteger("talkieState", 3);
                     talkieBubble.enabled = false;
-                    talkieText.enabled = false;
+                    talkieMainText.enabled = false;
+                    talkieSideText.enabled = false;
                 }
                 break;
             case 3:

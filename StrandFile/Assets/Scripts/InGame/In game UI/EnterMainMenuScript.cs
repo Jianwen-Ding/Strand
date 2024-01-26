@@ -13,7 +13,7 @@ public class EnterMainMenuScript : MonoBehaviour
     private string mainMenuName;
     [SerializeField]
     private float transitionSpeed;
-    public void activate()
+    public virtual void activate()
     {
         activated = true;
     }
@@ -21,9 +21,10 @@ public class EnterMainMenuScript : MonoBehaviour
     {
         if (activated) {
             transitionImage.gameObject.SetActive(true);
-            Time.timeScale = (float)0.1;
+            Time.timeScale = (float)0;
             if (transitionImage.color.a + Time.fixedDeltaTime * transitionSpeed >= 1)
             {
+                Time.timeScale = 1;
                 transitionImage.color = new Color(transitionImage.color.r, transitionImage.color.g, transitionImage.color.b, 1);
                 SceneManager.LoadScene(mainMenuName);
             }
