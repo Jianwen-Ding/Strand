@@ -15,7 +15,7 @@ public class grabbableObject : MonoBehaviour
     private playerHand grabbedByObjectScript;
     private SpriteRenderer grabbedByObjectRender;
     private int originalLayer;
-    private Color originialColor;
+    private Color originalColor;
     //localScale
     private float originalAngle;
     private Vector3 originalScale; 
@@ -55,7 +55,9 @@ public class grabbableObject : MonoBehaviour
     [SerializeField]
     private Color fullVelSlashColor = Color.red;
     [SerializeField]
-    private float velocityThreshold;
+    private float velocityThreshold = 40;
+    [SerializeField]
+    private float velocityKeepSlashThreshold = 0;
     List<GameObject> objectsHit = new List<GameObject>();
     //--thrown state, occurs when thrown
     [SerializeField]
@@ -223,7 +225,6 @@ public class grabbableObject : MonoBehaviour
     }
     public virtual void whileSlashingEffect()
     {
-        isActivelySlashing = grabbedByObjectScript.getAngleVelocity() > velocityThreshold;
         if (isActivelySlashing)
         {
             objectRender.color = fullVelSlashColor;
@@ -241,13 +242,27 @@ public class grabbableObject : MonoBehaviour
             float Angle = Mathf.Rad2Deg * Mathf.Atan2(yDiff, xDiff);
             transform.localRotation = Quaternion.Euler(new Vector3(0, 0, Angle - 90));
         }
+        if (isActivelySlashing)
+        {
+            if (grabbedByObjectScript.getAngleVelocity() <= velocityKeepSlashThreshold)
+            {
+                isActivelySlashing = false;
+                grabbedByObjectScript.stopAttemptSlash();
+            }
+
+        }
+        else
+        {
+            isActivelySlashing = grabbedByObjectScript.getAngleVelocity() > velocityThreshold;
+        }
     }
     public virtual void slashEnd()
     {
+        isActivelySlashing = false;
         slashCooldownTimeLeft = slashCooldown;
         if(objectRender != null)
         {
-            objectRender.color = originialColor;
+            objectRender.color = originalColor;
             objectsHit.Clear();
         }
     }
@@ -303,7 +318,7 @@ public class grabbableObject : MonoBehaviour
     {
         hasBeenGrabbed = false;
         objectPhysics.drag = 0;
-        objectRender.color = originialColor;
+        objectRender.color = originalColor;
         objectCollider.enabled = true;
         gameObject.transform.localScale = originalScale;
         thrownStateTimeLeft = thrownStateTime;
@@ -366,7 +381,7 @@ public class grabbableObject : MonoBehaviour
             print("ERROR- grabbable object " + gameObject.name + " does not have a sprite renderer");
         }
         objectLayerScript = gameObject.GetComponent<SpriteYLayering>();
-        originialColor = objectRender.color;
+        originalColor = objectRender.color;
         originalDrag = objectPhysics.drag;
         originalScale = gameObject.transform.localScale;
         if (signifiesDamage)

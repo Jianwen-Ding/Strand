@@ -210,6 +210,7 @@ MonoBehaviour:
   timeLeftUntilDestruct: 0
   destructionResidue: {fileID: 1941439566673320384, guid: e598903fb66d24882b21c2d81b3d394f, type: 3}
   foodDropPrefab: {fileID: 0}
+  impactParticle: {fileID: 8485571085559736720, guid: bf4e5c6cfc64f4282aa30044ef2a7b7f, type: 3}
   dropRate: 0
 --- !u!114 &8606276898247418649
 MonoBehaviour:

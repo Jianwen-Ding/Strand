@@ -15,6 +15,12 @@ public class baseSystem : MonoBehaviour
     AudioSource objectAudio;
     [SerializeField]
     float yOffSet;
+    [SerializeField]
+    GameObject regScrapParticle;
+    [SerializeField]
+    GameObject gold2ScrapParticle;
+        [SerializeField]
+    GameObject gold4ScrapParticle;
     public void Start()
     {
         playerScript = FindObjectOfType<PlayerMainScript>();
@@ -45,16 +51,19 @@ public class baseSystem : MonoBehaviour
     {
         if (potentialScrap.tag == "Scrap" && potentialScrap.layer != 8)
         {
+            Instantiate(regScrapParticle, potentialScrap.transform.position, Quaternion.identity.normalized);
             Destroy(potentialScrap);
             addScrap(1);
         }
         if (potentialScrap.tag == "GoldScrap" && potentialScrap.layer != 8)
         {
+            Instantiate(gold2ScrapParticle, potentialScrap.transform.position, Quaternion.identity.normalized);
             Destroy(potentialScrap);
             addScrap(2);
         }
         if (potentialScrap.tag == "GoldGearScrap" && potentialScrap.layer != 8)
         {
+            Instantiate(gold4ScrapParticle, potentialScrap.transform.position, Quaternion.identity.normalized);
             Destroy(potentialScrap);
             addScrap(4);
         }

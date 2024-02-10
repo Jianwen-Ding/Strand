@@ -113,7 +113,7 @@ MonoBehaviour:
   objectAudio: {fileID: 0}
   healthProjector: {fileID: 0}
   transitionImage: {fileID: 0}
-  lowHealthThreshold: 4
+  lowHealthThreshold: 3
   health: 10
   healthMax: 10
   healthParticlePrefab: {fileID: 9073006188695444244, guid: 7b71ef5e27a392a4da831d2c07e1ace1, type: 3}
@@ -133,7 +133,7 @@ MonoBehaviour:
   throwStrength: 30
   angleChangeVelocity: 0
   lastAngle: 0
-  timeAngleVelocityNormalization: 0.05
+  timeAngleVelocityNormalization: 0.07
   hasLeftClicked: 0
   hasRightClicked: 0
   movementLocked: 0

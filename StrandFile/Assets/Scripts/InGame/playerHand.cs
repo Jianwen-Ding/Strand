@@ -152,9 +152,11 @@ public class playerHand : MonoBehaviour
     }
     public void attemptSlash()
     {
+        //print("attempted to stop through hand");
         bool isPossibleToSlash = grabbedScript.startSlashEffect();
         if (grabState == "grabbed" && isPossibleToSlash)
         {
+            //print("attempted successful");
             grabState = "slashing";
         }
     }
@@ -165,8 +167,6 @@ public class playerHand : MonoBehaviour
             grabbedScript.slashEnd();
             grabState = "grabbed";
         }
-       
-        
     }
     public void attemptThrow(float strength, float angle)
     {

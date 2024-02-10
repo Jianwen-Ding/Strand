@@ -205,7 +205,7 @@ MonoBehaviour:
   slashCooldown: 0.25
   slashColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fullVelSlashColor: {r: 1, g: 0, b: 0, a: 1}
-  velocityThreshold: 40
+  velocityThreshold: 50
   throwVelocityToHitThreshold: 0
   throwDamage: 1
   throwStunTme: 0
@@ -271,6 +271,7 @@ MonoBehaviour:
   timeLeftUntilDestruct: 3
   destructionResidue: {fileID: 938533612504793457, guid: d2c3713006a1c43a8946d6b6805724d4, type: 3}
   foodDropPrefab: {fileID: 4258430185833240029, guid: 55552c1fa834d4ba4822e673efe37626, type: 3}
+  impactParticle: {fileID: 8485571085559736720, guid: bf4e5c6cfc64f4282aa30044ef2a7b7f, type: 3}
   dropRate: 1
   playerAdjust: {x: 0, y: -0.35}
   bomberAdjust: {x: 0, y: -0.5}

@@ -70,6 +70,9 @@ public class baseEnemy : MonoBehaviour
     //Food Drop
     [SerializeField]
     private GameObject foodDropPrefab;
+    //Impact particle when hit by thrown object
+    [SerializeField]
+    private GameObject impactParticle;
     //Out of one
     [SerializeField]
     private float dropRate;
@@ -118,7 +121,7 @@ public class baseEnemy : MonoBehaviour
             //Checking the magnitude of the velocity
             float colliderVelocitySum = Mathf.Sqrt(colliderGrabbableScript.getObjectPhysics().velocity.y * colliderGrabbableScript.getObjectPhysics().velocity.y + colliderGrabbableScript.getObjectPhysics().velocity.x * colliderGrabbableScript.getObjectPhysics().velocity.x);
             if (colliderVelocitySum >= colliderGrabbableScript.getThrowVelocityThreshold())
-            {       
+            {
                 colliderGrabbableScript.throwHitEffect();
                 isDamaged(colliderGrabbableScript.getThrowDamage());
                 float colliderAngle = Mathf.Atan2(colliderGrabbableScript.getObjectPhysics().velocity.y, colliderGrabbableScript.getObjectPhysics().velocity.x);
@@ -237,6 +240,7 @@ public class baseEnemy : MonoBehaviour
     {
         if (!hasDied)
         {
+            Instantiate(impactParticle, gameObject.transform.position, Quaternion.identity.normalized);
             stunEnemy(timeStunOnDamage);
             grabArmor -= damage;
             health -= damage;
