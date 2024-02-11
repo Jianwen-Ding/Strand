@@ -20,18 +20,19 @@ public class pusherToggleGrab : MonoBehaviour
     {
         if (getToggleObject.getHasBeenGrabbed())
         {
+            if (deadOnCompletion != null)
+            {
+                deadOnCompletion.isDamaged(100000);
+            }
             if (lowers)
             {
-                if(deadOnCompletion != null)
-                {
-                    deadOnCompletion.isDamaged(100000);
-                }
                 getGather.allLower();
             }
             else
             {
                 getGather.allRise();
             }
+            this.enabled = false;
         }
     }
 }

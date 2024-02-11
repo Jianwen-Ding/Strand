@@ -3023,6 +3023,87 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c6e09f267c4b4d908547a0d538063e3, type: 3}
+--- !u!1001 &332542556
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4634330143822796988, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.84442884
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634330143822796988, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Size.y
+      value: 2.4598198
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634330143822796988, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.16741124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634330143822796988, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.10348439
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -44.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043122947613594967, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: lowers
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043122947613594967, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: getGather
+      value: 
+      objectReference: {fileID: 168893824}
+    - target: {fileID: 8384298905216962969, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Name
+      value: TogglePusherCollider (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
 --- !u!1 &343565271
 GameObject:
   m_ObjectHideFlags: 0
@@ -8013,8 +8094,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: addText
-      value: Weapons can break if swung too much. You will be able to move on once
-        you break your current weapon on this enemy!
+      value: Weapons can break if swung onto enemies too much!
       objectReference: {fileID: 0}
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: timeUntilRepeat
@@ -12696,7 +12776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0862b68fd151d4429b82b1e0b8ab20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskRequest: Break the golden sword on this invincible zomibe<br>Swing the sword
+  taskRequest: Break the golden sword on this invincible zombie<br>Swing the sword
     by holding left click and moving your cursor
   givenObject: {fileID: 1035817587}
 --- !u!1 &1447210813
@@ -14015,7 +14095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abe60e05a64c4cbf9ecc12e22b8c2c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskRequest: Grab a weapon.<br>Right click or left click with nothing in hand to
+  taskRequest: Grab a weapon<br>Right click or left click with nothing in hand to
     grab
   getToggleObject: {fileID: 1456408433}
 --- !u!1 &1690007321
@@ -16866,22 +16946,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8877918779913808243, guid: c66dc416c1967400aa4156980efa166b, type: 3}
   m_PrefabInstance: {fileID: 2106517099}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1971265327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971265323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aa431037cfe4144be491a559174322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  taskRequest: Hold left click and rotate the cursor to swing weapons at the fridges<br>Holding
-    left click does nothing without cursor movement
-  timeUntilClose: 1
-  hasInitialized: 0
 --- !u!114 &1971265328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16894,22 +16958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aa431037cfe4144be491a559174322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskRequest: Use right click to throw weapons to break open the fridges
-  timeUntilClose: 1
-  hasInitialized: 0
---- !u!114 &1971265329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971265323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aa431037cfe4144be491a559174322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  taskRequest: Crack open all of the fridges
+  taskRequest: Destroy the fridges to advance
   timeUntilClose: 1
   hasInitialized: 0
 --- !u!1 &1976118941
@@ -17253,7 +17302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1984635871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17271,7 +17320,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -47.91, y: 20.27}
-  m_SizeDelta: {x: 2864.1, y: 1644.2}
+  m_SizeDelta: {x: 4864.1, y: 3644.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1984635872
 MonoBehaviour:
@@ -17402,6 +17451,87 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2037018923}
   m_SourcePrefab: {fileID: 100100000, guid: c66dc416c1967400aa4156980efa166b, type: 3}
+--- !u!1001 &1991573054
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4634330143822796988, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.84442884
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634330143822796988, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Size.y
+      value: 2.4598198
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634330143822796988, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.16741124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634330143822796988, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.10348439
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -25.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908331290420599852, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043122947613594967, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: lowers
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043122947613594967, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: getGather
+      value: 
+      objectReference: {fileID: 1007952873}
+    - target: {fileID: 8384298905216962969, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
+      propertyPath: m_Name
+      value: TogglePusherCollider (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b9cd03230b94c46d08849df1fb0b484b, type: 3}
 --- !u!1 &2002932411
 GameObject:
   m_ObjectHideFlags: 0
@@ -18200,7 +18330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: timeUntilRepeat
-      value: 100
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1951896560640063028, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: m_Size.x
@@ -18268,13 +18398,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8877918779913808243, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1971265329}
-    - targetCorrespondingSourceObject: {fileID: 8877918779913808243, guid: c66dc416c1967400aa4156980efa166b, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1971265328}
-    - targetCorrespondingSourceObject: {fileID: 8877918779913808243, guid: c66dc416c1967400aa4156980efa166b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1971265327}
   m_SourcePrefab: {fileID: 100100000, guid: c66dc416c1967400aa4156980efa166b, type: 3}
 --- !u!1 &2140265200
 GameObject:
@@ -19047,6 +19171,8 @@ SceneRoots:
   - {fileID: 6757187433734464822}
   - {fileID: 526107744}
   - {fileID: 261169967}
+  - {fileID: 332542556}
+  - {fileID: 1991573054}
   - {fileID: 7621756989199957103}
   - {fileID: 1186519884}
   - {fileID: 1607851632}
