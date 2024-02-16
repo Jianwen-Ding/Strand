@@ -73,6 +73,19 @@ public class baseEnemy : MonoBehaviour
     //Impact particle when hit by thrown object
     [SerializeField]
     private GameObject impactParticle;
+    //Animations that shows upon impact to the grab armor
+    //GrabArmorState
+    //0- Default Nothing Showing
+    //1- Shield No Crack
+    //2- Shield Crack
+    //3- Shield Heavy Crack
+    //4- Shield Break
+    [SerializeField]
+    private Animator cacheShieldAnimator;
+    [SerializeField]
+    int armorUntilCrack;
+    [SerializeField]
+    int armorUntilHeavyCrack;
     //Out of one
     [SerializeField]
     private float dropRate;
@@ -162,6 +175,22 @@ public class baseEnemy : MonoBehaviour
     public virtual void loseGrabArmor(int lostArmor)
     {
         grabArmor -= lostArmor;
+        if(grabArmor <= 0)
+        {
+            cacheShieldAnimator.SetInteger("GrabArmorState", 4);
+        }
+        else if (grabArmor <= armorUntilHeavyCrack)
+        {
+            cacheShieldAnimator.SetInteger("GrabArmorState", 3);
+        }
+        else if (grabArmor <= armorUntilCrack)
+        {
+            cacheShieldAnimator.SetInteger("GrabArmorState", 2);
+        }
+        else
+        {
+            cacheShieldAnimator.SetInteger("GrabArmorState", 1);
+        }
     }
     public virtual int getDefaultGrabArmor()
     {
@@ -242,7 +271,7 @@ public class baseEnemy : MonoBehaviour
         {
             Instantiate(impactParticle, gameObject.transform.position, Quaternion.identity.normalized);
             stunEnemy(timeStunOnDamage);
-            grabArmor -= damage;
+            loseGrabArmor(damage);
             health -= damage;
             cacheBars.updateHealth(health);
             cacheBars.updateGrabArmor(grabArmor);
@@ -274,6 +303,7 @@ public class baseEnemy : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        cacheShieldAnimator = transform.GetChild(0).GetComponent<Animator>();
         cacheBars = gameObject.GetComponent<enemyIndicators>();
         cacheAudio = gameObject.GetComponent<enemyAudio>();
         objectAnimator = gameObject.GetComponent<Animator>();

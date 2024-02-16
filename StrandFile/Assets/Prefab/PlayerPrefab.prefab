@@ -113,15 +113,15 @@ MonoBehaviour:
   objectAudio: {fileID: 0}
   healthProjector: {fileID: 0}
   transitionImage: {fileID: 0}
-  lowHealthThreshold: 3
-  health: 10
-  healthMax: 10
+  lowHealthThreshold: 4
+  health: 12
+  healthMax: 12
   healthParticlePrefab: {fileID: 9073006188695444244, guid: 7b71ef5e27a392a4da831d2c07e1ace1, type: 3}
   isDead: 0
   deathSceneName: deathScene
   transitionSpeed: 0.5
   angleFace: 0
-  walkSpeed: 5
+  walkSpeed: 5.5
   lungeStrength: 40
   grabBounce: 0
   isGrabbingTimeLeft: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   throwStrength: 30
   angleChangeVelocity: 0
   lastAngle: 0
-  timeAngleVelocityNormalization: 0.07
+  timeAngleVelocityNormalization: 0.03
   hasLeftClicked: 0
   hasRightClicked: 0
   movementLocked: 0
@@ -675,8 +675,8 @@ MonoBehaviour:
   grabHandSprite: {fileID: 21300000, guid: 489fe7f91acd1c54c99456c1f37bf984, type: 3}
   objectHitboxAnim: {fileID: 0}
   yAddition: 0
-  yRange: 0.2
-  xRange: 0.35
+  yRange: 0.25
+  xRange: 0.4
   objectsInRange: []
   grabState: none
   objectGrabbed: {fileID: 0}
@@ -714,7 +714,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07566774, y: 0.8944783}
+  m_Offset: {x: 0.04432416, y: 0.62072945}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -725,7 +725,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.9555318, y: 6.6062756}
+  m_Size: {x: 3.4883733, y: 7.623926}
   m_EdgeRadius: 0
 --- !u!1 &6960703718870904798
 GameObject:

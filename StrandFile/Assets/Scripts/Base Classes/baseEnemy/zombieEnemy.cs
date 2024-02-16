@@ -22,6 +22,13 @@ public class zombieEnemy : baseEnemy
     private float distanceUntilDisconnect;
     [SerializeField]
     private float walkSpeed;
+    [SerializeField]
+    private float daysPerWalkSpeedAdvance;
+    public override void Start()
+    {
+        base.Start();
+        walkSpeed = walkSpeed + (PlayerPrefs.GetInt("daysSpent", 0)/daysPerWalkSpeedAdvance);
+    }
     public override void stateUpdate(string insertedState)
     {
         switch (insertedState)

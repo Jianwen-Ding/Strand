@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1837801292079155838}
   - component: {fileID: 7776181621145510316}
   - component: {fileID: 1524805930081544203}
+  - component: {fileID: -916279929239224091}
   m_Layer: 0
   m_Name: Ninja Star
   m_TagString: Scrap
@@ -36,6 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2976780904484984334}
+  - {fileID: 279215814771654886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &392393155466616449
@@ -235,6 +237,57 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!331 &-916279929239224091
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626314519404776565}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -117817158, guid: 7faa3eb827833405d8d3ca57174d962d, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: 2029632595
+  m_BackSortingLayerID: 2029632595
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 8
+  m_BackSortingOrder: 5
+  m_IsCustomRangeActive: 1
+  m_SpriteSortPoint: 0
 --- !u!1001 &1357936933655536043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -296,4 +349,66 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4294175666084362149, guid: c46536860e17f49f991aacd1f9852c27, type: 3}
   m_PrefabInstance: {fileID: 1357936933655536043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8928033489714085374
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1502319303303109479}
+    m_Modifications:
+    - target: {fileID: 3392201633726849063, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_Name
+      value: weapon glow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+--- !u!4 &279215814771654886 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8663032779942935832, guid: ac16477e279e946b78e5ba0305c66078, type: 3}
+  m_PrefabInstance: {fileID: 8928033489714085374}
   m_PrefabAsset: {fileID: 0}

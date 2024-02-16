@@ -58,6 +58,10 @@ public class grabbableObject : MonoBehaviour
     private float velocityThreshold = 40;
     [SerializeField]
     private float velocityKeepSlashThreshold = 0;
+    [SerializeField]
+    private float activeSlowSlash= (float)0.15;
+    [SerializeField]
+    private float activeSlowSlashLeft = (float)0.15;
     List<GameObject> objectsHit = new List<GameObject>();
     //--thrown state, occurs when thrown
     [SerializeField]
@@ -246,10 +250,18 @@ public class grabbableObject : MonoBehaviour
         {
             if (grabbedByObjectScript.getAngleVelocity() <= velocityKeepSlashThreshold)
             {
-                isActivelySlashing = false;
-                grabbedByObjectScript.stopAttemptSlash();
+                activeSlowSlashLeft -= Time.deltaTime;
+                if(activeSlowSlashLeft <= 0)
+                {
+                    isActivelySlashing = false;
+                    grabbedByObjectScript.stopAttemptSlash();
+                    activeSlowSlashLeft = activeSlowSlash;
+                }
             }
-
+            else
+            {
+                activeSlowSlashLeft = activeSlowSlash;
+            }
         }
         else
         {
@@ -259,6 +271,7 @@ public class grabbableObject : MonoBehaviour
     public virtual void slashEnd()
     {
         isActivelySlashing = false;
+        activeSlowSlashLeft = activeSlowSlash;
         slashCooldownTimeLeft = slashCooldown;
         if(objectRender != null)
         {

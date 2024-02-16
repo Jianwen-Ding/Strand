@@ -68,11 +68,19 @@ public class gridOverallLoader : MonoBehaviour
     private int foodSurplusPages;
     [SerializeField]
     private int goldFoodSurplusPages;
+    [SerializeField]
+    private int daysPerFoodPageAdvance;
+    [SerializeField]
+    private int daysPerGoldFoodPageAdvance;
     // Amount of Scrap Surplus pages
     [SerializeField]
     private int scrapSurplusPages;
     [SerializeField]
     private int goldScrapSurplusPages;
+    [SerializeField]
+    private int daysPerScrapPageAdvance;
+    [SerializeField]
+    private int daysPerGoldScrapPageAdvance;
     // Start is called before the first frame update
     void Start()
     {
@@ -80,6 +88,19 @@ public class gridOverallLoader : MonoBehaviour
         one_twoBarrierExpress = one_twoBarrierBase - PlayerPrefs.GetInt("daysSpent", 0) * one_twoBarrierLowerPerDay;
         two_threeBarrierExpress = two_threeBarrierBase - PlayerPrefs.GetInt("daysSpent", 0) * two_threeBarrierLowerPerDay;
         three_fourBarrierExpress = three_fourBarrierBase - PlayerPrefs.GetInt("daysSpent", 0) * three_fourBarrierLowerPerDay;
+        //--Adjusts number of Scrap and Food tiles based on day--
+        foodSurplusPages = foodSurplusPages + (int)(PlayerPrefs.GetInt("daysSpent", 0) / daysPerFoodPageAdvance);
+        goldFoodSurplusPages = goldFoodSurplusPages + (int)(PlayerPrefs.GetInt("daysSpent", 0) / daysPerGoldFoodPageAdvance);
+        if(foodSurplusPages < 0)
+        {
+            foodSurplusPages = 0;
+        }
+        if (goldFoodSurplusPages < 0)
+        {
+            goldFoodSurplusPages = 0;
+        }
+        scrapSurplusPages = scrapSurplusPages + (int)(PlayerPrefs.GetInt("daysSpent", 0) / daysPerScrapPageAdvance);
+        goldScrapSurplusPages = goldScrapSurplusPages + (int)(PlayerPrefs.GetInt("daysSpent", 0) / daysPerGoldScrapPageAdvance);
         //--Generates grid--
         //Used in step 4
         int[][] generationLoadMap;
