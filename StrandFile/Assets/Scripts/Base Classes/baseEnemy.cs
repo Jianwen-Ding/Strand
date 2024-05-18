@@ -177,19 +177,19 @@ public class baseEnemy : MonoBehaviour
         grabArmor -= lostArmor;
         if(grabArmor <= 0)
         {
-            cacheShieldAnimator.SetInteger("GrabArmorState", 4);
+            cacheShieldAnimator.SetTrigger("GrabArmorShieldBreak");
         }
         else if (grabArmor <= armorUntilHeavyCrack)
         {
-            cacheShieldAnimator.SetInteger("GrabArmorState", 3);
+            cacheShieldAnimator.SetTrigger("GrabArmorShieldHeavyCrack");
         }
         else if (grabArmor <= armorUntilCrack)
         {
-            cacheShieldAnimator.SetInteger("GrabArmorState", 2);
+            cacheShieldAnimator.SetTrigger("GrabArmorShieldCrack");
         }
         else
         {
-            cacheShieldAnimator.SetInteger("GrabArmorState", 1);
+            cacheShieldAnimator.SetTrigger("GrabArmorShow");
         }
     }
     public virtual int getDefaultGrabArmor()

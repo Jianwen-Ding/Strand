@@ -11068,9 +11068,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   givenText: W WE EEE^1^|1|FFFF^0.25^|0.08|EE    EEE----efs%efse
-  timePerWordBase: 0.035
+  timePerWordBase: 0.025
   baseVolume: 0.5
-  untilNextText: 15
+  untilNextText: 10
   untilNextTextLeft: 0
   deactivated: 1
 --- !u!1001 &1230853179
@@ -13300,8 +13300,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: addText
-      value: Be sure to collect as much scrap as possible each night.%The forest
-        grows more hostile each passing night.
+      value: 'Don''t stay out too late, dangerous things come out at night! '
       objectReference: {fileID: 0}
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: timeUntilRepeat
@@ -16150,8 +16149,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: addText
-      value: Enemies can also be grabbed and used exactly like weapons. They need
-        to be worn down first however!
+      value: Enemies with a broken grab shield can also be grabbed and used exactly
+        like weapons. Their grab armor can be broken down by damaging them or attempting
+        to grab them!
       objectReference: {fileID: 0}
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: timeUntilRepeat
@@ -17370,8 +17370,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: addText
-      value: At night find shelter as it gets dangerous. In the meantime,---- throw
-        weapons into the base to gather scrap.
+      value: Be sure to collect as much scrap as possible each night.% You might
+        be able to escape once you gather enough scrap but the forest grows more
+        hostile each passing night.
       objectReference: {fileID: 0}
     - target: {fileID: 1170730778531698164, guid: c66dc416c1967400aa4156980efa166b, type: 3}
       propertyPath: timeUntilRepeat
